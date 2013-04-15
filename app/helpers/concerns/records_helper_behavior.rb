@@ -20,6 +20,14 @@ module RecordsHelperBehavior
     render_edit_field_partial_with_action('batch_edit', key, locals)
   end
 
+  def add_field (key)
+    more_or_less_button(key, 'adder', '+')
+  end
+
+  def subtract_field (key)
+    more_or_less_button(key, 'remover', '-')
+  end
+
  private 
 
   def render_edit_field_partial_with_action(action, key, locals)
@@ -32,4 +40,15 @@ module RecordsHelperBehavior
     end
     nil
   end
+  
+  def more_or_less_button(key, html_class, symbol)
+    # TODO, there could be more than one element with this id on the page, but the fuctionality doesn't work without it.
+    content_tag('button', class: "#{html_class} btn", id: "additional_#{key}_submit", name: "additional_#{key}") do
+      (symbol + 
+      content_tag('span', class: 'accessible-hidden') do
+        "add another #{key.to_s}"
+      end).html_safe
+    end
+  end
+  
 end
