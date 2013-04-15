@@ -1,5 +1,5 @@
 module HydraEditor
   class Engine < ::Rails::Engine
-    isolate_namespace HydraEditor
+    engine_name 'hydra_editor'
   end
 end

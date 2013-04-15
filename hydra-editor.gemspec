@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.summary     = "A basic Dublin Core metadata editor for hydra-head"
   s.description = "A basic Dublin Core metadata editor for hydra-head"
 
-  s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
+  s.files = Dir["{app,config,db,lib}/**/*"] + ["Rakefile", "README.md"]
   s.test_files = Dir["spec/**/*"]
 
   s.add_dependency "rails", "~> 3.2.13"
