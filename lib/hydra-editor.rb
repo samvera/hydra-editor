@@ -1,4 +1,4 @@
-require "hydra-editor/engine"
+require "hydra_editor/engine"
 
 module HydraEditor
 end
