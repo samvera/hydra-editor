@@ -12,6 +12,30 @@ And to config/routes.rb add:
   mount HydraEditor::Engine => '/'
 ```
 
+In your app/controllers/records_controller.rb override ```valid_types```
+
+```ruby
+class RecordsController < ApplicationController
+  include RecordsControllerBehavior
+
+  def valid_types
+    ["Audio", "Pdf"]
+  end
+end
+```
+
+In your app/helpers/records_helper.rb override ```object_type_options```
+
+```ruby
+module RecordsHelper
+  include RecordsHelperBehavior
+  
+  def object_type_options
+    {'Audio' => 'Audio', 'PDF' => 'Pdf'}
+  end
+end
+```
+
 
 Expects the following interface on your hydra models:
 
