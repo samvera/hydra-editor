@@ -1,4 +1,4 @@
-<%= bootstrap_form_for @record, :url=>@record.new_record? ? records_path : record_path(@record) do |f| %>
+<%= bootstrap_form_for @record, :url=>@record.new_record? ? hydra_editor.records_path : hydra_editor.record_path(@record) do |f| %>
   <div id="descriptions_display">
     <h2 class="non lower">Descriptions <small class="pull-right"><span class="error">*</span> indicates required fields</small> </h2>
     <div class="well">
@@ -8,6 +8,9 @@
     </div><!-- /well -->
   </div>
   <%= hidden_field_tag :type, params[:type] %>
-  <%= f.actions %>
+  <%= f.actions do %>
+    <%= f.submit 'Save' %>
+    <%= f.cancel %>
+  <% end %>
 <% end %>
 
