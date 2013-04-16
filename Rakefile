@@ -23,8 +23,6 @@ end
 
 Bundler::GemHelper.install_tasks
 
-require 'rspec/core'
-require 'rspec/core/rake_task'
 dummy = File.expand_path('../spec/dummy', __FILE__)
 rakefile = File.join(dummy, 'Rakefile')
 
@@ -53,7 +51,7 @@ task :spec => :setup do
   here = File.expand_path("../", __FILE__)
   Dir.chdir(dummy) do
     Bundler.with_clean_env do
-      sh "bundle exec rspec -I#{here}/spec #{here}/spec"
+      sh "bundle exec rspec --color -I#{here}/spec #{here}/spec"
     end
   end
 end
