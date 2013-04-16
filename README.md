@@ -46,3 +46,8 @@ Add the javascript by adding this line to your app/assets/javascript/application
 ```javascript
 //= require hydra-editor/hydra-editor
 ```
+
+Add the stylesheets by adding this line to your app/assets/stylesheets/application.css:
+```css
+ *= require hydra-editor/hydra-editor
+```
