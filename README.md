@@ -16,7 +16,7 @@ In your initialization set ```HydraEditor.models```
 
 ```ruby
 # config/initializers/hydra_editor.rb
-HydraEditor.models = ["Audio", "Pdf"]
+HydraEditor.models = ["RecordedAudio", "PdfModel"]
 ```
 
 You can customize the names of your fields/models by adding to your translation file:
