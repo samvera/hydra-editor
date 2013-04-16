@@ -40,3 +40,9 @@ end
 Expects the following interface on your hydra models:
 
 ```terms_for_editing``` returns an array of model attributes to edit
+
+Add the javascript by adding this line to your app/assets/javascript/application.js:
+
+```javascript
+//= require hydra-editor/hydra-editor
+```
