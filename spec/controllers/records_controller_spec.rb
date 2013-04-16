@@ -3,6 +3,7 @@ require 'spec_helper'
 describe RecordsController do
   describe "an admin" do
     before do
+      HydraEditor.models = ['Audio', 'Pdf']
       @user = FactoryGirl.create(:admin)
       sign_in @user
     end

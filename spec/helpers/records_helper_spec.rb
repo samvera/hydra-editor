@@ -2,6 +2,9 @@ require 'spec_helper'
 
 describe RecordsHelper do
   it "should have object_type_options" do
+    HydraEditor.models = ['Audio', 'Pdf']
+    I18n.stub(:t).with("hydra.model_label.Audio", default: 'Audio').and_return('Audio')
+    I18n.stub(:t).with("hydra.model_label.Pdf", default: 'Pdf').and_return('PDF')
     helper.object_type_options.should == {'Audio' => 'Audio', 'PDF' => 'Pdf'}
   end
 

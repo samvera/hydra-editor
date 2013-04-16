@@ -40,15 +40,8 @@ module RecordsControllerBehavior
 
   protected
 
-  # Override this to have the models you want
-  # With AF 6.1 we could probably just do:
-  # ActiveFedora::Base.decendants
-  def valid_types
-    ["Audio", "Pdf"]
-  end
-
   def has_valid_type?
-    valid_types.include? params[:type]
+    HydraEditor.models.include? params[:type]
   end
 
   def initialize_fields

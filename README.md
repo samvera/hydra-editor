@@ -12,30 +12,28 @@ And to config/routes.rb add:
   mount HydraEditor::Engine => '/'
 ```
 
-In your app/controllers/records_controller.rb override ```valid_types```
+In your initialization set ```HydraEditor.models```
 
 ```ruby
-class RecordsController < ApplicationController
-  include RecordsControllerBehavior
-
-  def valid_types
-    ["Audio", "Pdf"]
-  end
-end
+# config/initializers/hydra_editor.rb
+HydraEditor.models = ["Audio", "Pdf"]
 ```
 
-In your app/helpers/records_helper.rb override ```object_type_options```
+You can customize the names of your fields/models by adding to your translation file:
 
-```ruby
-module RecordsHelper
-  include RecordsHelperBehavior
-  
-  def object_type_options
-    {'Audio' => 'Audio', 'PDF' => 'Pdf'}
-  end
-end
+```yaml
+# config/locales/en.yml
+en:
+  hydra:
+    field_label:
+      source2: "Alternate Source"
+      dateCreated: "Date Created"
+      dateAvailable: "Date Available"
+    model_label:
+      PdfModel: "PDF"
+      RecordedAudio: "audio"
+
 ```
-
 
 Expects the following interface on your hydra models:
 

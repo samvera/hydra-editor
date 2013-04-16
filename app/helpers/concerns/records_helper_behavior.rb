@@ -8,8 +8,16 @@ module RecordsHelperBehavior
     I18n.t("hydra.field_label.#{key}", default: key.to_s.humanize)
   end
 
+  def model_label(key)
+    I18n.t("hydra.model_label.#{key}", default: key.to_s.humanize)
+  end
+
   def object_type_options
-    {'Audio' => 'Audio', 'PDF' => 'Pdf'}
+    @object_type_options ||= HydraEditor.models.inject({}) do |h, model|
+        label = model_label(model)
+        h["#{label[0].upcase}#{label[1..-1]}"] = model
+        h
+    end
   end
 
   def render_edit_field_partial(key, locals)
