@@ -1,4 +1,4 @@
-= HydraEditor
+# HydraEditor
 
 To use add to your gemfile:
 
