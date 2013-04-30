@@ -23,7 +23,7 @@ module RecordsControllerBehavior
       return
     end
     @record = params[:type].constantize.new
-    @record.attributes = params[@record.class.model_name.underscore]
+    set_attributes
     @record.save!
 
     redirect_to main_app.catalog_path(@record)
@@ -32,13 +32,19 @@ module RecordsControllerBehavior
   def update
     @record = ActiveFedora::Base.find(params[:id], cast: true)
     authorize! :update, @record
-    @record.attributes = params[@record.class.model_name.underscore]
+    set_attributes
     @record.save!
 
     redirect_to main_app.catalog_path(@record)
   end
 
   protected
+
+  # Override this method if you want to set different metadata on the object
+  def set_attributes
+    @record.attributes = params[@record.class.model_name.underscore]
+  end
+
 
   def has_valid_type?
     HydraEditor.models.include? params[:type]

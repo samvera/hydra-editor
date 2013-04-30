@@ -32,6 +32,19 @@ describe RecordsController do
         response.should redirect_to("/catalog/#{assigns[:record].id}") 
         assigns[:record].title.should == ['My title']
       end
+      describe "when set_attributes is overloaded" do
+        class RecordsController
+          def set_attributes
+            super
+            @record.inner_object.pid = 'tufts:0001'
+          end
+        end
+        it "should run set_attributes" do
+          post :create, :type=>'Audio', :audio=>{:title=>"My title"}
+          response.should redirect_to("/catalog/#{assigns[:record].id}") 
+          assigns[:record].pid.should == 'tufts:0001'
+        end
+      end
     end
 
     describe "editing a record" do
@@ -60,6 +73,7 @@ describe RecordsController do
         response.should redirect_to("/catalog/#{assigns[:record].id}") 
         assigns[:record].title.should == ['My title 3']
       end
+
     end
   end
 
