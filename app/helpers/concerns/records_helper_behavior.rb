@@ -39,14 +39,11 @@ module RecordsHelperBehavior
  private 
 
   def render_edit_field_partial_with_action(action, key, locals)
-    ["#{action}/edit_fields/#{key}", "#{action}/edit_fields/default"].each do |str|
-      # XXX rather than handling this logic through exceptions, maybe there's a Rails internals method
-      # for determining if a partial template exists..
-      begin
-        return render :partial => str, :locals=>locals.merge({key: key})
-      rescue ActionView::MissingTemplate; end
+    if lookup_context.find_all("#{action}/edit_fields/_#{key}").any?
+      render :partial => "#{action}/edit_fields/#{key}", :locals=>locals.merge({key: key})
+    else
+      render :partial => "#{action}/edit_fields/default", :locals=>locals.merge({key: key})
     end
-    nil
   end
   
   def more_or_less_button(key, html_class, symbol)
