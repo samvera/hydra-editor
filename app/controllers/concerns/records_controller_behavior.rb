@@ -24,18 +24,34 @@ module RecordsControllerBehavior
     end
     @record = params[:type].constantize.new
     set_attributes
-    @record.save!
 
-    redirect_to main_app.catalog_path(@record)
+    respond_to do |format|
+      if @record.save
+        format.html { redirect_to main_app.catalog_path(@record), notice: 'Object was successfully created.' }
+        # ActiveFedora::Base#to_json causes a circular reference.  Do somethign easy
+        data = @record.terms_for_editing.inject({}) { |h,term|  h[term] = @record[term]; h } 
+        format.json { render json: data, status: :created, location: hydra_editor.record_path(@record) }
+      else
+        format.html { render action: "new" }
+        format.json { render json: @record.errors, status: :unprocessable_entity }
+      end
+    end
+
   end
 
   def update
     @record = ActiveFedora::Base.find(params[:id], cast: true)
     authorize! :update, @record
     set_attributes
-    @record.save!
-
-    redirect_to main_app.catalog_path(@record)
+    respond_to do |format|
+      if @record.save
+        format.html { redirect_to main_app.catalog_path(@record), notice: 'Object was successfully updated.' }
+        format.json { head :no_content }
+      else
+        format.html { render action: "edit" }
+        format.json { render json: @record.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   protected

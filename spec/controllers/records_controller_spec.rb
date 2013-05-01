@@ -25,12 +25,16 @@ describe RecordsController do
         stub_audio = Audio.new(pid: 'test:6')
         stub_audio.stub(:persisted?).and_return(true)
         Audio.should_receive(:new).and_return(stub_audio)
-        stub_audio.should_receive(:save!)
+        stub_audio.should_receive(:save).and_return(true)
       end
       it "should be successful" do
         post :create, :type=>'Audio', :audio=>{:title=>"My title"}
         response.should redirect_to("/catalog/#{assigns[:record].id}") 
         assigns[:record].title.should == ['My title']
+      end
+      it "should be successful with json" do
+        post :create, :type=>'Audio', :audio=>{:title=>"My title"}, :format=>:json
+        response.status.should == 201 
       end
       describe "when set_attributes is overloaded" do
         class RecordsController
@@ -64,7 +68,7 @@ describe RecordsController do
       before do
         @audio = Audio.new(title: 'My title2', pid: 'test:7')
         @audio.stub(:persisted?).and_return(true)
-        @audio.should_receive(:save!)
+        @audio.should_receive(:save).and_return(true)
         ActiveFedora::Base.should_receive(:find).with('test:7', cast:true).and_return(@audio)
         controller.should_receive(:authorize!).with(:update, @audio)
       end
@@ -72,6 +76,10 @@ describe RecordsController do
         put :update, :id=>@audio, :audio=>{:title=>"My title 3"}
         response.should redirect_to("/catalog/#{assigns[:record].id}") 
         assigns[:record].title.should == ['My title 3']
+      end
+      it "should be successful with json" do
+        put :update, :id=>@audio, :audio=>{:title=>"My title"}, :format=>:json
+        response.status.should == 204 
       end
 
     end
