@@ -1,4 +1,4 @@
 $(function() {
-  $('form').multiForm();
+  $('form.editor').multiForm();
 });
 
