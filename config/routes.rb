@@ -1,4 +1,4 @@
 HydraEditor::Engine.routes.draw do
-  resources :records, except: [:index], :constraints => { :id => /[a-zA-Z0-9.:]+/ }
+  resources :records, only: [:new, :edit, :create, :update], :constraints => { :id => /[a-zA-Z0-9_.:]+/ }
 
 end
