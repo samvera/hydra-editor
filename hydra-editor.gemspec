@@ -18,6 +18,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency "rails", "~> 3.2.13"
   s.add_dependency "bootstrap_forms"
+  s.add_dependency "active-fedora", ">= 6.3.0"  
   # s.add_dependency "jquery-rails"
 
   s.add_development_dependency "sqlite3"
