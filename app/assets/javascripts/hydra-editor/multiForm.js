@@ -21,7 +21,7 @@
 
       //clear out the value for the element being appended
       //so the new element has a blank value
-      cloneElem.find('input[type=text]').attr("value", "");
+      cloneElem.find('input[type=text]').val("");
       cloneElem.find('input[type=text]').attr("required", false);
 
       if (settings.afterAdd) {
