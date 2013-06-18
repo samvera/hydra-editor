@@ -2,8 +2,8 @@
   <div id="descriptions_display">
     <h2 class="non lower">Descriptions <small class="pull-right"><span class="error">*</span> indicates required fields</small> </h2>
     <div class="well">
-      <% record.terms_for_editing.each do |term| %>
-        <%= render :partial => "records/edit_field", :locals => {record: record, :f =>f, :render_req => true, :key => term } %>
+      <% f.object.terms_for_editing.each do |term| %>
+        <%= render :partial => "records/edit_field", :locals => {:f =>f, :render_req => true, :key => term } %>
       <% end %>
     </div><!-- /well -->
   </div>
