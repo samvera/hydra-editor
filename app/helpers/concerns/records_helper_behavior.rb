@@ -24,10 +24,6 @@ module RecordsHelperBehavior
     render_edit_field_partial_with_action('records', key, locals)
   end
 
-  def render_batch_edit_field_partial(key, locals)
-    render_edit_field_partial_with_action('batch_edit', key, locals)
-  end
-
   def add_field (key)
     more_or_less_button(key, 'adder', '+')
   end
