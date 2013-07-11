@@ -1,6 +1,6 @@
       <div class="controls" <%  if index == 0 %> id="additional_<%= key.to_s %>_clone" <% end %>>
         <% required = render_req && (index == 0) && f.object.required?(key) %>
-        <%= text_field_tag "#{f.object.class.model_name.underscore}[#{key.to_s}][]", v,  :id => "#{f.object.class.model_name.underscore}_#{key.to_s}", :class => "input-large", :required => required  %>
+        <%= text_field_tag "#{ActiveModel::Naming.singular(f.object)}[#{key.to_s}][]", v,  :id => "#{ActiveModel::Naming.singular(f.object)}_#{key.to_s}", :class => "input-large", :required => required  %>
         <% unless f.object.class.unique?(key) %>
           <%= render :partial=>"records/edit_fields/suffix", :locals=>{key: key, index: index} %>
         <% end %>

@@ -58,7 +58,7 @@ module RecordsControllerBehavior
 
   # Override this method if you want to set different metadata on the object
   def set_attributes
-    @record.attributes = params[@record.class.model_name.underscore]
+    @record.attributes = params[ActiveModel::Naming.singular(@record)]
   end
 
 
