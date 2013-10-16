@@ -14,7 +14,6 @@ Gem::Specification.new do |s|
   s.description = "A basic Dublin Core metadata editor for hydra-head"
 
   s.files = Dir["{app,config,db,lib}/**/*"] + ["Rakefile", "README.md"]
-  s.test_files = Dir["spec/**/*"]
 
   s.add_dependency "rails", ">= 3.2.13", "< 5.0"
   s.add_dependency "bootstrap_forms"
