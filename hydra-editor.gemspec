@@ -15,7 +15,8 @@ Gem::Specification.new do |s|
 
   s.files = Dir["{app,config,db,lib}/**/*"] + ["Rakefile", "README.md"]
   s.test_files = Dir["spec/**/*"]
-
+  s.test_files.reject! { |fn| fn.start_with?("spec/dummy/") }
+  
   s.add_dependency "rails", ">= 3.2.13", "< 5.0"
   s.add_dependency "bootstrap_forms"
   s.add_dependency "active-fedora", ">= 6.3.0"  
