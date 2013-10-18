@@ -1,4 +1,10 @@
 module RecordsControllerBehavior
+  extend ActiveSupport::Concern
+
+  included do
+    before_filter :load_and_authorize_record, only: [:edit, :update]
+  end
+
   def new
     authorize! :create, ActiveFedora::Base
     unless has_valid_type?
@@ -11,8 +17,6 @@ module RecordsControllerBehavior
   end
 
   def edit
-    @record = ActiveFedora::Base.find(params[:id], cast: true)
-    authorize! :edit, @record
     initialize_fields
   end
 
@@ -40,8 +44,6 @@ module RecordsControllerBehavior
   end
 
   def update
-    @record = ActiveFedora::Base.find(params[:id], cast: true)
-    authorize! :update, @record
     set_attributes
     respond_to do |format|
       if @record.save
@@ -55,6 +57,11 @@ module RecordsControllerBehavior
   end
 
   protected
+
+  def load_and_authorize_record
+    @record = ActiveFedora::Base.find(params[:id], cast: true)
+    authorize! self.action_name.to_sym, @record
+  end
 
   # Override this method if you want to set different metadata on the object
   def set_attributes
