@@ -9,12 +9,12 @@ describe RecordsController do
     end
     describe "who goes to the new page" do
       it "should be successful" do
-        get :new
+        get :new, use_route: 'hydra_editor'
         response.should be_successful
         response.should render_template(:choose_type)
       end
       it "should be successful" do
-        get :new, :type=>'Audio'
+        get :new, :type=>'Audio', :use_route=>'hydra_editor'
         response.should be_successful
         response.should render_template(:new)
       end
@@ -28,12 +28,12 @@ describe RecordsController do
         stub_audio.should_receive(:save).and_return(true)
       end
       it "should be successful" do
-        post :create, :type=>'Audio', :audio=>{:title=>"My title"}
+        post :create, :type=>'Audio', :audio=>{:title=>"My title"}, :use_route=>'hydra_editor'
         response.should redirect_to("/catalog/#{assigns[:record].id}") 
         assigns[:record].title.should == ['My title']
       end
       it "should be successful with json" do
-        post :create, :type=>'Audio', :audio=>{:title=>"My title"}, :format=>:json
+        post :create, :type=>'Audio', :audio=>{:title=>"My title"}, :format=>:json, :use_route=>'hydra_editor'
         response.status.should == 201 
       end
       describe "when set_attributes is overloaded" do
@@ -44,7 +44,7 @@ describe RecordsController do
           end
         end
         it "should run set_attributes" do
-          post :create, :type=>'Audio', :audio=>{:title=>"My title"}
+          post :create, :type=>'Audio', :audio=>{:title=>"My title"}, :use_route=>'hydra_editor'
           response.should redirect_to("/catalog/#{assigns[:record].id}") 
           assigns[:record].pid.should == 'tufts:0001'
         end
@@ -58,7 +58,7 @@ describe RecordsController do
         controller.should_receive(:authorize!).with(:edit, @audio)
       end
       it "should be successful" do
-        get :edit, :id=>@audio.pid
+        get :edit, :id=>@audio.pid, :use_route=>'hydra_editor'
         response.should be_successful
         assigns[:record].title.should == ['My title2']
       end
@@ -73,18 +73,16 @@ describe RecordsController do
         controller.should_receive(:authorize!).with(:update, @audio)
       end
       it "should be successful" do
-        put :update, :id=>@audio, :audio=>{:title=>"My title 3"}
+        put :update, :id=>@audio, :audio=>{:title=>"My title 3"}, :use_route=>'hydra_editor'
         response.should redirect_to("/catalog/#{assigns[:record].id}") 
         assigns[:record].title.should == ['My title 3']
       end
       it "should be successful with json" do
-        put :update, :id=>@audio, :audio=>{:title=>"My title"}, :format=>:json
+        put :update, :id=>@audio.pid, :audio=>{:title=>"My title"}, :format=>:json, :use_route=>'hydra_editor'
         response.status.should == 204 
       end
-
     end
   end
-
 
   describe "a user without create ability" do
     before do
@@ -94,8 +92,9 @@ describe RecordsController do
     end
     describe "who goes to the new page" do
       it "should not be allowed" do
-        lambda { get :new }.should raise_error CanCan::AccessDenied
+        lambda { get :new, :use_route=>'hydra_editor' }.should raise_error CanCan::AccessDenied
       end
     end
   end
+
 end
