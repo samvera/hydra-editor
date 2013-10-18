@@ -27,8 +27,8 @@ module RecordsControllerBehavior
 
     respond_to do |format|
       if @record.save
-        format.html { redirect_to main_app.catalog_path(@record), notice: 'Object was successfully created.' }
-        # ActiveFedora::Base#to_json causes a circular reference.  Do somethign easy
+        format.html { redirect_to redirect_after_create, notice: 'Object was successfully created.' }
+        # ActiveFedora::Base#to_json causes a circular reference.  Do something easy
         data = @record.terms_for_editing.inject({}) { |h,term|  h[term] = @record[term]; h } 
         format.json { render json: data, status: :created, location: hydra_editor.record_path(@record) }
       else
@@ -45,7 +45,7 @@ module RecordsControllerBehavior
     set_attributes
     respond_to do |format|
       if @record.save
-        format.html { redirect_to main_app.catalog_path(@record), notice: 'Object was successfully updated.' }
+        format.html { redirect_to redirect_after_update, notice: 'Object was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -61,6 +61,15 @@ module RecordsControllerBehavior
     @record.attributes = params[ActiveModel::Naming.singular(@record)]
   end
 
+  # Override to redirect to an alternate location after create
+  def redirect_after_create
+    main_app.catalog_path @record
+  end
+
+  # Override to redirect to an alternate location after update
+  def redirect_after_update
+    main_app.catalog_path @record
+  end
 
   def has_valid_type?
     HydraEditor.models.include? params[:type]
