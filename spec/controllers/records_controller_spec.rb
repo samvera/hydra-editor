@@ -49,6 +49,13 @@ describe RecordsController do
           assigns[:record].pid.should == 'tufts:0001'
         end
       end
+      describe "when redirect_after_create is overridden" do
+        it "should redirect to the alternate location" do
+          controller.stub(:redirect_after_create).and_return(root_url)
+          post :create, :type=>'Audio', :audio=>{:title=>"My title"}, :use_route=>'hydra_editor'
+          response.should redirect_to(root_url) 
+        end
+      end
     end
 
     describe "editing a record" do
@@ -80,6 +87,13 @@ describe RecordsController do
       it "should be successful with json" do
         put :update, :id=>@audio.pid, :audio=>{:title=>"My title"}, :format=>:json, :use_route=>'hydra_editor'
         response.status.should == 204 
+      end
+      describe "when redirect_after_update is overridden" do
+        it "should redirect to the alternate location" do
+          controller.stub(:redirect_after_update).and_return(root_url)
+          put :update, :id=>@audio, :audio=>{:title=>"My title 3"}, :use_route=>'hydra_editor'
+          response.should redirect_to(root_url) 
+        end
       end
     end
   end
