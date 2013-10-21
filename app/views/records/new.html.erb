@@ -1,2 +1,2 @@
-<h1>Create a new <%= model_label(params[:type]) %> record</h1>
-<%= render :partial=>'form', locals: {record: @record} %>
+<h1><%= new_record_title %></h1>
+<%= render :partial=>'records/form', locals: {record: @record} %>
