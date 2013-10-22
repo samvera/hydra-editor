@@ -1,25 +1,31 @@
 module RecordsControllerBehavior
+  extend ActiveSupport::Concern
+  
+  included do
+    before_filter :load_and_authorize_record, only: [:edit, :update]
+  end
+
   def new
     authorize! :create, ActiveFedora::Base
     unless has_valid_type?
-      render 'choose_type'
+      render 'records/choose_type'
       return
     end
 
     @record = params[:type].constantize.new
     initialize_fields
+    render 'records/new'
   end
 
   def edit
-    @record = ActiveFedora::Base.find(params[:id], cast: true)
-    authorize! :edit, @record
     initialize_fields
+    render 'records/edit'
   end
 
   def create
     authorize! :create, ActiveFedora::Base
     unless has_valid_type?
-      redirect_to hydra_editor.new_record_path, :flash=> {error: "Lost the type"}
+      redirect_to(respond_to?(:hydra_editor) ? hydra_editor.new_record_path : new_record_path, flash: {error: "Lost the type"})
       return
     end
     @record = params[:type].constantize.new
@@ -30,7 +36,7 @@ module RecordsControllerBehavior
         format.html { redirect_to redirect_after_create, notice: 'Object was successfully created.' }
         # ActiveFedora::Base#to_json causes a circular reference.  Do something easy
         data = @record.terms_for_editing.inject({}) { |h,term|  h[term] = @record[term]; h } 
-        format.json { render json: data, status: :created, location: hydra_editor.record_path(@record) }
+        format.json { render json: data, status: :created, location: redirect_after_create }
       else
         format.html { render action: "new" }
         format.json { render json: @record.errors, status: :unprocessable_entity }
@@ -40,8 +46,6 @@ module RecordsControllerBehavior
   end
 
   def update
-    @record = ActiveFedora::Base.find(params[:id], cast: true)
-    authorize! :update, @record
     set_attributes
     respond_to do |format|
       if @record.save
@@ -55,6 +59,19 @@ module RecordsControllerBehavior
   end
 
   protected
+
+  def load_and_authorize_record
+    load_record
+    authorize_record!
+  end
+
+  def load_record
+    @record = ActiveFedora::Base.find(params[:id], cast: true)
+  end
+
+  def authorize_record!
+    authorize! params[:action].to_sym, @record
+  end
 
   # Override this method if you want to set different metadata on the object
   def set_attributes

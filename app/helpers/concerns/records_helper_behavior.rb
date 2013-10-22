@@ -1,15 +1,15 @@
 module RecordsHelperBehavior
   
   def metadata_help(key)
-    I18n.t("hydra.metadata_help.#{key}", default: key.to_s.humanize)
+    I18n.t("hydra_editor.form.metadata_help.#{key}", default: key.to_s.humanize)
   end
 
   def field_label(key)
-    I18n.t("hydra.field_label.#{key}", default: key.to_s.humanize)
+    I18n.t("hydra_editor.form.field_label.#{key}", default: key.to_s.humanize)
   end
 
   def model_label(key)
-    I18n.t("hydra.model_label.#{key}", default: key.to_s.humanize)
+    I18n.t("hydra_editor.form.model_label.#{key}", default: key.to_s.humanize)
   end
 
   def object_type_options
@@ -30,6 +30,23 @@ module RecordsHelperBehavior
 
   def subtract_field (key)
     more_or_less_button(key, 'remover', '-')
+  end
+
+  def record_form_action_url(record)
+    router = respond_to?(:hydra_editor) ? hydra_editor : self
+    record.new_record? ? router.records_path : router.record_path(record)
+  end
+
+  def new_record_title
+    I18n.t('hydra_editor.new.title') % model_label(params[:type])
+  end
+
+  def edit_record_title
+    I18n.t('hydra_editor.edit.title') % render_record_title
+  end
+
+  def render_record_title
+    Array(@record.title).first
   end
 
  private 

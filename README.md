@@ -12,6 +12,8 @@ And to config/routes.rb add:
   mount HydraEditor::Engine => '/'
 ```
 
+(Note: You do not have to mount the engine if you do not intend to use the engine's default routes.)
+
 In your initialization set ```HydraEditor.models```
 
 ```ruby
@@ -24,14 +26,15 @@ You can customize the names of your fields/models by adding to your translation 
 ```yaml
 # config/locales/en.yml
 en:
-  hydra:
-    field_label:
-      source2: "Alternate Source"
-      dateCreated: "Date Created"
-      dateAvailable: "Date Available"
-    model_label:
-      PdfModel: "PDF"
-      RecordedAudio: "audio"
+  hydra_editor:
+    form:
+      field_label:
+        source2: "Alternate Source"
+        dateCreated: "Date Created"
+        dateAvailable: "Date Available"
+      model_label:
+        PdfModel: "PDF"
+        RecordedAudio: "audio"
 
 ```
 
@@ -46,6 +49,21 @@ Add the javascript by adding this line to your app/assets/javascript/application
 ```
 
 Add the stylesheets by adding this line to your app/assets/stylesheets/application.css:
+
 ```css
  *= require hydra-editor/hydra-editor
 ```
+
+## Other customizations
+
+By default hydra-editor provides a RecordsController with :new, :create, :edit, and :update actions implemented in the included RecordsControllerBehavior module, and a RecordsHelper module with methods implemented in RecordsHelperBehavior.  If you are mounting the engine and using its routes, you can override the controller behaviors by creating your own RecordsController:
+
+```ruby
+class RecordsController < ApplicationController
+  include RecordsControllerBehavior
+
+  # You custom code
+end
+```
+
+If you are not mounting the engine or using its default routes, you can include RecordsControllerBehavior in your own controller and add the appropriate routes to your app's config/routes.rb.

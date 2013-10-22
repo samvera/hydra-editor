@@ -1,8 +1,7 @@
-<h1>Create a new record</h1>
-
-<%= bootstrap_form_tag hydra_editor.new_record_path, :method=>:get do |f| %>
+<h1><%= t('hydra_editor.choose_type.title') %></h1>
+<%= bootstrap_form_tag new_hydra_editor_record_path, :method => :get do |f| %>
   <%= bootstrap_select_tag :type, options_for_select(object_type_options) %>
   <%= bootstrap_actions do %>
-    <%= bootstrap_submit_tag 'Next'%>
+    <%= bootstrap_submit_tag 'Next' %>
   <% end %>
 <% end %>
