@@ -7,6 +7,6 @@ gem 'blacklight'
 gem 'hydra-head'
 gem 'hydra-editor', path: '../../'
 
-
 gem "factory_girl_rails"
 gem 'rspec-rails'
+gem 'capybara'

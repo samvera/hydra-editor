@@ -75,7 +75,13 @@ module RecordsControllerBehavior
 
   # Override this method if you want to set different metadata on the object
   def set_attributes
-    @record.attributes = params[ActiveModel::Naming.singular(@record)]
+    @record.attributes = collect_form_attributes
+  end
+
+  def collect_form_attributes
+    attributes = params[ActiveModel::Naming.singular(@record)]
+    # removes attributes that were only changed by initialize_fields
+    attributes.reject { |key, value| @record[key].empty? and value == [""] }
   end
 
   # Override to redirect to an alternate location after create
