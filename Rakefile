@@ -26,10 +26,12 @@ Bundler::GemHelper.install_tasks
 dummy = File.expand_path('../spec/dummy', __FILE__)
 rakefile = File.join(dummy, 'Rakefile')
 
+desc "Remove the dummy app"
 task :clean do
   sh "rm -rf #{dummy}"
 end
 
+desc "Generate the dummy app"
 task :setup do
   unless File.exists?("#{dummy}/Rakefile")
     `rails new #{dummy}`
@@ -43,10 +45,12 @@ task :setup do
       sh "rails generate test_app"
       puts "running migrations"
       sh 'rake db:migrate db:test:prepare'
+	  sh "touch public/test.html" # for spec/features/record_editing_spec.rb
     end
   end
 end
 
+desc "Run the spec tests"
 task :spec => :setup do
   here = File.expand_path("../", __FILE__)
   Dir.chdir(dummy) do

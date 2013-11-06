@@ -20,4 +20,6 @@ RSpec.configure do |config|
   
   # see https://github.com/rails/journey/issues/39
   config.before(:each, :type=>"controller") { @routes = HydraEditor::Engine.routes }
+
+  config.include Warden::Test::Helpers
 end

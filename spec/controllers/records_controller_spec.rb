@@ -37,16 +37,16 @@ describe RecordsController do
         response.status.should == 201 
       end
       describe "when set_attributes is overloaded" do
-        class RecordsController
+        controller(RecordsController) do
           def set_attributes
             super
-            @record.inner_object.pid = 'tufts:0001'
+            @record.creator = "Fleece Vest"
           end
         end
         it "should run set_attributes" do
-          post :create, :type=>'Audio', :audio=>{:title=>"My title"}, :use_route=>'hydra_editor'
+          post :create, :type=>'Audio', :audio=>{:title=>"My title"}
           response.should redirect_to("/catalog/#{assigns[:record].id}") 
-          assigns[:record].pid.should == 'tufts:0001'
+          assigns[:record].creator.should == ["Fleece Vest"]
         end
       end
       describe "when redirect_after_create is overridden" do
