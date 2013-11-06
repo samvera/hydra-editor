@@ -1,0 +1,12 @@
+source "http://rubygems.org"
+
+gemspec :path=>"../"
+
+gem 'rails', '~> 3.2'
+
+group :test do
+  gem 'devise'
+  gem 'devise-guests'
+  gem 'blacklight'
+end
+
