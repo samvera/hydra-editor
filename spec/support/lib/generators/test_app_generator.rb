@@ -2,21 +2,28 @@ require 'rails/generators'
 
 class TestAppGenerator < Rails::Generators::Base
 
-  def add_routes
-    insert_into_file "config/routes.rb", :after => '.draw do' do
-      "\n  mount HydraEditor::Engine => \"/\""
+  def configure
 
-    end
-  end
+    gem 'rails', Rails::VERSION::STRING
+    gem 'sqlite3'
+    gem 'hydra', '6.1.0'
+    gem 'hydra-editor', path: '../../'
+    gem "factory_girl_rails"
+    gem 'rspec-rails'
+    gem 'capybara'
 
-  def add_secret_token
-    inject_into_file "config/initializers/secret_token.rb", after: "# if you're sharing your code publicly.\n" do
-      "Dummy::Application.config.secret_token = '#{SecureRandom.hex(64)}'\n"
-    end
-  end
+    generate "hydra:install"
 
-  def fix_layout
+    rake "db:migrate"
+    rake "db:test:prepare"
+    
     gsub_file "app/controllers/application_controller.rb", "layout 'blacklight'", "layout 'application'"
+
+    insert_into_file "config/routes.rb", :after => '.draw do' do
+      "\n  mount HydraEditor::Engine => \"/\"\n"
+    end
+
   end
+
 
 end
