@@ -1,4 +1,5 @@
-# HydraEditor [![Gem Version](https://badge.fury.io/rb/hydra-editor.png)](http://badge.fury.io/rb/hydra-editor)
+# HydraEditor [![Gem Version](https://badge.fury.io/rb/hydra-editor.png)](http://badge.fury.io/rb/hydra-editor) [![Build Status](https://travis-ci.org/projecthydra/hydra-editor.png)](https://travis-ci.org/projecthydra/hydra-editor)
+
 
 To use add to your gemfile:
 
