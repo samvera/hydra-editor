@@ -1,18 +1,24 @@
 module RecordsControllerBehavior
   extend ActiveSupport::Concern
-  
+
   included do
-    before_filter :load_and_authorize_record, only: [:edit, :update]
+    load_and_authorize_resource only: [:new, :edit, :update, :create], instance_name: resource_instance_name
+
+    rescue_from HydraEditor::InvalidType do
+      render 'records/choose_type'
+    end
+  end
+
+  module ClassMethods
+    def cancan_resource_class
+      HydraEditor::ControllerResource
+    end
+    def resource_instance_name
+      'record'
+    end
   end
 
   def new
-    authorize! :create, ActiveFedora::Base
-    unless has_valid_type?
-      render 'records/choose_type'
-      return
-    end
-
-    @record = params[:type].constantize.new
     initialize_fields
     render 'records/new'
   end
@@ -23,23 +29,15 @@ module RecordsControllerBehavior
   end
 
   def create
-    authorize! :create, ActiveFedora::Base
-    unless has_valid_type?
-      redirect_to(respond_to?(:hydra_editor) ? hydra_editor.new_record_path : new_record_path, flash: {error: "Lost the type"})
-      return
-    end
-    @record = params[:type].constantize.new
     set_attributes
 
     respond_to do |format|
-      if @record.save
+      if resource.save
         format.html { redirect_to redirect_after_create, notice: 'Object was successfully created.' }
-        # ActiveFedora::Base#to_json causes a circular reference.  Do something easy
-        data = @record.terms_for_editing.inject({}) { |h,term|  h[term] = @record[term]; h } 
-        format.json { render json: data, status: :created, location: redirect_after_create }
+        format.json { render json: object_as_json, status: :created, location: redirect_after_create }
       else
         format.html { render action: "new" }
-        format.json { render json: @record.errors, status: :unprocessable_entity }
+        format.json { render json: resource.errors, status: :unprocessable_entity }
       end
     end
 
@@ -48,50 +46,42 @@ module RecordsControllerBehavior
   def update
     set_attributes
     respond_to do |format|
-      if @record.save
+      if resource.save
         format.html { redirect_to redirect_after_update, notice: 'Object was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
-        format.json { render json: @record.errors, status: :unprocessable_entity }
+        format.json { render json: resource.errors, status: :unprocessable_entity }
       end
     end
   end
 
   protected
 
-  def load_and_authorize_record
-    load_record
-    authorize_record!
-  end
-
-  def load_record
-    @record = ActiveFedora::Base.find(params[:id], cast: true)
-  end
-
-  def authorize_record!
-    authorize! params[:action].to_sym, @record
+  def object_as_json 
+    # ActiveFedora::Base#to_json causes a circular reference (before 7.0).  Do something easy
+    resource.terms_for_editing.each_with_object({}) { |term, h|  h[term] = resource[term] } 
   end
 
   # Override this method if you want to set different metadata on the object
   def set_attributes
-    @record.attributes = collect_form_attributes
+    resource.attributes = collect_form_attributes
   end
 
   def collect_form_attributes
-    attributes = params[ActiveModel::Naming.singular(@record)]
+    attributes = params[ActiveModel::Naming.singular(resource)]
     # removes attributes that were only changed by initialize_fields
-    attributes.reject { |key, value| @record[key].empty? and value == [""] }
+    attributes.reject { |key, value| resource[key].empty? and value == [""] }
   end
 
   # Override to redirect to an alternate location after create
   def redirect_after_create
-    main_app.catalog_path @record
+    main_app.catalog_path resource
   end
 
   # Override to redirect to an alternate location after update
   def redirect_after_update
-    main_app.catalog_path @record
+    main_app.catalog_path resource
   end
 
   def has_valid_type?
@@ -99,9 +89,24 @@ module RecordsControllerBehavior
   end
 
   def initialize_fields
-    @record.terms_for_editing.each do |key|
+    resource.terms_for_editing.each do |key|
       # if value is empty, we create an one element array to loop over for output 
-      @record[key] = [''] if @record[key].empty?
+      resource[key] = [''] if resource[key].empty?
     end
   end
+
+  def resource
+    get_resource_ivar
+  end
+
+  # Get resource ivar based on the current resource controller.
+  #
+  def get_resource_ivar #:nodoc:
+    instance_variable_get("@#{resource_instance_name}")
+  end
+
+  def resource_instance_name
+    self.class.resource_instance_name
+  end
+
 end
