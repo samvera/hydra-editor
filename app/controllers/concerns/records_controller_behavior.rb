@@ -69,9 +69,11 @@ module RecordsControllerBehavior
   end
 
   def collect_form_attributes
-    attributes = params[ActiveModel::Naming.singular(resource)]
+    raw_attributes = params[ActiveModel::Naming.singular(resource)]
+    # we could probably do this with strong parameters if the gemspec depends on Rails 4+
+    permitted_attributes = resource.terms_for_editing.each_with_object({}) { |key, attrs| attrs[key] = raw_attributes[key] if raw_attributes[key] }
     # removes attributes that were only changed by initialize_fields
-    attributes.reject { |key, value| resource[key].empty? and value == [""] }
+    permitted_attributes.reject { |key, value| resource[key].empty? and value == [""] }
   end
 
   # Override to redirect to an alternate location after create
