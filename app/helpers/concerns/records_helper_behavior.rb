@@ -46,7 +46,7 @@ module RecordsHelperBehavior
   end
 
   def render_record_title
-    Array(@record.title).first
+    Array(resource.title).first
   end
 
  private 
