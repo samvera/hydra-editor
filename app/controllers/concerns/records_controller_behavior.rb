@@ -14,7 +14,7 @@ module RecordsControllerBehavior
       HydraEditor::ControllerResource
     end
     def resource_instance_name
-      'record'
+      name.sub("Controller", "").underscore.split('/').last.singularize
     end
   end
 

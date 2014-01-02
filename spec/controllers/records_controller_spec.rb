@@ -64,6 +64,8 @@ describe RecordsController do
             @record.creator = "Fleece Vest"
           end
         end
+        # since this is using an an anonymous class, we have to stub 
+        before {controller.stub(:resource_instance_name).and_return('record')}
         it "should run set_attributes" do
           post :create, :type=>'Audio', :audio=>{:title=>"My title"}
           response.should redirect_to("/catalog/#{assigns[:record].id}") 
