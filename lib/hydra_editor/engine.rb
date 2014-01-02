@@ -1,8 +1,10 @@
 module HydraEditor
   class Engine < ::Rails::Engine
     engine_name 'hydra_editor'
-    config.paths.add "app/helpers/concerns",      eager_load: true
-    config.paths.add "app/controllers/concerns",  eager_load: true
-    config.paths.add "app/models/concerns",       eager_load: true
+    config.autoload_paths += %W(
+       #{config.root}/app/helpers/concerns
+       #{config.root}/app/controllers/concerns
+       #{config.root}/app/models/concerns
+    )
   end
 end

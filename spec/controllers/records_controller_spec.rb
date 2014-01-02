@@ -1,20 +1,23 @@
 require 'spec_helper'
 
 describe RecordsController do
+  routes { HydraEditor::Engine.routes }
+  before do
+    HydraEditor.models = ['Audio', 'Pdf']
+  end
   describe "an admin" do
+    let(:user) { FactoryGirl.create(:admin) }
     before do
-      HydraEditor.models = ['Audio', 'Pdf']
-      @user = FactoryGirl.create(:admin)
-      sign_in @user
+      sign_in user
     end
     describe "who goes to the new page" do
       it "should be successful" do
-        get :new, use_route: 'hydra_editor'
+        get :new
         response.should be_successful
         response.should render_template(:choose_type)
       end
       it "should be successful" do
-        get :new, :type=>'Audio', :use_route=>'hydra_editor'
+        get :new, :type=>'Audio'
         response.should be_successful
         response.should render_template(:new)
       end
@@ -28,13 +31,25 @@ describe RecordsController do
         stub_audio.should_receive(:save).and_return(true)
       end
       it "should be successful" do
-        post :create, :type=>'Audio', :audio=>{:title=>"My title"}, :use_route=>'hydra_editor'
+        post :create, :type=>'Audio', :audio=>{:title=>"My title"}
         response.should redirect_to("/catalog/#{assigns[:record].id}") 
         assigns[:record].title.should == ['My title']
       end
       it "should be successful with json" do
-        post :create, :type=>'Audio', :audio=>{:title=>"My title"}, :format=>:json, :use_route=>'hydra_editor'
+        post :create, :type=>'Audio', :audio=>{:title=>"My title"}, :format=>:json
         response.status.should == 201 
+      end
+
+      describe "when the user has access to create only some classes" do
+        before do
+          controller.current_ability.cannot :create, ActiveFedora::Base
+          controller.current_ability.can :create, Audio
+        end
+        it "should be successful" do
+          post :create, :type=>'Audio', :audio=>{:title=>"My title"}
+          response.should redirect_to("/catalog/#{assigns[:record].id}") 
+          assigns[:record].title.should == ['My title']
+        end
       end
       describe "when set_attributes is overloaded" do
         controller(RecordsController) do
@@ -49,11 +64,21 @@ describe RecordsController do
           assigns[:record].creator.should == ["Fleece Vest"]
         end
       end
+      describe "when object_as_json is overloaded" do
+        before do
+          controller.stub(:object_as_json).and_return({message: 'it works'} )
+        end
+        it "should run object_as_json" do
+          post :create, :type=>'Audio', :audio=>{:title=>"My title"}, format: 'json'
+          expect(JSON.parse(response.body)).to eq({"message" => "it works"})
+          expect(response.code).to eq '201'
+        end
+      end
       describe "when redirect_after_create is overridden" do
         it "should redirect to the alternate location" do
-          controller.stub(:redirect_after_create).and_return(root_url)
-          post :create, :type=>'Audio', :audio=>{:title=>"My title"}, :use_route=>'hydra_editor'
-          response.should redirect_to(root_url) 
+          controller.stub(:redirect_after_create).and_return('/')
+          post :create, :type=>'Audio', :audio=>{:title=>"My title"}
+          response.should redirect_to('/') 
         end
       end
     end
@@ -65,7 +90,7 @@ describe RecordsController do
         controller.should_receive(:authorize!).with(:edit, @audio)
       end
       it "should be successful" do
-        get :edit, :id=>@audio.pid, :use_route=>'hydra_editor'
+        get :edit, :id=>@audio.pid
         response.should be_successful
         assigns[:record].title.should == ['My title2']
       end
@@ -80,33 +105,33 @@ describe RecordsController do
         controller.should_receive(:authorize!).with(:update, @audio)
       end
       it "should be successful" do
-        put :update, :id=>@audio, :audio=>{:title=>"My title 3"}, :use_route=>'hydra_editor'
+        put :update, :id=>@audio, :audio=>{:title=>"My title 3"}
         response.should redirect_to("/catalog/#{assigns[:record].id}") 
         assigns[:record].title.should == ['My title 3']
       end
       it "should be successful with json" do
-        put :update, :id=>@audio.pid, :audio=>{:title=>"My title"}, :format=>:json, :use_route=>'hydra_editor'
+        put :update, :id=>@audio.pid, :audio=>{:title=>"My title"}, :format=>:json
         response.status.should == 204 
       end
       describe "when redirect_after_update is overridden" do
         it "should redirect to the alternate location" do
-          controller.stub(:redirect_after_update).and_return(root_url)
-          put :update, :id=>@audio, :audio=>{:title=>"My title 3"}, :use_route=>'hydra_editor'
-          response.should redirect_to(root_url) 
+          controller.stub(:redirect_after_update).and_return('/')
+          put :update, :id=>@audio, :audio=>{:title=>"My title 3"}
+          response.should redirect_to('/') 
         end
       end
     end
   end
 
   describe "a user without create ability" do
+    let(:user) { FactoryGirl.create(:user) }
     before do
-      @user =  FactoryGirl.create(:user)
-      sign_in @user
-      controller.current_ability.cannot :create, ActiveFedora::Base
+      sign_in user
+      controller.current_ability.cannot :create, Audio
     end
     describe "who goes to the new page" do
       it "should not be allowed" do
-        lambda { get :new, :use_route=>'hydra_editor' }.should raise_error CanCan::AccessDenied
+        lambda { get :new, type: 'Audio' }.should raise_error CanCan::AccessDenied
       end
     end
   end
