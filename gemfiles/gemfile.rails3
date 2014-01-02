@@ -4,6 +4,8 @@ gemspec :path=>"../"
 
 gem 'rails', '~> 3.2'
 
+gem 'hydra'
+
 group :test do
   gem 'devise'
   gem 'devise-guests'
