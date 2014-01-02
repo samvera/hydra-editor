@@ -44,14 +44,11 @@ task :setup do
   end
 end
 
-desc "Run the spec tests"
-task :spec => :setup do
-  here = File.expand_path("../", __FILE__)
-  Dir.chdir(dummy) do
-    Bundler.with_clean_env do
-      sh "bundle exec rspec --color -I#{here}/spec #{here}/spec"
-    end
-  end
+require 'rspec/core/rake_task'
+
+RSpec::Core::RakeTask.new(:spec => :setup) do |t|
+  t.pattern =  'spec/**/*_spec.rb'
 end
+
 
 task :default => :spec

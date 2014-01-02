@@ -4,9 +4,6 @@ require 'rspec/rails'
 require 'rspec/autorun'
 require 'factory_girl_rails'
 
-FactoryGirl.definition_file_paths = ["#{File.dirname(__FILE__)}/factories"]
-FactoryGirl.find_definitions
-
 Rails.backtrace_cleaner.remove_silencers!
 # Load support files
 
