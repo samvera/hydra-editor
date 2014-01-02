@@ -35,6 +35,12 @@ describe RecordsController do
         response.should redirect_to("/catalog/#{assigns[:record].id}") 
         assigns[:record].title.should == ['My title']
       end
+      it "should not set attributes that aren't listed in terms_for_editing" do
+        # params[:audio][:collection_id] would be a good test, but that doesn't work in ActiveFedora 6.7
+        post :create, :type=>'Audio', :audio=>{isPartOf: 'my collection'}
+        response.should redirect_to("/catalog/#{assigns[:record].id}") 
+        expect(assigns[:record].isPartOf).to eq [] 
+      end
       it "should be successful with json" do
         post :create, :type=>'Audio', :audio=>{:title=>"My title"}, :format=>:json
         response.status.should == 201 

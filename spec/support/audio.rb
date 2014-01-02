@@ -9,8 +9,10 @@ class Audio < ActiveFedora::Base
   has_metadata "descMetadata", type: ActiveFedora::QualifiedDublinCoreDatastream
 
   validates_presence_of :title
+
+  # the isPartOf attribute should not get set, because it's not listed in "terms_for_editing"
+  has_attributes :title, :creator, :description, :subject, :isPartOf, datastream: "descMetadata", multiple: true
   
-  has_attributes :title, :creator, :description, :subject, datastream: "descMetadata", multiple: true
 
   def terms_for_editing
     [:title, :creator, :description, :subject]
