@@ -17,4 +17,9 @@ describe RecordsHelper do
     helper.subtract_field(:test).should == 
       "<button class=\"remover btn\" id=\"additional_test_submit\" name=\"additional_test\">-<span class=\"accessible-hidden\">add another test</span></button>"
   end
+
+  it "draws edit_record_title" do
+    helper.stub(:resource).and_return(double(title:"My Title"))
+    expect(helper.edit_record_title).to eq "Edit My Title"
+  end
 end

@@ -7,6 +7,7 @@ module RecordsControllerBehavior
     rescue_from HydraEditor::InvalidType do
       render 'records/choose_type'
     end
+    helper_method :resource
   end
 
   module ClassMethods
