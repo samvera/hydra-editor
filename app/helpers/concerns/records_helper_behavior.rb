@@ -1,4 +1,6 @@
+require 'deprecation'
 module RecordsHelperBehavior
+  extend Deprecation
   
   def metadata_help(key)
     I18n.t("hydra_editor.form.metadata_help.#{key}", default: key.to_s.humanize)
@@ -21,7 +23,8 @@ module RecordsHelperBehavior
   end
 
   def render_edit_field_partial(key, locals)
-    render_edit_field_partial_with_action('records', key, locals)
+    collection = ActiveSupport::Inflector.tableize(locals[:f].object.class)
+    render_edit_field_partial_with_action(collection, key, locals)
   end
 
   def add_field (key)
@@ -49,14 +52,24 @@ module RecordsHelperBehavior
     Array(resource.title).first
   end
 
- private 
+ protected 
 
-  def render_edit_field_partial_with_action(action, key, locals)
-    if lookup_context.find_all("#{action}/edit_fields/_#{key}").any?
-      render :partial => "#{action}/edit_fields/#{key}", :locals=>locals.merge({key: key})
+  def render_edit_field_partial_with_action(requested_path, key, locals)
+    path = if partial_exists?("#{requested_path}/edit_fields", key)
+      "#{requested_path}/edit_fields/#{key}"
+    elsif partial_exists?("records/edit_fields", key) # for backwards compatibility
+      Deprecation.warn RecordsHelperBehavior, "Rendering view from `records/edit_fields/#{key}`. Move to #{requested_path}/edit_fields/#{key}. This will be removed in 1.0.0"
+      "records/edit_fields/#{key}"
+    elsif partial_exists?("#{requested_path}/edit_fields", 'default')
+      "#{requested_path}/edit_fields/default"
     else
-      render :partial => "#{action}/edit_fields/default", :locals=>locals.merge({key: key})
+      "records/edit_fields/default"
     end
+    render partial: path, locals: locals.merge({key: key})
+  end
+
+  def partial_exists?(path, file)
+    lookup_context.find_all("#{path}/_#{file}").any?
   end
   
   def more_or_less_button(key, html_class, symbol)
