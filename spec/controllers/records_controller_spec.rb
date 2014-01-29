@@ -104,6 +104,18 @@ describe RecordsController do
       end
     end
 
+    describe "when generating an edit path" do
+      before do
+        @stub_audio = Audio.new(pid: 'test:7.a-b')
+        @stub_audio.stub(:persisted?).and_return(true)
+        @stub_audio.stub(:save).and_return(true)
+      end
+
+      it 'should generate a valid edit path for pid' do
+        edit_record_path(@stub_audio).should eq '/records/test:7.a-b/edit'
+      end
+    end
+
     describe "updating a record" do
       before do
         @audio = Audio.new(title: 'My title2', pid: 'test:7')
