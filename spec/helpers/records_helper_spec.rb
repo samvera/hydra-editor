@@ -10,12 +10,12 @@ describe RecordsHelper do
 
   it "draws add button" do
     helper.add_field(:test).should == 
-      "<button class=\"adder btn\" id=\"additional_test_submit\" name=\"additional_test\">+<span class=\"accessible-hidden\">add another test</span></button>"
+      "<button class=\"adder btn\" id=\"additional_test_submit\" name=\"additional_test\">+<span class=\"sr-only\">add another test</span></button>"
   end
 
   it "draws subtract button" do
     helper.subtract_field(:test).should == 
-      "<button class=\"remover btn\" id=\"additional_test_submit\" name=\"additional_test\">-<span class=\"accessible-hidden\">add another test</span></button>"
+      "<button class=\"remover btn\" id=\"additional_test_submit\" name=\"additional_test\">-<span class=\"sr-only\">add another test</span></button>"
   end
 
   it "draws edit_record_title" do
