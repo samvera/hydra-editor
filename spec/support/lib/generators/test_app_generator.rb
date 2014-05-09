@@ -9,7 +9,7 @@ class TestAppGenerator < Rails::Generators::Base
     gem "factory_girl_rails"
     gem 'capybara'
 
-    generate "blacklight --devise"
+    generate "blacklight:install --devise"
     generate "hydra:head -f"
 
     rake "db:migrate"
