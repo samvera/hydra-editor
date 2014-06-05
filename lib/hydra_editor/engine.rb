@@ -6,5 +6,8 @@ module HydraEditor
        #{config.root}/app/controllers/concerns
        #{config.root}/app/models/concerns
     )
+    initializer "hydra-editor.initialize" do
+      require "cancan"
+    end
   end
 end

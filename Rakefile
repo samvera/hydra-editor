@@ -23,30 +23,10 @@ end
 
 Bundler::GemHelper.install_tasks
 
-dummy = File.expand_path('../spec/dummy', __FILE__)
-rakefile = File.join(dummy, 'Rakefile')
-
-desc "Remove the dummy app"
-task :clean do
-  sh "rm -rf #{dummy}"
-end
-
-desc "Generate the dummy app"
-task :setup do
-  unless File.exists?("#{dummy}/Rakefile")
-    `rails new #{dummy}`
-    `cp -r spec/support/lib/generators #{dummy}/lib`
-    Dir.chdir(dummy) do
-      puts "Generating test app ..."
-      sh "rails generate test_app"
-	    sh "touch public/test.html"      # for spec/features/record_editing_spec.rb
-    end
-  end
-end
-
+require 'engine_cart/rake_task'
 require 'rspec/core/rake_task'
 
-RSpec::Core::RakeTask.new(:spec => :setup) do |t|
+RSpec::Core::RakeTask.new(:spec => 'engine_cart:generate') do |t|
   t.pattern =  'spec/**/*_spec.rb'
 end
 
