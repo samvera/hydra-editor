@@ -8,10 +8,10 @@ describe "record editing" do
     @ability.stub(:authorize!).and_return(true)
     Ability.stub(:new).with(@user).and_return(@ability)
     # Avoid the catalog so we don't have to run Solr
-    RecordsController.any_instance.stub(:redirect_after_update).and_return("/test.html")
-    Audio.any_instance.stub(:persisted?).and_return(true)
-    Audio.any_instance.stub(:new_record?).and_return(false)
-    Audio.any_instance.stub(:save).and_return(true)
+    allow_any_instance_of(RecordsController).to receive(:redirect_after_update).and_return("/404.html")
+    allow_any_instance_of(Audio).to receive(:persisted?).and_return(true)
+    allow_any_instance_of(Audio).to receive(:new_record?).and_return(false)
+    allow_any_instance_of(Audio).to receive(:save).and_return(true)
     @record = Audio.new(pid: "foo:1", title: "Cool Track")
     # We need a clone to give to the edit view b/c it gets changed by initialize_fields
     @record_clone = Audio.new(pid: "foo:1", title: "Cool Track")

@@ -1,7 +1,10 @@
 ENV['RAILS_ENV'] ||= 'test'
-require File.expand_path("../dummy/config/environment.rb",  __FILE__)
+require 'devise'
+
+require 'engine_cart'
+EngineCart.load_application!
+
 require 'rspec/rails'
-require 'rspec/autorun'
 require 'factory_girl_rails'
 
 Rails.backtrace_cleaner.remove_silencers!
@@ -18,4 +21,5 @@ RSpec.configure do |config|
   config.before(:each, :type=>"controller") { @routes = HydraEditor::Engine.routes }
 
   config.include Warden::Test::Helpers
+  config.infer_spec_type_from_file_location!
 end

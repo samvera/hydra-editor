@@ -19,6 +19,7 @@ Gem::Specification.new do |s|
   s.add_dependency "bootstrap_forms"
   s.add_dependency "active-fedora", ">= 6.3.0"  
   s.add_dependency "deprecation"
+  s.add_dependency "cancancan"
 
   s.add_development_dependency "sqlite3"
   s.add_development_dependency "rspec-rails"
@@ -26,4 +27,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency "capybara"
   s.add_development_dependency "devise"
   s.add_development_dependency "hydra-head"
+  s.add_development_dependency "engine_cart"
 end
