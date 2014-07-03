@@ -36,7 +36,7 @@
 
     function removeField () {
       // get parent and remove it
-      $(this).parent().remove();
+      $(this).parent().parent().remove();
       return false;
     }
 

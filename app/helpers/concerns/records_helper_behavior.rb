@@ -74,7 +74,7 @@ module RecordsHelperBehavior
   
   def more_or_less_button(key, html_class, symbol)
     # TODO, there could be more than one element with this id on the page, but the fuctionality doesn't work without it.
-    content_tag('button', class: "#{html_class} btn", id: "additional_#{key}_submit", name: "additional_#{key}") do
+    content_tag('button', class: "#{html_class} btn btn-default", id: "additional_#{key}_submit", name: "additional_#{key}") do
       (symbol + 
       content_tag('span', class: 'sr-only') do
         "add another #{key.to_s}"
