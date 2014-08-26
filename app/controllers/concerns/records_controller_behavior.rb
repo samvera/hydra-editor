@@ -59,9 +59,9 @@ module RecordsControllerBehavior
 
   protected
 
-  def object_as_json 
+  def object_as_json
     # ActiveFedora::Base#to_json causes a circular reference (before 7.0).  Do something easy
-    resource.terms_for_editing.each_with_object({}) { |term, h|  h[term] = resource[term] } 
+    resource.terms_for_editing.each_with_object({}) { |term, h|  h[term] = resource[term] }
   end
 
   # Override this method if you want to set different metadata on the object
@@ -70,11 +70,17 @@ module RecordsControllerBehavior
   end
 
   def collect_form_attributes
-    raw_attributes = params[ActiveModel::Naming.singular(resource)]
-    # we could probably do this with strong parameters if the gemspec depends on Rails 4+
-    permitted_attributes = resource.terms_for_editing.each_with_object({}) { |key, attrs| attrs[key] = raw_attributes[key] if raw_attributes[key] }
     # removes attributes that were only changed by initialize_fields
     permitted_attributes.reject { |key, value| resource[key].empty? and value == [""] }
+  end
+
+  # we could probably do this with strong parameters if the gemspec depends on Rails 4+
+  def permitted_attributes
+    resource.terms_for_editing.each_with_object({}) { |key, attrs| attrs[key] = raw_attributes[key] if raw_attributes[key] }
+  end
+
+  def raw_attributes
+    params[ActiveModel::Naming.singular(resource)]
   end
 
   # Override to redirect to an alternate location after create

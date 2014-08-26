@@ -6,8 +6,8 @@ describe "routes to the records controller" do
 
   before do
     @audio = Audio.new(pid: 'test:7.a-b')
-    @audio.stub(:persisted?).and_return(true)
-    @audio.stub(:save).and_return(true)
+    allow(@audio).to receive(:persisted?).and_return(true)
+    allow(@audio).to receive(:save).and_return(true)
   end
 
   it "should handle pids with hyphens" do

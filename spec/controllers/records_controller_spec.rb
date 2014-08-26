@@ -13,37 +13,37 @@ describe RecordsController do
     describe "who goes to the new page" do
       it "should be successful" do
         get :new
-        response.should be_successful
-        response.should render_template(:choose_type)
+        expect(response).to be_successful
+        expect(response).to render_template(:choose_type)
       end
       it "should be successful" do
         get :new, :type=>'Audio'
-        response.should be_successful
-        response.should render_template(:new)
+        expect(response).to be_successful
+        expect(response).to render_template(:new)
       end
     end
 
     describe "creating a new record" do
       before do
         stub_audio = Audio.new(pid: 'test:6')
-        stub_audio.stub(:persisted?).and_return(true)
-        Audio.should_receive(:new).and_return(stub_audio)
-        stub_audio.should_receive(:save).and_return(true)
+        allow(stub_audio).to receive(:persisted?).and_return(true)
+        expect(Audio).to receive(:new).and_return(stub_audio)
+        expect(stub_audio).to receive(:save).and_return(true)
       end
       it "should be successful" do
         post :create, :type=>'Audio', :audio=>{:title=>"My title"}
-        response.should redirect_to("/catalog/#{assigns[:record].id}") 
-        assigns[:record].title.should == ['My title']
+        expect(response).to redirect_to("/catalog/#{assigns[:record].id}")
+        expect(assigns[:record].title).to eq ['My title']
       end
       it "should not set attributes that aren't listed in terms_for_editing" do
         # params[:audio][:collection_id] would be a good test, but that doesn't work in ActiveFedora 6.7
         post :create, :type=>'Audio', :audio=>{isPartOf: 'my collection'}
-        response.should redirect_to("/catalog/#{assigns[:record].id}") 
-        expect(assigns[:record].isPartOf).to eq [] 
+        expect(response).to redirect_to("/catalog/#{assigns[:record].id}")
+        expect(assigns[:record].isPartOf).to eq []
       end
       it "should be successful with json" do
         post :create, :type=>'Audio', :audio=>{:title=>"My title"}, :format=>:json
-        response.status.should == 201 
+        expect(response.status).to eq 201
       end
 
       describe "when the user has access to create only some classes" do
@@ -53,8 +53,8 @@ describe RecordsController do
         end
         it "should be successful" do
           post :create, :type=>'Audio', :audio=>{:title=>"My title"}
-          response.should redirect_to("/catalog/#{assigns[:record].id}") 
-          assigns[:record].title.should == ['My title']
+          expect(response).to redirect_to("/catalog/#{assigns[:record].id}")
+          expect(assigns[:record].title).to eq ['My title']
         end
       end
       describe "when set_attributes is overloaded" do
@@ -64,17 +64,17 @@ describe RecordsController do
             @record.creator = "Fleece Vest"
           end
         end
-        # since this is using an an anonymous class, we have to stub 
-        before {controller.stub(:resource_instance_name).and_return('record')}
+        # since this is using an an anonymous class, we have to stub
+        before { allow(controller).to receive(:resource_instance_name).and_return('record') }
         it "should run set_attributes" do
           post :create, :type=>'Audio', :audio=>{:title=>"My title"}
-          response.should redirect_to("/catalog/#{assigns[:record].id}") 
-          assigns[:record].creator.should == ["Fleece Vest"]
+          expect(response).to redirect_to("/catalog/#{assigns[:record].id}")
+          expect(assigns[:record].creator).to eq ["Fleece Vest"]
         end
       end
       describe "when object_as_json is overloaded" do
         before do
-          controller.stub(:object_as_json).and_return({message: 'it works'} )
+          allow(controller).to receive(:object_as_json).and_return({message: 'it works'} )
         end
         it "should run object_as_json" do
           post :create, :type=>'Audio', :audio=>{:title=>"My title"}, format: 'json'
@@ -84,9 +84,9 @@ describe RecordsController do
       end
       describe "when redirect_after_create is overridden" do
         it "should redirect to the alternate location" do
-          controller.stub(:redirect_after_create).and_return('/')
+          allow(controller).to receive(:redirect_after_create).and_return('/')
           post :create, :type=>'Audio', :audio=>{:title=>"My title"}
-          response.should redirect_to('/') 
+          expect(response).to redirect_to('/')
         end
       end
     end
@@ -94,38 +94,38 @@ describe RecordsController do
     describe "editing a record" do
       before do
         @audio = Audio.new(title: 'My title2', pid: 'test:7')
-        ActiveFedora::Base.should_receive(:find).with('test:7', cast:true).and_return(@audio)
-        controller.should_receive(:authorize!).with(:edit, @audio)
+        expect(ActiveFedora::Base).to receive(:find).with('test:7', cast:true).and_return(@audio)
+        expect(controller).to receive(:authorize!).with(:edit, @audio)
       end
       it "should be successful" do
         get :edit, :id=>@audio.pid
-        response.should be_successful
-        assigns[:record].title.should == ['My title2']
+        expect(response).to be_successful
+        expect(assigns[:record].title).to eq ['My title2']
       end
     end
 
     describe "updating a record" do
       before do
         @audio = Audio.new(title: 'My title2', pid: 'test:7')
-        @audio.stub(:persisted?).and_return(true)
-        @audio.should_receive(:save).and_return(true)
-        ActiveFedora::Base.should_receive(:find).with('test:7', cast:true).and_return(@audio)
-        controller.should_receive(:authorize!).with(:update, @audio)
+        allow(@audio).to receive(:persisted?).and_return(true)
+        expect(@audio).to receive(:save).and_return(true)
+        expect(ActiveFedora::Base).to receive(:find).with('test:7', cast:true).and_return(@audio)
+        expect(controller).to receive(:authorize!).with(:update, @audio)
       end
       it "should be successful" do
         put :update, :id=>@audio, :audio=>{:title=>"My title 3"}
-        response.should redirect_to("/catalog/#{assigns[:record].id}") 
-        assigns[:record].title.should == ['My title 3']
+        expect(response).to redirect_to("/catalog/#{assigns[:record].id}")
+        expect(assigns[:record].title).to eq ['My title 3']
       end
       it "should be successful with json" do
         put :update, :id=>@audio.pid, :audio=>{:title=>"My title"}, :format=>:json
-        response.status.should == 204 
+        expect(response.status).to eq 204
       end
       describe "when redirect_after_update is overridden" do
         it "should redirect to the alternate location" do
-          controller.stub(:redirect_after_update).and_return('/')
+          allow(controller).to receive(:redirect_after_update).and_return('/')
           put :update, :id=>@audio, :audio=>{:title=>"My title 3"}
-          response.should redirect_to('/') 
+          expect(response).to redirect_to('/')
         end
       end
     end
@@ -139,7 +139,7 @@ describe RecordsController do
     end
     describe "who goes to the new page" do
       it "should not be allowed" do
-        lambda { get :new, type: 'Audio' }.should raise_error CanCan::AccessDenied
+        expect(lambda { get :new, type: 'Audio' }).to raise_error CanCan::AccessDenied
       end
     end
   end
