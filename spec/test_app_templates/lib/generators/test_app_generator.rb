@@ -27,7 +27,7 @@ class TestAppGenerator < Rails::Generators::Base
   end
 
   def add_route
-    insert_into_file "config/routes.rb", :after => '.draw do' do
+    insert_into_file "config/routes.rb", after: '.draw do' do
       "\n  mount HydraEditor::Engine => \"/\"\n"
     end
   end
@@ -39,7 +39,7 @@ class TestAppGenerator < Rails::Generators::Base
 
   def add_create_ability
     # Required for hydra-head 7+
-    insert_into_file "app/models/ability.rb", :after => 'custom_permissions' do
+    insert_into_file "app/models/ability.rb", after: 'custom_permissions' do
       "\n    can :create, :all if user_groups.include? 'registered'\n"
     end
 
