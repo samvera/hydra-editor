@@ -37,7 +37,7 @@ module RecordsControllerBehavior
         format.html { redirect_to redirect_after_create, notice: 'Object was successfully created.' }
         format.json { render json: object_as_json, status: :created, location: redirect_after_create }
       else
-        format.html { render 'records/new' }
+        format.html { new }
         format.json { render json: resource.errors, status: :unprocessable_entity }
       end
     end
@@ -51,7 +51,7 @@ module RecordsControllerBehavior
         format.html { redirect_to redirect_after_update, notice: 'Object was successfully updated.' }
         format.json { head :no_content }
       else
-        format.html { render 'records/edit' }
+        format.html { edit }
         format.json { render json: resource.errors, status: :unprocessable_entity }
       end
     end
