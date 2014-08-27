@@ -99,7 +99,7 @@ module RecordsControllerBehavior
 
   def initialize_fields
     resource.terms_for_editing.each do |key|
-      # if value is empty, we create an one element array to loop over for output 
+      # if value is empty, we create an one element array to loop over for output
       resource[key] = [''] if resource[key].empty?
     end
   end
