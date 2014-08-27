@@ -1,7 +1,7 @@
 require 'deprecation'
 module RecordsHelperBehavior
   extend Deprecation
-  
+
   def metadata_help(key)
     I18n.t("hydra_editor.form.metadata_help.#{key}", default: key.to_s.humanize)
   end

@@ -1,7 +1,6 @@
 <h1><%= t('hydra_editor.choose_type.title') %></h1>
-<%= bootstrap_form_tag hydra_editor.new_record_path, :method => :get do |f| %>
-  <%= bootstrap_select_tag :type, options_for_select(object_type_options) %>
-  <%= bootstrap_actions do %>
-    <%= bootstrap_submit_tag 'Next' %>
-  <% end %>
+<%= bootstrap_form_tag url: hydra_editor.new_record_path, method: :get do |f| %>
+  <label class="control-label" for="type">Select an object type</label>
+  <%= select_tag :type, options_for_select(object_type_options) %>
+  <%= f.primary t('hydra_editor.choose_type.next') %>
 <% end %>

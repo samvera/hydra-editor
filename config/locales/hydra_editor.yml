@@ -2,6 +2,7 @@ en:
   hydra_editor:
     choose_type:
       title: 'Create a New Record'
+      next:  'Next'
     edit:
       title: 'Edit %s'
     form:
