@@ -17,7 +17,7 @@ describe RecordsController do
         expect(response).to render_template(:choose_type)
       end
       it "should be successful" do
-        get :new, :type=>'Audio'
+        get :new, type: 'Audio'
         expect(response).to be_successful
         expect(response).to render_template(:new)
       end
@@ -50,7 +50,7 @@ describe RecordsController do
         end
 
         it "should be successful with json" do
-          post :create, type: 'Audio', audio: { title: "My title" }, :format=>:json
+          post :create, type: 'Audio', audio: { title: "My title" }, format: :json
           expect(response.status).to eq 201
         end
 

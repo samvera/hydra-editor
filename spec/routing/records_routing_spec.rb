@@ -11,7 +11,7 @@ describe "routes to the records controller" do
   end
 
   it "should handle pids with hyphens" do
-    expect(:get => edit_record_path(@audio)).
-        to route_to(:controller => "records", :action => "edit", :id => "test:7.a-b")
+    expect(get: edit_record_path(@audio)).
+        to route_to(controller: "records", action: "edit", id: "test:7.a-b")
   end
 end

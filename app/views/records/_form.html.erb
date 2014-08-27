@@ -1,9 +1,9 @@
-<%= bootstrap_form_for resource, url: record_form_action_url(resource), html: {:class => 'form-inline editor'} do |f| %>
+<%= bootstrap_form_for resource, url: record_form_action_url(resource), html: {class: 'form-inline editor'} do |f| %>
   <div id="descriptions_display">
 	<%= render 'records/form_header' %>
     <div class="well">
       <% f.object.terms_for_editing.each do |term| %>
-        <%= render :partial => "records/edit_field", :locals => {:f => f, :render_req => true, :key => term } %>
+        <%= render partial: "records/edit_field", locals: {f: f, render_req: true, key: term } %>
       <% end %>
     </div> <!-- /well -->
   </div>
