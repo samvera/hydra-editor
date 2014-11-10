@@ -1,6 +1,4 @@
-require 'deprecation'
 module RecordsHelperBehavior
-  extend Deprecation
 
   def metadata_help(key)
     I18n.t("hydra_editor.form.metadata_help.#{key}", default: key.to_s.humanize)
@@ -22,9 +20,9 @@ module RecordsHelperBehavior
     end
   end
 
-  def render_edit_field_partial(key, locals)
+  def render_edit_field_partial(field_name, locals)
     collection = ActiveSupport::Inflector.tableize(locals[:f].object.class)
-    render_edit_field_partial_with_action(collection, key, locals)
+    render_edit_field_partial_with_action(collection, field_name, locals)
   end
 
   def add_field (key)
@@ -52,34 +50,34 @@ module RecordsHelperBehavior
     Array(resource.title).first
   end
 
- protected 
+ protected
 
-  def render_edit_field_partial_with_action(requested_path, key, locals)
-    path = if partial_exists?("#{requested_path}/edit_fields", key)
-      "#{requested_path}/edit_fields/#{key}"
-    elsif partial_exists?("records/edit_fields", key) # for backwards compatibility
-      Deprecation.warn RecordsHelperBehavior, "Rendering view from `records/edit_fields/#{key}`. Move to #{requested_path}/edit_fields/#{key}. This will be removed in 1.0.0"
-      "records/edit_fields/#{key}"
-    elsif partial_exists?("#{requested_path}/edit_fields", 'default')
-      "#{requested_path}/edit_fields/default"
-    else
-      "records/edit_fields/default"
+  # This finds a partial based on the record_type and field_name
+  # if no partial exists for the record_type it tries using "records" as a default
+  def render_edit_field_partial_with_action(record_type, field_name, locals)
+    partial = find_edit_field_partial(record_type, field_name)
+    render partial: partial, locals: locals.merge({key: field_name})
+  end
+
+  def find_edit_field_partial(record_type, field_name)
+    ["#{record_type}/edit_fields/_#{field_name}", "records/edit_fields/_#{field_name}",
+     "#{record_type}/edit_fields/_default", "records/edit_fields/_default"].find do |partial|
+      logger.debug "Looking for edit field partial #{partial}"
+      return partial.sub(/\/_/, '/') if partial_exists?(partial)
     end
-    render partial: path, locals: locals.merge({key: key})
   end
 
-  def partial_exists?(path, file)
-    lookup_context.find_all("#{path}/_#{file}").any?
+  def partial_exists?(partial)
+    lookup_context.find_all(partial).any?
   end
-  
+
   def more_or_less_button(key, html_class, symbol)
     # TODO, there could be more than one element with this id on the page, but the fuctionality doesn't work without it.
     content_tag('button', class: "#{html_class} btn btn-default", id: "additional_#{key}_submit", name: "additional_#{key}") do
-      (symbol + 
+      (symbol +
       content_tag('span', class: 'sr-only') do
         "add another #{key.to_s}"
       end).html_safe
     end
   end
-  
 end

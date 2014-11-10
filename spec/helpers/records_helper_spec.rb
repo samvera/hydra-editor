@@ -40,15 +40,15 @@ describe RecordsHelper do
 
     it "draws the default partial if the path isn't found" do
       allow(f).to receive(:object).and_return(Dragon.new)
-      expect(helper).to receive(:partial_exists?).exactly(3).times.and_return(false)
+      expect(helper).to receive(:partial_exists?).exactly(4).times.and_return(false, false, false, true)
       expect(helper).to receive(:render).with(partial: "records/edit_fields/default", locals: {f: f, key: :name})
       helper.render_edit_field_partial(:name, f: f)
     end
 
-    it "shows deprecation if they have the path in records/" do
+    it "logs the paths it looked for" do
       allow(f).to receive(:object).and_return(Dragon.new)
       expect(helper).to receive(:partial_exists?).and_return(false, true)
-      expect(Deprecation).to receive(:warn)
+      expect(Rails.logger).to receive(:debug).exactly(2).times
       expect(helper).to receive(:render).with(partial: "records/edit_fields/name", locals: {f: f, key: :name})
       helper.render_edit_field_partial(:name, f: f)
     end

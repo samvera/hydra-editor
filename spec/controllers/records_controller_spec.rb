@@ -37,7 +37,7 @@ describe RecordsController do
         end
 
         it "should be successful" do
-          post :create, type: 'Audio', audio: { title: "My title" }
+          post :create, type: 'Audio', audio: { title: ["My title"] }
           expect(response).to redirect_to("/catalog/#{assigns[:record].id}")
           expect(assigns[:record].title).to eq ['My title']
         end
@@ -50,7 +50,7 @@ describe RecordsController do
         end
 
         it "should be successful with json" do
-          post :create, type: 'Audio', audio: { title: "My title" }, format: :json
+          post :create, type: 'Audio', audio: { title: ["My title"] }, format: :json
           expect(response.status).to eq 201
         end
 
@@ -60,7 +60,7 @@ describe RecordsController do
             controller.current_ability.can :create, Audio
           end
           it "should be successful" do
-            post :create, type: 'Audio', audio: { title: "My title" }
+            post :create, type: 'Audio', audio: { title: ["My title"] }
             expect(response).to redirect_to("/catalog/#{assigns[:record].id}")
             expect(assigns[:record].title).to eq ['My title']
           end
@@ -70,14 +70,14 @@ describe RecordsController do
           controller(RecordsController) do
             def set_attributes
               super
-              @record.creator = "Fleece Vest"
+              @record.creator = ["Fleece Vest"]
             end
           end
           # since this is using an an anonymous class, we have to stub
           before { allow(controller).to receive(:resource_instance_name).and_return('record') }
 
           it "should run set_attributes" do
-            post :create, type: 'Audio', audio: { title: "My title" }
+            post :create, type: 'Audio', audio: { title: ["My title"] }
             expect(response).to redirect_to("/catalog/#{assigns[:record].id}")
             expect(assigns[:record].creator).to eq ["Fleece Vest"]
           end
@@ -89,7 +89,7 @@ describe RecordsController do
           end
 
           it "should run object_as_json" do
-            post :create, type: 'Audio', audio: { title: "My title" }, format: 'json'
+            post :create, type: 'Audio', audio: { title: ["My title"] }, format: 'json'
             expect(JSON.parse(response.body)).to eq({"message" => "it works"})
             expect(response.code).to eq '201'
           end
@@ -98,7 +98,7 @@ describe RecordsController do
         describe "when redirect_after_create is overridden" do
           it "should redirect to the alternate location" do
             allow(controller).to receive(:redirect_after_create).and_return('/')
-            post :create, type: 'Audio', audio: {title: "My title"}
+            post :create, type: 'Audio', audio: {title: ["My title"]}
             expect(response).to redirect_to('/')
           end
         end
@@ -109,7 +109,7 @@ describe RecordsController do
           expect(stub_audio).to receive(:save).and_return(false)
         end
         it "should draw the form" do
-          post :create, type: 'Audio', audio: { title: "My title" }
+          post :create, type: 'Audio', audio: { title: ["My title"] }
           expect(response).to render_template("records/new")
           expect(assigns[:record].title).to eq ['My title']
           expect(assigns[:record].description).to eq ['']
@@ -119,7 +119,7 @@ describe RecordsController do
     end
 
     describe "editing a record" do
-      let(:audio) { Audio.new(title: 'My title2', pid: 'test:7') }
+      let(:audio) { Audio.new(title: ['My title2'], pid: 'test:7') }
       before do
         allow(audio).to receive(:persisted?).and_return(true)
         expect(ActiveFedora::Base).to receive(:find).with('test:7', cast:true).and_return(audio)
@@ -134,7 +134,7 @@ describe RecordsController do
     end
 
     describe "updating a record" do
-      let(:audio) { Audio.new(title: 'My title2', pid: 'test:7') }
+      let(:audio) { Audio.new(title: ['My title2'], pid: 'test:7') }
       before do
         allow(audio).to receive(:persisted?).and_return(true)
         expect(ActiveFedora::Base).to receive(:find).with('test:7', cast:true).and_return(audio)
@@ -147,7 +147,7 @@ describe RecordsController do
         end
 
         it "should draw the form" do
-          put :update, id: audio, audio: { title: 'My title 3' }
+          put :update, id: audio, audio: { title: ['My title 3'] }
           expect(response).to be_successful
           expect(response).to render_template('records/edit')
           expect(assigns[:record].title).to eq ['My title 3']
@@ -161,20 +161,20 @@ describe RecordsController do
         end
 
         it "should be successful" do
-          put :update, id: audio, audio: { title: "My title 3" }
+          put :update, id: audio, audio: { title: ["My title 3"] }
           expect(response).to redirect_to("/catalog/#{assigns[:record].id}")
           expect(assigns[:record].title).to eq ['My title 3']
         end
 
         it "should be successful with json" do
-          put :update, id: audio, audio: { title: "My title" }, format: :json
+          put :update, id: audio, audio: { title: ["My title"] }, format: :json
           expect(response.status).to eq 204
         end
 
         context "when redirect_after_update is overridden" do
           it "should redirect to the alternate location" do
             allow(controller).to receive(:redirect_after_update).and_return('/')
-            put :update, id: audio, audio: {title: "My title 3" }
+            put :update, id: audio, audio: {title: ["My title 3"] }
             expect(response).to redirect_to('/')
           end
         end
