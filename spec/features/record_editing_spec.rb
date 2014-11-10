@@ -2,9 +2,9 @@ require 'spec_helper'
 
 describe "record editing" do
   let(:user) { FactoryGirl.create(:user) }
-  let(:record) { Audio.new(pid: "foo:1", title: "Cool Track") }
+  let(:record) { Audio.new(pid: "foo:1", title: ["Cool Track"]) }
   # We need a clone to give to the edit view b/c it gets changed by initialize_fields
-  let(:record_clone) { Audio.new(pid: "foo:1", title: "Cool Track") }
+  let(:record_clone) { Audio.new(pid: "foo:1", title: ["Cool Track"]) }
 
   before do
     HydraEditor.models = ['Audio']
