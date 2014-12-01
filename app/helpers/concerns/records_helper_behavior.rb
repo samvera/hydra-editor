@@ -21,7 +21,7 @@ module RecordsHelperBehavior
   end
 
   def render_edit_field_partial(field_name, locals)
-    collection = ActiveSupport::Inflector.tableize(locals[:f].object.class)
+    collection = ActiveSupport::Inflector.tableize(locals[:f].object.class.to_s)
     render_edit_field_partial_with_action(collection, field_name, locals)
   end
 
