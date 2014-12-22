@@ -24,7 +24,7 @@ describe RecordsController do
     end
 
     describe "creating a new record" do
-      let(:stub_audio) { Audio.new(pid: 'test:6') }
+      let(:stub_audio) { Audio.new(id: 'test:6') }
 
       before do
         allow(stub_audio).to receive(:persisted?).and_return(true)
@@ -111,18 +111,18 @@ describe RecordsController do
         it "should draw the form" do
           post :create, type: 'Audio', audio: { title: ["My title"] }
           expect(response).to render_template("records/new")
-          expect(assigns[:record].title).to eq ['My title']
-          expect(assigns[:record].description).to eq ['']
+          expect(assigns[:form].title).to eq ['My title']
+          expect(assigns[:form].description).to eq ['']
         end
       end
 
     end
 
     describe "editing a record" do
-      let(:audio) { Audio.new(title: ['My title2'], pid: 'test:7') }
+      let(:audio) { Audio.new(title: ['My title2'], id: 'test:7') }
       before do
         allow(audio).to receive(:persisted?).and_return(true)
-        expect(ActiveFedora::Base).to receive(:find).with('test:7', cast:true).and_return(audio)
+        expect(ActiveFedora::Base).to receive(:find).with('test:7').and_return(audio)
         expect(controller).to receive(:authorize!).with(:edit, audio)
       end
 
@@ -134,10 +134,10 @@ describe RecordsController do
     end
 
     describe "updating a record" do
-      let(:audio) { Audio.new(title: ['My title2'], pid: 'test:7') }
+      let(:audio) { Audio.new(title: ['My title2'], id: 'test:7') }
       before do
         allow(audio).to receive(:persisted?).and_return(true)
-        expect(ActiveFedora::Base).to receive(:find).with('test:7', cast:true).and_return(audio)
+        expect(ActiveFedora::Base).to receive(:find).with('test:7').and_return(audio)
         expect(controller).to receive(:authorize!).with(:update, audio)
       end
 
@@ -150,8 +150,8 @@ describe RecordsController do
           put :update, id: audio, audio: { title: ['My title 3'] }
           expect(response).to be_successful
           expect(response).to render_template('records/edit')
-          expect(assigns[:record].title).to eq ['My title 3']
-          expect(assigns[:record].description).to eq ['']
+          expect(assigns[:form].title).to eq ['My title 3']
+          expect(assigns[:form].description).to eq ['']
         end
       end
 

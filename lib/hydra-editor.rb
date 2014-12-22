@@ -20,4 +20,10 @@ module HydraEditor
   def self.valid_model?(type)
     models.include? type
   end
+
+  def self.Presenter(generic)
+    self.const_set("#{generic}Form", Class.new(Hydra::Presenter)).tap do |klass|
+      klass.model_class = generic
+    end
+  end
 end

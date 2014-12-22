@@ -4,7 +4,7 @@ class TestAppGenerator < Rails::Generators::Base
 
   def add_gems
     gem 'blacklight'
-    gem 'hydra-head'
+    gem 'hydra-head', '9.0.0.beta2'
     Bundler.with_clean_env do
       run "bundle install"
     end

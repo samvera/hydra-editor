@@ -35,7 +35,7 @@ module RecordsHelperBehavior
 
   def record_form_action_url(record)
     router = respond_to?(:hydra_editor) ? hydra_editor : self
-    record.new_record? ? router.records_path : router.record_path(record)
+    record.persisted? ? router.record_path(record) : router.records_path
   end
 
   def new_record_title
@@ -47,7 +47,7 @@ module RecordsHelperBehavior
   end
 
   def render_record_title
-    Array(resource.title).first
+    Array(form.title).first
   end
 
  protected
@@ -56,7 +56,7 @@ module RecordsHelperBehavior
   # if no partial exists for the record_type it tries using "records" as a default
   def render_edit_field_partial_with_action(record_type, field_name, locals)
     partial = find_edit_field_partial(record_type, field_name)
-    render partial: partial, locals: locals.merge({key: field_name})
+    render partial, locals.merge(key: field_name)
   end
 
   def find_edit_field_partial(record_type, field_name)
