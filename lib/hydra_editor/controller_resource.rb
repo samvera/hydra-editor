@@ -1,6 +1,6 @@
 class HydraEditor::ControllerResource < CanCan::ControllerResource
   def find_resource
-    ActiveFedora::Base.find(id_param, cast: true)
+    ActiveFedora::Base.find(id_param)
   end
 
   def resource_class

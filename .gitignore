@@ -4,4 +4,6 @@ log/*.log
 pkg/
 spec/internal
 Gemfile.lock
-gemfiles/*.lock
+
+jetty/
+tmp/

@@ -17,7 +17,7 @@ describe RecordsHelper do
   end
 
   it "draws edit_record_title" do
-    allow(helper).to receive(:resource).and_return(double(title:"My Title"))
+    allow(helper).to receive(:form).and_return(double(title:"My Title"))
     expect(helper.edit_record_title).to eq "Edit My Title"
   end
 
@@ -30,18 +30,18 @@ describe RecordsHelper do
     it "draws partial elements based on class of the object" do
       allow(f).to receive(:object).and_return(Dragon.new)
       expect(helper).to receive(:partial_exists?).and_return(true)
-      expect(helper).to receive(:render).with(partial: "dragons/edit_fields/name", locals: {f: f, key: :name})
+      expect(helper).to receive(:render).with("dragons/edit_fields/name", f: f, key: :name)
       helper.render_edit_field_partial(:name, f: f)
       allow(f).to receive(:object).and_return(Serpent.new)
       expect(helper).to receive(:partial_exists?).and_return(true)
-      expect(helper).to receive(:render).with(partial: "serpents/edit_fields/name", locals: {f: f, key: :name})
+      expect(helper).to receive(:render).with("serpents/edit_fields/name", f: f, key: :name)
       helper.render_edit_field_partial(:name, f: f)
     end
 
     it "draws the default partial if the path isn't found" do
       allow(f).to receive(:object).and_return(Dragon.new)
       expect(helper).to receive(:partial_exists?).exactly(4).times.and_return(false, false, false, true)
-      expect(helper).to receive(:render).with(partial: "records/edit_fields/default", locals: {f: f, key: :name})
+      expect(helper).to receive(:render).with("records/edit_fields/default", f: f, key: :name)
       helper.render_edit_field_partial(:name, f: f)
     end
 
@@ -49,7 +49,7 @@ describe RecordsHelper do
       allow(f).to receive(:object).and_return(Dragon.new)
       expect(helper).to receive(:partial_exists?).and_return(false, true)
       expect(Rails.logger).to receive(:debug).exactly(2).times
-      expect(helper).to receive(:render).with(partial: "records/edit_fields/name", locals: {f: f, key: :name})
+      expect(helper).to receive(:render).with("records/edit_fields/name", f: f, key: :name)
       helper.render_edit_field_partial(:name, f: f)
     end
   end

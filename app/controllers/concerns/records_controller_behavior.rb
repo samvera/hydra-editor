@@ -7,7 +7,7 @@ module RecordsControllerBehavior
     rescue_from HydraEditor::InvalidType do
       render 'records/choose_type'
     end
-    helper_method :resource
+    helper_method :form
   end
 
   module ClassMethods
@@ -20,12 +20,12 @@ module RecordsControllerBehavior
   end
 
   def new
-    initialize_fields
+    @form = build_form
     render 'records/new'
   end
 
   def edit
-    initialize_fields
+    @form = build_form
     render 'records/edit'
   end
 
@@ -60,8 +60,7 @@ module RecordsControllerBehavior
   protected
 
   def object_as_json
-    # ActiveFedora::Base#to_json causes a circular reference (before 7.0).  Do something easy
-    resource.terms_for_editing.each_with_object({}) { |term, h|  h[term] = resource[term] }
+    resource.to_json
   end
 
   # Override this method if you want to set different metadata on the object
@@ -70,13 +69,7 @@ module RecordsControllerBehavior
   end
 
   def collect_form_attributes
-    # removes attributes that were only changed by initialize_fields
-    permitted_attributes.reject { |key, value| resource[key].empty? and value == [""] }
-  end
-
-  # we could probably do this with strong parameters if the gemspec depends on Rails 4+
-  def permitted_attributes
-    resource.terms_for_editing.each_with_object({}) { |key, attrs| attrs[key] = raw_attributes[key] if raw_attributes[key] }
+    form_class.model_attributes(raw_attributes)
   end
 
   def raw_attributes
@@ -97,11 +90,32 @@ module RecordsControllerBehavior
     HydraEditor.models.include? params[:type]
   end
 
-  def initialize_fields
-    resource.terms_for_editing.each do |key|
-      # if value is empty, we create an one element array to loop over for output
-      resource[key] = [''] if resource[key].empty?
+  def build_form
+    form_class.new(resource)
+  end
+
+  def form_class
+    @form_class ||= form_name.constantize
+  rescue NameError
+    raise NameError, "Unable to find a #{form_name} class"
+  end
+
+  def form_name
+    if resource_instance_name == 'record'.freeze
+      if params[:id]
+        "#{resource.class.name}Form"
+      elsif has_valid_type?
+        "#{params[:type]}Form"
+      else
+        'RecordForm'
+      end
+    else
+      "#{resource_instance_name.camelize}Form"
     end
+  end
+
+  def form
+    @form
   end
 
   def resource
