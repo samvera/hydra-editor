@@ -20,18 +20,22 @@ RDoc::Task.new(:rdoc) do |rdoc|
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
 
-
 Bundler::GemHelper.install_tasks
 
 require 'rspec/core/rake_task'
 RSpec::Core::RakeTask.new(:spec)
 
+require 'jettywrapper'
+Jettywrapper.hydra_jetty_version = "v8.1.1"
+
 require 'engine_cart/rake_task'
 
-task ci: ['engine_cart:generate'] do
+task ci: ['engine_cart:generate', 'jetty:clean'] do
   ENV['environment'] = "test"
-  # run the tests
-  Rake::Task["spec"].invoke
+  jetty_params = Jettywrapper.load_config
+  error = Jettywrapper.wrap(jetty_params) do
+    Rake::Task['spec'].invoke
+  end
 end
 
 task default: :ci
