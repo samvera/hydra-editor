@@ -1,3 +1,3 @@
 module HydraEditor
-  VERSION = "0.5.1"
+  VERSION = "1.0.0.beta1"
 end
