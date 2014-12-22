@@ -6,7 +6,9 @@ describe Hydra::Presenter do
     property :creator, predicate: ::RDF::DC.creator, multiple: false
   end
 
-  class TestPresenter < HydraEditor.Presenter(::TestModel)
+  class TestPresenter
+    include Hydra::Presenter
+    self.model_class = TestModel
     # Terms is the list of fields displayed by app/views/generic_files/_show_descriptions.html.erb
     self.terms = [:title, :creator]
 

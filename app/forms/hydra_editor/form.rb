@@ -1,6 +1,7 @@
 module HydraEditor
   module Form
     extend ActiveSupport::Concern
+    include Hydra::Presenter
     included do
       class_attribute :required_fields
     end

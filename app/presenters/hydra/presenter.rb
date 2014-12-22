@@ -1,7 +1,11 @@
 module Hydra
-  class ActiveModelPresenter
-    attr_reader :model
-    class_attribute :model_class
+  module ActiveModelPresenter
+    extend ActiveSupport::Concern
+    included do
+      attr_reader :model
+      class_attribute :model_class
+    end
+
     def initialize(object)
       @model = object
     end
@@ -26,22 +30,28 @@ module Hydra
       model[key]
     end
 
-
-    class << self
+    module ClassMethods
       def model_name
+        if model_class.nil?
+          raise "You must set `self.model_class = ' after including Hydra::Presenter on #{self}."
+        end
         model_class.model_name
       end
     end
   end
 
-  class Presenter < ActiveModelPresenter
-    class_attribute :_terms, instance_accessor: false
+  module Presenter
+    extend ActiveSupport::Concern
+    include ActiveModelPresenter
+    included do
+      class_attribute :_terms, instance_accessor: false
+    end
 
     def terms
       self.class._terms
     end
 
-    class << self
+    module ClassMethods
       def multiple?(field)
         model_class.multiple?(field)
       end
