@@ -1,13 +1,4 @@
 module RecordsHelperBehavior
-
-  def metadata_help(key)
-    I18n.t("hydra_editor.form.metadata_help.#{key}", default: key.to_s.humanize)
-  end
-
-  def field_label(key)
-    I18n.t("hydra_editor.form.field_label.#{key}", default: key.to_s.humanize)
-  end
-
   def model_label(key)
     I18n.t("hydra_editor.form.model_label.#{key}", default: key.to_s.humanize)
   end
@@ -23,14 +14,6 @@ module RecordsHelperBehavior
   def render_edit_field_partial(field_name, locals)
     collection = ActiveSupport::Inflector.tableize(locals[:f].object.class.to_s)
     render_edit_field_partial_with_action(collection, field_name, locals)
-  end
-
-  def add_field (key)
-    more_or_less_button(key, 'adder', '+')
-  end
-
-  def subtract_field (key)
-    more_or_less_button(key, 'remover', '-')
   end
 
   def record_form_action_url(record)
@@ -69,15 +52,5 @@ module RecordsHelperBehavior
 
   def partial_exists?(partial)
     lookup_context.find_all(partial).any?
-  end
-
-  def more_or_less_button(key, html_class, symbol)
-    # TODO, there could be more than one element with this id on the page, but the fuctionality doesn't work without it.
-    content_tag('button', class: "#{html_class} btn btn-default", id: "additional_#{key}_submit", name: "additional_#{key}") do
-      (symbol +
-      content_tag('span', class: 'sr-only') do
-        "add another #{key.to_s}"
-      end).html_safe
-    end
   end
 end

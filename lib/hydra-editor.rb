@@ -1,5 +1,4 @@
 require "hydra_editor/engine"
-require "bootstrap_form"
 
 module HydraEditor
 

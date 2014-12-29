@@ -27,9 +27,7 @@ module HydraEditor
       def model_attributes(form_params)
         clean_params = sanitize_params(form_params)
         terms.each do |key|
-          if clean_params[key] == ['']
-            clean_params[key] = []
-          end
+          clean_params[key].delete('') if clean_params[key]
         end
         clean_params
       end

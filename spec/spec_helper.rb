@@ -21,5 +21,8 @@ RSpec.configure do |config|
   config.before(:each, type: "controller") { @routes = HydraEditor::Engine.routes }
 
   config.include Warden::Test::Helpers
+
+  config.include InputSupport, type: :input
+  config.include Capybara::RSpecMatchers, type: :input
   config.infer_spec_type_from_file_location!
 end
