@@ -39,9 +39,17 @@ en:
 
 ```
 
-Expects the following interface on your hydra models:
+Create a form object for each of your models.
 
-```terms_for_editing``` returns an array of model attributes to edit
+```ruby
+# app/forms/recorded_audio_form.rb
+class RecordedAudioForm
+  include HydraEditor::Form
+  self.model_class = RecordedAudio
+  self.terms = [] # Terms to be edited
+  self.required_fields = [] # Required fields
+end
+```
 
 Add the javascript by adding this line to your app/assets/javascript/application.js:
 
@@ -54,6 +62,9 @@ Add the stylesheets by adding this line to your app/assets/stylesheets/applicati
 ```css
  *= require hydra-editor/hydra-editor
 ```
+
+(Note: The Javascript includes require Blacklight and jQuery UI and must be put
+after those.)
 
 ## Other customizations
 
