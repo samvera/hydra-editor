@@ -8,14 +8,6 @@ describe RecordsHelper do
     expect(helper.object_type_options).to eq('Audio' => 'Audio', 'PDF' => 'Pdf')
   end
 
-  it "draws add button" do
-    expect(helper.add_field(:test)).to eq "<button class=\"adder btn btn-default\" id=\"additional_test_submit\" name=\"additional_test\">+<span class=\"sr-only\">add another test</span></button>"
-  end
-
-  it "draws subtract button" do
-    expect(helper.subtract_field(:test)).to eq "<button class=\"remover btn btn-default\" id=\"additional_test_submit\" name=\"additional_test\">-<span class=\"sr-only\">add another test</span></button>"
-  end
-
   it "draws edit_record_title" do
     allow(helper).to receive(:form).and_return(double(title:"My Title"))
     expect(helper.edit_record_title).to eq "Edit My Title"

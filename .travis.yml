@@ -3,8 +3,11 @@ rvm:
   - 2.1
 
 env:
-  - "RAILS_VERSION=4.2.0"
-  - "RAILS_VERSION=4.1.8"
+  matrix:
+    - "RAILS_VERSION=4.2.0"
+    - "RAILS_VERSION=4.1.8"
+  global:
+    - NOKOGIRI_USE_SYSTEM_LIBRARIES=true
 
 notifications:
   irc: "irc.freenode.org#projecthydra"

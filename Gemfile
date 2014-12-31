@@ -5,9 +5,7 @@ source "https://rubygems.org"
 # development dependencies will be added by default to the :development group.
 gemspec path: File.expand_path('..', __FILE__)
 
-# To use debugger
-# gem 'debugger'
-#
+gem 'slop', '~> 3.6.0' # This just helps us generate a valid Gemfile.lock when Rails 4.2 is installed (which requires byebug which has a dependency on slop)
 
 file = File.expand_path("Gemfile", ENV['ENGINE_CART_DESTINATION'] || ENV['RAILS_ROOT'] || File.expand_path("../spec/internal", __FILE__))
 if File.exists?(file)

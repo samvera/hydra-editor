@@ -1,7 +1,8 @@
 require 'spec_helper'
 
 describe 'records/edit_fields/_default' do
-  let(:form) { double("Rails form builder", object: Audio.new) }
+  let(:form) { SimpleForm::FormBuilder.new(:foo, audio, view, {}) }
+  let(:audio) { Audio.new }
 
   before do
     allow(view).to receive(:index).and_return(0)
@@ -14,8 +15,7 @@ describe 'records/edit_fields/_default' do
   context "when the field is multivalued" do
     it "should have the input-group class and the add another button" do
       render
-      expect(response).to have_selector ".input-group"
-      expect(response).to have_selector ".input-group-btn"
+      expect(response).to have_selector ".multi_value"
     end
   end
 
@@ -24,8 +24,7 @@ describe 'records/edit_fields/_default' do
 
     it "should not have the input-group class or the add another button" do
       render
-      expect(response).to_not have_selector ".input-group"
-      expect(response).to_not have_selector ".input-group-btn"
+      expect(response).to_not have_selector ".multi_value"
     end
   end
 end

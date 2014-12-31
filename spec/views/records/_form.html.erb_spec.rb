@@ -1,12 +1,12 @@
 require 'spec_helper'
 
-describe 'records/_edit_field' do
+describe 'records/_form' do
   let(:audio) { Audio.new }
-  let(:form) { BootstrapForm::FormBuilder.new(:foo, audio, view, {}) }
+  let(:form) { AudioForm.new(audio) }
 
   before do
-    allow(view).to receive(:f).and_return(form)
     allow(view).to receive(:key).and_return(:title)
+    allow(view).to receive(:form).and_return(form)
   end
 
   context "when there are no errors" do
@@ -18,7 +18,8 @@ describe 'records/_edit_field' do
   end
 
   context "when errors are present" do
-    before { allow(audio).to receive(:errors).and_return(title: ["can't be blank"]) }
+    let(:errors) { double("errors", :[] => ["can't be blank"]) }
+    before { allow(form).to receive(:errors).and_return(errors) }
 
     it "should have the error class" do
       render
