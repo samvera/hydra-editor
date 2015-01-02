@@ -63,8 +63,7 @@ Add the stylesheets by adding this line to your app/assets/stylesheets/applicati
  *= require hydra-editor/hydra-editor
 ```
 
-(Note: The Javascript includes require Blacklight and jQuery UI and must be put
-after those.)
+(Note: The Javascript includes require Blacklight and must be put after that.)
 
 ## Other customizations
 

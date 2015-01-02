@@ -19,6 +19,7 @@ class MultiValueInput < SimpleForm::Inputs::CollectionInput
       end
     end
 
+    # One blank line at the end
     markup << <<-HTML
           <li class="field-wrapper">
             #{build_text_field('')}
