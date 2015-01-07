@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
   s.files = Dir["{app,config,db,lib}/**/*"] + ["Rakefile", "README.md", "History.md"]
 
   s.add_dependency "rails", "~> 4.1"
-  s.add_dependency "active-fedora", ">= 9.0.0.beta8"
+  s.add_dependency "active-fedora", ">= 9.0.0.rc1"
   s.add_dependency "cancancan"
   s.add_dependency "simple_form", '~> 3.1.0'
 
@@ -25,7 +25,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency "factory_girl_rails"
   s.add_development_dependency "capybara"
   s.add_development_dependency "devise"
-  s.add_development_dependency "hydra-head", '>= 9.0.0.beta2'
+  s.add_development_dependency "hydra-head", '>= 9.0.0.rc1'
   s.add_development_dependency "engine_cart"
   s.add_development_dependency "jettywrapper", '~> 1.8'
 end
