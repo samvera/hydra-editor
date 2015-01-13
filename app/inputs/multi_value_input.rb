@@ -10,20 +10,14 @@ class MultiValueInput < SimpleForm::Inputs::CollectionInput
     HTML
 
     collection.each do |value|
-      unless value.to_s.strip.blank?
-        markup << <<-HTML
-          <li class="field-wrapper">
-            #{build_text_field(value)}
-          </li>
-        HTML
-      end
+      markup << <<-HTML
+        <li class="field-wrapper">
+          #{build_text_field(value)}
+        </li>
+      HTML
     end
 
-    # One blank line at the end
     markup << <<-HTML
-          <li class="field-wrapper">
-            #{build_text_field('')}
-          </li>
         </ul>
 
     HTML
@@ -61,7 +55,7 @@ class MultiValueInput < SimpleForm::Inputs::CollectionInput
     end
 
     def collection
-      @collection ||= Array.wrap(object[attribute_name])
+      @collection ||= Array.wrap(object[attribute_name]).reject { |value| value.to_s.strip.blank? } + ['']
     end
 
     def multiple?; true; end
