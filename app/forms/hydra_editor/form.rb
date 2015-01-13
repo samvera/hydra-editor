@@ -55,16 +55,19 @@ module HydraEditor
     end
 
     protected
-      # override this method if you need to initialize more complex RDF assertions (b-nodes)
       def initialize_fields
+        # we're making a local copy of the attributes that we can modify.
         @attributes = model.attributes
-        terms.select { |key| self[key].blank? }.each do |key|
-          # if value is empty, we create an one element array to loop over for output
-          if self.class.multiple?(key)
-            self[key] = ['']
-          else
-            self[key] = ''
-          end
+        terms.select { |key| self[key].blank? }.each { |key| initialize_field(key) }
+      end
+
+      # override this method if you need to initialize more complex RDF assertions (b-nodes)
+      def initialize_field(key)
+        # if value is empty, we create an one element array to loop over for output
+        if self.class.multiple?(key)
+          self[key] = ['']
+        else
+          self[key] = ''
         end
       end
   end
