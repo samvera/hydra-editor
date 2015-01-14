@@ -43,4 +43,19 @@ describe 'MultiValueInput', type: :input do
       expect(subject).to have_selector('.form-group.foo_bar.multi_value ul.listing li input.foo_bar')
     end
   end
+
+  describe '#build_text_field' do
+    let(:foo) { Foo.new }
+    before { foo.bar = ['bar1', 'bar2'] }
+    let(:builder) { double("builder", object: foo, object_name: 'foo') }
+
+    subject { MultiValueInput.new(builder, :bar, nil, :multi_value, {}) }
+
+    it 'renders multi-value' do
+      expect(subject).to receive(:build_text_field).with('bar1', 0)
+      expect(subject).to receive(:build_text_field).with('bar2', 1)
+      expect(subject).to receive(:build_text_field).with('', 2)
+      subject.input({})
+    end
+  end
 end
