@@ -65,17 +65,28 @@ var HydraEditor = (function($) {
             }
           },
 
-          _newField: function($activeField) {
-              var $removeControl = this.remover.clone(),
-                  $activeFieldControls = $activeField.children('.field-controls'),
-                  $newField = $activeField.clone();
-              $('.add', $activeFieldControls).remove();
-              $activeFieldControls.prepend($removeControl);
+          _newField: function ($activeField) {
+              var $newField = this.createNewField($activeField);
+              // _changeControlsToRemove must come after createNewField
+              // or the new field will not have an add button
+              this._changeControlsToRemove($activeField);
+              return $newField;
+          },
+
+          createNewField: function($activeField) {
+              $newField = $activeField.clone();
               $newChildren = $newField.children('input');
               $newChildren.val('').removeProp('required');
               $newChildren.first().focus();
               this.element.trigger("managed_field:add", $newChildren.first());
-              return $newField;
+              return $newField
+          },
+
+          _changeControlsToRemove: function($activeField) {
+              var $removeControl = this.remover.clone();
+              $activeFieldControls = $activeField.children('.field-controls');
+              $('.add', $activeFieldControls).remove();
+              $activeFieldControls.prepend($removeControl);
           },
 
           clearEmptyWarning: function() {
