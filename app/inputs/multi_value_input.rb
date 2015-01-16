@@ -12,7 +12,7 @@ class MultiValueInput < SimpleForm::Inputs::CollectionInput
     collection.each_with_index do |value, index|
       markup << <<-HTML
         <li class="field-wrapper">
-          #{build_text_field(value, index)}
+          #{build_field(value, index)}
         </li>
       HTML
     end
@@ -28,7 +28,7 @@ class MultiValueInput < SimpleForm::Inputs::CollectionInput
     # Although the 'index' parameter is not used in this implementation it is useful in an
     # an overridden version of this method, especially when the field is a complex object and
     # the override defines nested fields.
-    def build_text_field(value, index)
+    def build_field(value, index)
       options = input_html_options.dup
 
       options[:value] = value
