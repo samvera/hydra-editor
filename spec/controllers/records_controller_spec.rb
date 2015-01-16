@@ -5,6 +5,7 @@ describe RecordsController do
   before do
     HydraEditor.models = ['Audio', 'Pdf']
   end
+
   describe "an admin" do
     let(:user) { FactoryGirl.create(:admin) }
     before do
@@ -188,9 +189,13 @@ describe RecordsController do
       sign_in user
       controller.current_ability.cannot :create, Audio
     end
+
     describe "who goes to the new page" do
       it "should not be allowed" do
-        expect(lambda { get :new, type: 'Audio' }).to raise_error CanCan::AccessDenied
+        get :new, type: 'Audio'
+        expect(response).to redirect_to '/'
+        expect(flash[:alert]).to eq 'You are not authorized to access this page.'
+
       end
     end
   end
