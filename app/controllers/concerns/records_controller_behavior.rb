@@ -2,6 +2,7 @@ module RecordsControllerBehavior
   extend ActiveSupport::Concern
 
   included do
+    include Hydra::Controller::ControllerBehavior
     load_and_authorize_resource only: [:new, :edit, :update, :create], instance_name: resource_instance_name
 
     rescue_from HydraEditor::InvalidType do
