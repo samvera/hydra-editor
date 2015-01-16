@@ -44,7 +44,7 @@ describe 'MultiValueInput', type: :input do
     end
   end
 
-  describe '#build_text_field' do
+  describe '#build_field' do
     let(:foo) { Foo.new }
     before { foo.bar = ['bar1', 'bar2'] }
     let(:builder) { double("builder", object: foo, object_name: 'foo') }
@@ -52,9 +52,9 @@ describe 'MultiValueInput', type: :input do
     subject { MultiValueInput.new(builder, :bar, nil, :multi_value, {}) }
 
     it 'renders multi-value' do
-      expect(subject).to receive(:build_text_field).with('bar1', 0)
-      expect(subject).to receive(:build_text_field).with('bar2', 1)
-      expect(subject).to receive(:build_text_field).with('', 2)
+      expect(subject).to receive(:build_field).with('bar1', 0)
+      expect(subject).to receive(:build_field).with('bar2', 1)
+      expect(subject).to receive(:build_field).with('', 2)
       subject.input({})
     end
   end
