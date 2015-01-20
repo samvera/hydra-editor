@@ -1,6 +1,9 @@
 module HydraEditor
   module Form
+    extend ActiveSupport::Autoload
+    autoload :Permissions
     extend ActiveSupport::Concern
+
     include Hydra::Presenter
     included do
       class_attribute :required_fields
@@ -50,7 +53,6 @@ module HydraEditor
             permitted << term
           end
         end
-        permitted << { permissions_attributes: [:type, :name, :access] }
         permitted
       end
     end
