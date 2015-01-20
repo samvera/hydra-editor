@@ -16,6 +16,13 @@ describe HydraEditor::Form do
   describe "class methods" do
     subject { TestForm.model_name }
     it { is_expected.to eq 'TestModel' }
+
+    describe "model_attributes" do
+      let(:params) { ActionController::Parameters.new(title: [''], creator: 'bob', description: ['huh']) }
+      subject { TestForm.model_attributes(params) }
+
+      it { is_expected.to eq('creator' => 'bob', 'title' => []) }
+    end
   end
 
   let(:object) { TestModel.new(title: ['foo', 'bar'], creator: 'baz') }
