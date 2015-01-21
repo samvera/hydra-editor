@@ -1,20 +1,27 @@
 require 'spec_helper'
 
 describe Hydra::Presenter do
-  class TestModel < ActiveFedora::Base
-    property :title, predicate: ::RDF::DC.title
-    property :creator, predicate: ::RDF::DC.creator, multiple: false
+  before do
+    class TestModel < ActiveFedora::Base
+      property :title, predicate: ::RDF::DC.title
+      property :creator, predicate: ::RDF::DC.creator, multiple: false
+    end
+
+    class TestPresenter
+      include Hydra::Presenter
+      self.model_class = TestModel
+      # Terms is the list of fields displayed by app/views/generic_files/_show_descriptions.html.erb
+      self.terms = [:title, :creator]
+
+      # Depositor and permissions are not displayed in app/views/generic_files/_show_descriptions.html.erb
+      # so don't include them in `terms'.
+      delegate :depositor, :permissions, to: :model
+    end
   end
 
-  class TestPresenter
-    include Hydra::Presenter
-    self.model_class = TestModel
-    # Terms is the list of fields displayed by app/views/generic_files/_show_descriptions.html.erb
-    self.terms = [:title, :creator]
-
-    # Depositor and permissions are not displayed in app/views/generic_files/_show_descriptions.html.erb
-    # so don't include them in `terms'.
-    delegate :depositor, :permissions, to: :model
+  after do
+    Object.send(:remove_const, :TestPresenter)
+    Object.send(:remove_const, :TestModel)
   end
 
   describe "class methods" do
@@ -39,6 +46,22 @@ describe Hydra::Presenter do
     it "should have the hash accessors" do
       expect(presenter[:title]).to eq ['foo', 'bar']
       expect(presenter[:creator]).to eq 'baz'
+    end
+  end
+
+  context "when a presenter has a method" do
+    before do
+      TestPresenter.class_eval do
+        def count
+          7
+        end
+
+        self.terms = [:count]
+      end
+    end
+
+    it "should not be overridden by setting terms" do
+      expect(presenter.count).to eq 7
     end
   end
 

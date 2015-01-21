@@ -1,16 +1,23 @@
 require 'spec_helper'
 
 describe HydraEditor::Form do
-  class TestModel < ActiveFedora::Base
-    property :title, predicate: ::RDF::DC.title
-    property :creator, predicate: ::RDF::DC.creator, multiple: false
+  before do
+    class TestModel < ActiveFedora::Base
+      property :title, predicate: ::RDF::DC.title
+      property :creator, predicate: ::RDF::DC.creator, multiple: false
+    end
+
+    class TestForm
+      include HydraEditor::Form
+      self.model_class = TestModel
+      # Terms is the list of fields displayed by app/views/records/_form.html.erb
+      self.terms = [:title, :creator]
+    end
   end
 
-  class TestForm
-    include HydraEditor::Form
-    self.model_class = TestModel
-    # Terms is the list of fields displayed by app/views/records/_form.html.erb
-    self.terms = [:title, :creator]
+  after do
+    Object.send(:remove_const, :TestForm)
+    Object.send(:remove_const, :TestModel)
   end
 
   describe "class methods" do
