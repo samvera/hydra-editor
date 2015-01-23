@@ -75,6 +75,7 @@ module Hydra
           # we delegate to the array accessor, because the array accessor is overridden in MultiForm
           # which is included by GenericFileEditForm
           terms.each do |term|
+            next if method_defined? term
             define_method term do
               self[term]
             end
