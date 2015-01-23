@@ -27,7 +27,23 @@ module HydraEditor
       @attributes[key.to_s] = value
     end
 
+    class Validator < ActiveModel::Validations::PresenceValidator
+      def self.kind
+        :presence
+      end
+    end
+
     module ClassMethods
+      def validators_on(*attributes)
+        attributes.flat_map do |attribute|
+          if required_fields.include?(attribute)
+            [Validator.new(attributes: [attribute])]
+          else
+            []
+          end
+        end
+      end
+
       def model_attributes(form_params)
         clean_params = sanitize_params(form_params)
         terms.each do |key|
