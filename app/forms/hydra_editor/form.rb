@@ -7,7 +7,8 @@ module HydraEditor
     include Hydra::Presenter
     included do
       class_attribute :required_fields
-      delegate :errors, :to => :model
+      self.required_fields = []
+      delegate :errors, to: :model
     end
 
     def initialize(model)
