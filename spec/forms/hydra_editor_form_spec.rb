@@ -5,13 +5,14 @@ describe HydraEditor::Form do
     class TestModel < ActiveFedora::Base
       property :title, predicate: ::RDF::DC.title
       property :creator, predicate: ::RDF::DC.creator, multiple: false
+      property :abstract, predicate: ::RDF::DC.abstract, multiple: false
     end
 
     class TestForm
       include HydraEditor::Form
       self.model_class = TestModel
       # Terms is the list of fields displayed by app/views/records/_form.html.erb
-      self.terms = [:title, :creator]
+      self.terms = [:title, :creator, :abstract]
     end
   end
 
@@ -25,10 +26,11 @@ describe HydraEditor::Form do
     it { is_expected.to eq 'TestModel' }
 
     describe "model_attributes" do
-      let(:params) { ActionController::Parameters.new(title: [''], creator: 'bob', description: ['huh']) }
+      let(:params) { ActionController::Parameters.new(
+        title: [''], creator: 'bob', description: ['huh'], abstract: '' ) }
       subject { TestForm.model_attributes(params) }
 
-      it { is_expected.to eq('creator' => 'bob', 'title' => []) }
+      it { is_expected.to eq('creator' => 'bob', 'title' => [], 'abstract' => nil) }
     end
   end
 
@@ -37,7 +39,7 @@ describe HydraEditor::Form do
 
   describe "#terms" do
     subject { form.terms }
-    it { is_expected.to eq [:title, :creator] }
+    it { is_expected.to eq [:title, :creator, :abstract] }
   end
 
   describe "the term accessors" do
