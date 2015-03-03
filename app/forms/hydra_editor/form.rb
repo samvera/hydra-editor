@@ -49,6 +49,7 @@ module HydraEditor
         clean_params = sanitize_params(form_params)
         terms.each do |key|
           clean_params[key].delete('') if clean_params[key]
+          clean_params[key] = nil if clean_params[key] == ""
         end
         clean_params
       end
