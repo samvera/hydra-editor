@@ -40,10 +40,10 @@ var HydraEditor = (function($) {
           _attachEvents: function() {
               var _this = this;
               this.element.on('click', '.remove', function (e) {
-                _this.remove_from_list(e);
+                _this.removeFromList(e);
               });
               this.element.on('click', '.add', function (e) {
-                _this.add_to_list(e);
+                _this.addToList(e);
               });
           },
 
@@ -52,17 +52,21 @@ var HydraEditor = (function($) {
               this.element.bind('managed_field:remove', this.options.remove);
           },
 
-          add_to_list: function( event ) {
+          addToList: function( event ) {
             event.preventDefault();
             var $activeField = $(event.target).parents(this.fieldWrapperClass)
 
-            if ($activeField.children('input').val() === '') {
+            if (this.inputIsEmpty($activeField)) {
                 this.displayEmptyWarning();
             } else {
-              var $listing = $(this.listClass, this.element);
-              this.clearEmptyWarning();
-              $listing.append(this._newField($activeField));
+                var $listing = $(this.listClass, this.element);
+                this.clearEmptyWarning();
+                $listing.append(this._newField($activeField));
             }
+          },
+
+          inputIsEmpty: function($activeField) {
+              return $activeField.children('input.multi-text-field').val() === '';
           },
 
           _newField: function ($activeField) {
@@ -101,7 +105,7 @@ var HydraEditor = (function($) {
               $listing.append($warningMessage);
           },
 
-          remove_from_list: function( event ) {
+          removeFromList: function( event ) {
             event.preventDefault();
 
             var field = $(event.target).parents(this.fieldWrapperClass)
