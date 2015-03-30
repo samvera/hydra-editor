@@ -5,6 +5,8 @@ describe Hydra::Presenter do
     class TestModel < ActiveFedora::Base
       property :title, predicate: ::RDF::DC.title
       property :creator, predicate: ::RDF::DC.creator, multiple: false
+      has_and_belongs_to_many :contributors, predicate: ::RDF::DC.contributor
+      belongs_to :publisher, predicate: ::RDF::DC.publisher
     end
 
     class TestPresenter
@@ -64,5 +66,54 @@ describe Hydra::Presenter do
       expect(presenter.count).to eq 7
     end
   end
+
+  describe "multiple?" do
+    subject { TestPresenter.multiple?(field) }
+
+    context "for a multivalue string" do
+      let(:field) { :title }
+      it { is_expected.to be true }
+    end
+
+    context "for a single value string" do
+      let(:field) { :creator }
+      it { is_expected.to be false }
+    end
+
+    context "for a multivalue association" do
+      let(:field) { :contributors }
+      it { is_expected.to be true }
+    end
+
+    context "for a single value association" do
+      let(:field) { :publisher }
+      it { is_expected.to be false }
+    end
+  end
+
+  describe "unique?" do
+    subject { TestPresenter.unique?(field) }
+
+    context "for a multivalue string" do
+      let(:field) { :title }
+      it { is_expected.to be false }
+    end
+
+    context "for a single value string" do
+      let(:field) { :creator }
+      it { is_expected.to be true }
+    end
+
+    context "for a multivalue association" do
+      let(:field) { :contributors }
+      it { is_expected.to be false }
+    end
+
+    context "for a single value association" do
+      let(:field) { :publisher }
+      it { is_expected.to be true }
+    end
+  end
+
 
 end

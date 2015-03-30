@@ -53,11 +53,19 @@ module Hydra
 
     module ClassMethods
       def multiple?(field)
-        model_class.multiple?(field)
+        if reflection = model_class.reflect_on_association(field)
+          reflection.collection?
+        else
+          model_class.multiple?(field)
+        end
       end
 
       def unique?(field)
-        model_class.unique?(field)
+        if reflection = model_class.reflect_on_association(field)
+          !reflection.collection?
+        else
+          model_class.unique?(field)
+        end
       end
 
       def terms=(terms)
