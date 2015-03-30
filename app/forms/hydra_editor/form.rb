@@ -45,6 +45,12 @@ module HydraEditor
         end
       end
 
+      # Return a hash of all the parameters from the form as a hash.
+      # This is typically used by the controller as the main read interface to the form.
+      # This hash can then be used to create or update an object in the data store.
+      # example:
+      #   ImageForm.model_attributes(params[:image])
+      #   # => { title: 'My new image' }
       def model_attributes(form_params)
         clean_params = sanitize_params(form_params)
         terms.each do |key|
