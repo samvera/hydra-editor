@@ -29,14 +29,15 @@ You can customize the names of your fields/models by adding to your translation 
 en:
   hydra_editor:
     form:
-      field_label:
-        source2: "Alternate Source"
-        dateCreated: "Date Created"
-        dateAvailable: "Date Available"
       model_label:
         PdfModel: "PDF"
         RecordedAudio: "audio"
 
+  simple_form:
+    labels:
+      image:
+        dateCreated: "Date Created"
+        sub_location: "Holding Sub-location"
 ```
 
 Create a form object for each of your models.
