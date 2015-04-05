@@ -1,4 +1,5 @@
 .ruby-*
+.rvmrc
 .bundle/
 log/*.log
 pkg/
