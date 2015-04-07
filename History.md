@@ -1,5 +1,10 @@
 # History of hydra-editor releases
 
+## 1.0.3
+* 2015-04-02: Updated README with info on how to set form labels [val99erie]
+* 2015-03-30: Add documentation to Form#model_attributes. (ci skip) [Justin Coyne]
+* 2015-03-30: Presenter should be able to know the cardinality of associations [Justin Coyne]
+
 ## 1.0.2
 * Update javascript to be more selective about which fields cause an error when blank
 
