@@ -3,25 +3,36 @@ class MultiValueInput < SimpleForm::Inputs::CollectionInput
     @rendered_first_element = false
     input_html_classes.unshift("string")
     input_html_options[:name] ||= "#{object_name}[#{attribute_name}][]"
-    markup = <<-HTML
 
+    outer_wrapper do
+      buffer_each(collection) do |value, index|
+        inner_wrapper do
+          build_field(value, index)
+        end
+      end
+    end
+  end
 
-        <ul class="listing">
-    HTML
+  protected
 
-    collection.each_with_index do |value, index|
-      markup << <<-HTML
-        <li class="field-wrapper">
-          #{build_field(value, index)}
-        </li>
-      HTML
+    def buffer_each(collection)
+      collection.each_with_object('').with_index do |(value, buffer), index|
+        buffer << yield(value, index)
+      end
     end
 
-    markup << <<-HTML
-        </ul>
+    def outer_wrapper
+      "    <ul class=\"listing\">\n        #{yield}\n      </ul>\n"
+    end
 
-    HTML
-  end
+
+    def inner_wrapper
+        <<-HTML
+          <li class="field-wrapper">
+            #{yield}
+          </li>
+        HTML
+    end
 
   private
 
