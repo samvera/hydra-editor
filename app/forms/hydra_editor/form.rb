@@ -6,6 +6,7 @@ module HydraEditor
 
     include Hydra::Presenter
     included do
+      attr_writer :field_generator
       class_attribute :required_fields
       self.required_fields = []
       delegate :errors, to: :model
@@ -14,6 +15,10 @@ module HydraEditor
     def initialize(model)
       super
       initialize_fields
+    end
+
+    def generate_input(form, key)
+      field_generator.new(form, key).input
     end
 
     def required?(key)
@@ -26,6 +31,10 @@ module HydraEditor
 
     def []=(key, value)
       @attributes[key.to_s] = value
+    end
+
+    def field_generator
+      @field_generator ||= HydraEditor::Fields::Generator
     end
 
     class Validator < ActiveModel::Validations::PresenceValidator
