@@ -39,7 +39,7 @@ class MultiValueInput < SimpleForm::Inputs::CollectionInput
     # Although the 'index' parameter is not used in this implementation it is useful in an
     # an overridden version of this method, especially when the field is a complex object and
     # the override defines nested fields.
-    def build_field(value, index)
+    def build_field_options(value, index)
       options = input_html_options.dup
 
       options[:value] = value
@@ -53,6 +53,12 @@ class MultiValueInput < SimpleForm::Inputs::CollectionInput
       options[:class] += ["#{input_dom_id} form-control multi-text-field"]
       options[:'aria-labelledby'] = label_id
       @rendered_first_element = true
+
+      options
+    end
+
+    def build_field(value, index)
+      options = build_field_options(value, index)
       if options.delete(:type) == 'textarea'.freeze
         @builder.text_area(attribute_name, options)
       else
