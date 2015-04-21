@@ -8,8 +8,8 @@ var HydraEditor = (function($) {
           this.options = options;
 
           this.controls = $("<span class=\"input-group-btn field-controls\">");
-          this.remover  = $("<button class=\"btn btn-danger remove\"><i class=\"icon-white glyphicon-minus\"></i><span>Remove</span></button>");
-          this.adder    = $("<button class=\"btn btn-success add\"><i class=\"icon-white glyphicon-plus\"></i><span>Add</span></button>");
+          this.remover  = $("<button type=\"button\" class=\"btn btn-danger remove\"><i class=\"icon-white glyphicon-minus\"></i><span>Remove</span></button>");
+          this.adder    = $("<button type=\"button\" class=\"btn btn-success add\"><i class=\"icon-white glyphicon-plus\"></i><span>Add</span></button>");
 
           this.fieldWrapperClass = '.field-wrapper';
           this.warningClass = '.has-warning';
