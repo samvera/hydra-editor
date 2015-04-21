@@ -8,5 +8,8 @@ en:
     form:
       title: 'Descriptions'
       required_fields: 'indicates required fields'
+      instructions: 'Use the tab key to navigate the form, press space when
+                    focused on a button to add or remove fields, and press
+                    enter to submit when focused on simple text fields.'
     new:
       title: 'Create a New %s Record'
