@@ -1,7 +1,8 @@
 require 'spec_helper'
 
 describe 'records/edit_fields/_default' do
-  let(:form) { SimpleForm::FormBuilder.new(:foo, audio, view, {}) }
+  let(:form) { SimpleForm::FormBuilder.new(:foo, audio_form, view, {}) }
+  let(:audio_form) { AudioForm.new(audio) }
   let(:audio) { Audio.new }
 
   before do

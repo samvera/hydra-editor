@@ -91,4 +91,25 @@ describe HydraEditor::Form do
     end
 
   end
+
+  describe "#generate_input" do
+    let(:generator_class) { class_double(HydraEditor::Fields::Generator) }
+    let(:generator) { instance_double(HydraEditor::Fields::Generator) }
+
+    it "delegates to the field generator" do
+      expect(form).to receive(:field_generator).and_return(generator_class)
+      expect(generator_class).to receive(:new).with(:form, :key).and_return(generator)
+      expect(generator).to receive(:input)
+
+      form.generate_input(:form, :key)
+    end
+  end
+
+  describe "#field_generator" do
+    context "when left untouched" do
+      it "defaults to HydraEditor::Fields::Generator" do
+        expect(form.field_generator).to eq(HydraEditor::Fields::Generator)
+      end
+    end
+  end
 end
