@@ -16,9 +16,10 @@ Gem::Specification.new do |s|
   s.files = Dir["{app,config,db,lib}/**/*"] + ["Rakefile", "README.md", "History.md"]
 
   s.add_dependency "rails", ">= 3.2.13", "< 5.0"
-  s.add_dependency 'bootstrap_form', '~> 2.1.1'
-  s.add_dependency "active-fedora", ">= 6.3.0"
-  s.add_dependency "cancancan"
+  s.add_dependency 'bootstrap_form', '~> 2.1'
+  s.add_dependency 'active-fedora', '>= 6.3.0'
+  s.add_dependency 'hydra-head', '>= 7.0.0', '< 9'
+  s.add_dependency 'cancancan', '~> 1.10'
 
   s.add_development_dependency "sqlite3"
   s.add_development_dependency "rspec-rails"
