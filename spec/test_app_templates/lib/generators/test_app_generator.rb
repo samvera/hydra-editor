@@ -1,14 +1,7 @@
 require 'rails/generators'
 
 class TestAppGenerator < Rails::Generators::Base
-
-  def add_gems
-    gem 'blacklight'
-    gem 'hydra-head'
-    Bundler.with_clean_env do
-      run "bundle install"
-    end
-  end
+  source_root "./spec/test_app_templates"
 
   def run_blacklight_generator
     say_status("warning", "GENERATING BL", :yellow)
