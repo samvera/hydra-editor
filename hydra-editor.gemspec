@@ -17,7 +17,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency "rails", ">= 3.2.13", "< 5.0"
   s.add_dependency 'bootstrap_form', '~> 2.1.1'
-  s.add_dependency "active-fedora", ">= 6.3.0"
+  s.add_dependency "active-fedora", ">= 6.3.0", "< 9.0"
   s.add_dependency "cancancan"
 
   s.add_development_dependency "sqlite3"
