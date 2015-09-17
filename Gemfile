@@ -15,6 +15,7 @@ else
   gem 'rails', ENV['RAILS_VERSION'] if ENV['RAILS_VERSION']
 
   if ENV['RAILS_VERSION'] and ENV['RAILS_VERSION'] !~ /^4.2/
+    gem "bootstrap-sass", "3.3.4.1"
     gem 'sass-rails', "< 5.0"
   else
     gem 'responders', "~> 2.0"
