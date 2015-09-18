@@ -8,5 +8,8 @@ en:
     form:
       title: 'Descriptions'
       required_fields: 'indicates required fields'
+      instructions_html: 'Use the <kbd>Tab</kbd> key to navigate the form, press
+                         <kbd>Space</kbd> to activate a button, and press
+                         <kbd>Enter</kbd> to submit the whole form.'
     new:
       title: 'Create a New %s Record'
