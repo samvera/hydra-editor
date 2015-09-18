@@ -3,6 +3,10 @@ module Hydra
     extend ActiveSupport::Concern
     included do
       attr_reader :model
+
+      # model_class only needs to be set if you are using the
+      # deprecated class methods multiple? or unique? or if you
+      # need to use +model_name+ method or if this class includes Hydra::Editor::Form.
       class_attribute :model_class
     end
 
@@ -51,8 +55,18 @@ module Hydra
       self.class._terms
     end
 
+    def multiple?(field)
+      if reflection = model.class.reflect_on_association(field)
+        reflection.collection?
+      else
+        model.class.multiple?(field)
+      end
+    end
+
     module ClassMethods
+      # @deprecated Because if we use an instance method, there will be no need to set self.model_class in most instances. Note, there is a class method multiple? on the form.
       def multiple?(field)
+        Deprecation.warn(ClassMethods, "The class method multiple? has been deprecated. Use the instance method instead. This will be removed in version 2.0")
         if reflection = model_class.reflect_on_association(field)
           reflection.collection?
         else
@@ -61,6 +75,7 @@ module Hydra
       end
 
       def unique?(field)
+        Deprecation.warn(ClassMethods, "The class method unique? has been deprecated. Use the instance method 'multiple?' instead. This will be removed in version 2.0")
         if reflection = model_class.reflect_on_association(field)
           !reflection.collection?
         else
