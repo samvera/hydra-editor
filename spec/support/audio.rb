@@ -8,5 +8,9 @@ class Audio < ActiveFedora::Base
   validates_presence_of :title
 
   # the isPartOf attribute should not get set, because it's not listed in "terms_for_editing"
-  has_attributes :title, :creator, :description, :subject, :isPartOf, datastream: "descMetadata", multiple: true
+  property :title, delegate_to: 'descMetadata'
+  property :creator, delegate_to: 'descMetadata'
+  property :description, delegate_to: 'descMetadata'
+  property :subject, delegate_to: 'descMetadata'
+  property :isPartOf, delegate_to: 'descMetadata'
 end
