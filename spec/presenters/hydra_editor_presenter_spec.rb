@@ -68,30 +68,58 @@ describe Hydra::Presenter do
   end
 
   describe "multiple?" do
-    subject { TestPresenter.multiple?(field) }
+    describe "instance method" do
+      subject { presenter.multiple?(field) }
 
-    context "for a multivalue string" do
-      let(:field) { :title }
-      it { is_expected.to be true }
+      context "for a multivalue string" do
+        let(:field) { :title }
+        it { is_expected.to be true }
+      end
+
+      context "for a single value string" do
+        let(:field) { :creator }
+        it { is_expected.to be false }
+      end
+
+      context "for a multivalue association" do
+        let(:field) { :contributors }
+        it { is_expected.to be true }
+      end
+
+      context "for a single value association" do
+        let(:field) { :publisher }
+        it { is_expected.to be false }
+      end
     end
 
-    context "for a single value string" do
-      let(:field) { :creator }
-      it { is_expected.to be false }
-    end
+    describe "class method" do
+      before { allow(Deprecation).to receive(:warn) }
+      subject { TestPresenter.multiple?(field) }
 
-    context "for a multivalue association" do
-      let(:field) { :contributors }
-      it { is_expected.to be true }
-    end
+      context "for a multivalue string" do
+        let(:field) { :title }
+        it { is_expected.to be true }
+      end
 
-    context "for a single value association" do
-      let(:field) { :publisher }
-      it { is_expected.to be false }
+      context "for a single value string" do
+        let(:field) { :creator }
+        it { is_expected.to be false }
+      end
+
+      context "for a multivalue association" do
+        let(:field) { :contributors }
+        it { is_expected.to be true }
+      end
+
+      context "for a single value association" do
+        let(:field) { :publisher }
+        it { is_expected.to be false }
+      end
     end
   end
 
   describe "unique?" do
+    before { allow(Deprecation).to receive(:warn) }
     subject { TestPresenter.unique?(field) }
 
     context "for a multivalue string" do

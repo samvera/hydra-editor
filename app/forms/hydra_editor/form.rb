@@ -45,6 +45,14 @@ module HydraEditor
         end
       end
 
+      def multiple?(field)
+        if reflection = model_class.reflect_on_association(field)
+          reflection.collection?
+        else
+          model_class.multiple?(field)
+        end
+      end
+
       # Return a hash of all the parameters from the form as a hash.
       # This is typically used by the controller as the main read interface to the form.
       # This hash can then be used to create or update an object in the data store.
@@ -90,7 +98,7 @@ module HydraEditor
       # override this method if you need to initialize more complex RDF assertions (b-nodes)
       def initialize_field(key)
         # if value is empty, we create an one element array to loop over for output
-        if self.class.multiple?(key)
+        if multiple?(key)
           self[key] = ['']
         else
           self[key] = ''
