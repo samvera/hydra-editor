@@ -90,6 +90,11 @@ describe Hydra::Presenter do
         let(:field) { :publisher }
         it { is_expected.to be false }
       end
+
+      context "with anything else" do
+        let(:field) { :visibility }
+        it { is_expected.to be false }
+      end
     end
 
     describe "class method" do

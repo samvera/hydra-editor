@@ -55,23 +55,18 @@ module Hydra
       self.class._terms
     end
 
+    # If the field is a reflection, delegate to the reflection.
+    # If the field is a property, delegate to the property.
+    # Otherwise return false
     def multiple?(field)
-      if reflection = model.class.reflect_on_association(field)
-        reflection.collection?
-      else
-        model.class.multiple?(field)
-      end
+      HydraEditor::FieldMetadataService.multiple?(model.class, field)
     end
 
     module ClassMethods
       # @deprecated Because if we use an instance method, there will be no need to set self.model_class in most instances. Note, there is a class method multiple? on the form.
       def multiple?(field)
         Deprecation.warn(ClassMethods, "The class method multiple? has been deprecated. Use the instance method instead. This will be removed in version 2.0")
-        if reflection = model_class.reflect_on_association(field)
-          reflection.collection?
-        else
-          model_class.multiple?(field)
-        end
+        HydraEditor::FieldMetadataService.multiple?(model_class, field)
       end
 
       def unique?(field)
