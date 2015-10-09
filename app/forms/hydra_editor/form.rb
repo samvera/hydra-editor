@@ -46,11 +46,7 @@ module HydraEditor
       end
 
       def multiple?(field)
-        if reflection = model_class.reflect_on_association(field)
-          reflection.collection?
-        else
-          model_class.multiple?(field)
-        end
+        HydraEditor::FieldMetadataService.multiple?(model_class, field)
       end
 
       # Return a hash of all the parameters from the form as a hash.
