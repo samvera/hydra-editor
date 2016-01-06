@@ -7,18 +7,36 @@ gemspec path: File.expand_path('..', __FILE__)
 
 gem 'slop', '~> 3.6.0' # This just helps us generate a valid Gemfile.lock when Rails 4.2 is installed (which requires byebug which has a dependency on slop)
 
-file = File.expand_path("Gemfile", ENV['ENGINE_CART_DESTINATION'] || ENV['RAILS_ROOT'] || File.expand_path("../spec/internal", __FILE__))
-if File.exists?(file)
-  puts "Loading #{file} ..." if $DEBUG # `ruby -d` or `bundle -v`
-  instance_eval File.read(file)
+# BEGIN ENGINE_CART BLOCK
+# engine_cart: 0.8.1
+# engine_cart stanza: 0.8.0
+# the below comes from engine_cart, a gem used to test this Rails engine gem in the context of a Rails app.
+file = File.expand_path("Gemfile", ENV['ENGINE_CART_DESTINATION'] || ENV['RAILS_ROOT'] || File.expand_path(".internal_test_app", File.dirname(__FILE__)))
+if File.exist?(file)
+  begin
+    eval_gemfile file
+  rescue Bundler::GemfileError => e
+    Bundler.ui.warn '[EngineCart] Skipping Rails application dependencies:'
+    Bundler.ui.warn e.message
+  end
 else
+  Bundler.ui.warn "[EngineCart] Unable to find test application dependencies in #{file}, using placeholder dependencies"
+
   gem 'rails', ENV['RAILS_VERSION'] if ENV['RAILS_VERSION']
 
-  if ENV['RAILS_VERSION'] and ENV['RAILS_VERSION'] !~ /^4.2/
-    gem "bootstrap-sass", "3.3.4.1"
-    gem 'sass-rails', "< 5.0"
-  else
+  if ENV['RAILS_VERSION'].nil? || ENV['RAILS_VERSION'] =~ /^4\.2/
     gem 'responders', "~> 2.0"
     gem 'sass-rails', ">= 5.0"
+  elsif ENV['RAILS_VERSION'] =~ /^5\.0/
+    # nop`
+  else
+    gem 'sass-rails', "~> 4.0.3"
+    # This relates to sass/sass#1656. bootstrap-sass 3.3.5 introduced a
+    # regression which causes the Blacklight default CSS to fail its build.
+    # A quick fix could be to require sass-rails 5.0.x, but that introduces
+    # some slight dependency resolution problems under Rails 4.1 since Rails 4.1
+    # apps use sass-rails ~> 4.0.3 by default.
+    gem "bootstrap-sass", "3.3.4.1"
   end
 end
+# END ENGINE_CART BLOCK
