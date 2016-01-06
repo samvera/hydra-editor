@@ -3,7 +3,7 @@
 .bundle/
 log/*.log
 pkg/
-spec/internal
+.internal_test_app
 Gemfile.lock
 
 jetty/

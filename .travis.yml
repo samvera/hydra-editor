@@ -1,13 +1,12 @@
 language: ruby
-cache: bundler
 sudo: false
 rvm:
   - 2.2
 
 env:
   matrix:
-    - "RAILS_VERSION=4.2.4"
-    - "RAILS_VERSION=4.1.13"
+    - "RAILS_VERSION=4.2.5"
+    - "RAILS_VERSION=4.1.14"
   global:
     - NOKOGIRI_USE_SYSTEM_LIBRARIES=true
 

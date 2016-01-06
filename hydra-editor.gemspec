@@ -26,6 +26,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency "capybara", '~> 2.4'
   s.add_development_dependency "devise", '~> 3.4'
   s.add_development_dependency "hydra-head", '~> 9.0'
-  s.add_development_dependency "engine_cart", '~> 0.5'
+  s.add_development_dependency "engine_cart", '0.8.0'
   s.add_development_dependency "jettywrapper", '~> 2.0'
 end
