@@ -79,12 +79,12 @@ module RecordsControllerBehavior
 
   # Override to redirect to an alternate location after create
   def redirect_after_create
-    main_app.catalog_path resource
+    main_app.solr_document_path resource
   end
 
   # Override to redirect to an alternate location after update
   def redirect_after_update
-    main_app.catalog_path resource
+    main_app.solr_document_path resource
   end
 
   def has_valid_type?
