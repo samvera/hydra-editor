@@ -1,5 +1,8 @@
 # History of hydra-editor releases
 
+## 1.2.0
+* 2016-01-18: Support Blacklight 6 [Justin Coyne]
+
 ## 1.1.0
 * 2015-10-09: multiple? shouldn't raise errors when confronted with non-properties [Justin Coyne]
 * 2015-09-17: Add an instance method version of multiple? [Justin Coyne]
