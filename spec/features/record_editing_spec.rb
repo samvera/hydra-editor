@@ -1,16 +1,16 @@
 require 'spec_helper'
 
-describe "record editing" do
+describe 'record editing' do
   let(:user) { FactoryGirl.create(:user) }
-  let(:record) { Audio.new(id: "audio-1", title: ["Cool Track"]) }
+  let(:record) { Audio.new(id: 'audio-1', title: ['Cool Track']) }
   # We need a clone to give to the edit view b/c it gets changed by initialize_fields
-  let(:record_clone) { Audio.new(id: "audio-1", title: ["Cool Track"]) }
+  let(:record_clone) { Audio.new(id: 'audio-1', title: ['Cool Track']) }
 
   before do
     HydraEditor.models = ['Audio']
     allow_any_instance_of(Ability).to receive(:authorize!).and_return(true)
     # Avoid the catalog so we don't have to run Solr
-    allow_any_instance_of(RecordsController).to receive(:redirect_after_update).and_return("/404.html")
+    allow_any_instance_of(RecordsController).to receive(:redirect_after_update).and_return('/404.html')
     allow_any_instance_of(Audio).to receive(:new_record?).and_return(false)
     allow_any_instance_of(Audio).to receive(:save).and_return(true)
 
@@ -22,10 +22,10 @@ describe "record editing" do
   after do
     Warden.test_reset!
   end
-  it "should be idempotent" do
+  it 'should be idempotent' do
     visit "/records/#{record.id}/edit"
     click_button 'Save'
-    expect(record.title).to eq ["Cool Track"]
+    expect(record.title).to eq ['Cool Track']
     expect(record.creator).to eq []
     expect(record.description).to eq []
     expect(record.subject).to eq []

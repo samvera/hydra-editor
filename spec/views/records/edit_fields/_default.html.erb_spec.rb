@@ -13,20 +13,19 @@ describe 'records/edit_fields/_default' do
     allow(view).to receive(:v).and_return('')
   end
 
-  context "when the field is multivalued" do
-    it "should have the input-group class and the add another button" do
+  context 'when the field is multivalued' do
+    it 'should have the input-group class and the add another button' do
       render
-      expect(response).to have_selector ".multi_value"
+      expect(response).to have_selector '.multi_value'
     end
   end
 
-  context "when the field is not multivalued" do
+  context 'when the field is not multivalued' do
     before { allow(Audio).to receive(:multiple?).with(:title).and_return(false) }
 
-    it "should not have the input-group class or the add another button" do
+    it 'should not have the input-group class or the add another button' do
       render
-      expect(response).to_not have_selector ".multi_value"
+      expect(response).to_not have_selector '.multi_value'
     end
   end
 end
-

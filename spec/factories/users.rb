@@ -7,7 +7,7 @@ FactoryGirl.define do
     end
     password 'password'
     factory :admin do
-      #admin true
+      # admin true
     end
   end
 end

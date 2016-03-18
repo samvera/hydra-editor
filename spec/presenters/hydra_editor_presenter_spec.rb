@@ -26,7 +26,7 @@ describe Hydra::Presenter do
     Object.send(:remove_const, :TestModel)
   end
 
-  describe "class methods" do
+  describe 'class methods' do
     subject { TestPresenter.model_name }
     it { is_expected.to eq 'TestModel' }
   end
@@ -34,24 +34,24 @@ describe Hydra::Presenter do
   let(:object) { TestModel.new(title: ['foo', 'bar'], creator: 'baz') }
   let(:presenter) { TestPresenter.new(object) }
 
-  describe "#terms" do
+  describe '#terms' do
     subject { presenter.terms }
     it { is_expected.to eq [:title, :creator] }
   end
 
-  describe "the term accessors" do
-    it "should have the accessors" do
+  describe 'the term accessors' do
+    it 'should have the accessors' do
       expect(presenter.title).to eq ['foo', 'bar']
       expect(presenter.creator).to eq 'baz'
     end
 
-    it "should have the hash accessors" do
+    it 'should have the hash accessors' do
       expect(presenter[:title]).to eq ['foo', 'bar']
       expect(presenter[:creator]).to eq 'baz'
     end
   end
 
-  context "when a presenter has a method" do
+  context 'when a presenter has a method' do
     before do
       TestPresenter.class_eval do
         def count
@@ -62,91 +62,89 @@ describe Hydra::Presenter do
       end
     end
 
-    it "should not be overridden by setting terms" do
+    it 'should not be overridden by setting terms' do
       expect(presenter.count).to eq 7
     end
   end
 
-  describe "multiple?" do
-    describe "instance method" do
+  describe 'multiple?' do
+    describe 'instance method' do
       subject { presenter.multiple?(field) }
 
-      context "for a multivalue string" do
+      context 'for a multivalue string' do
         let(:field) { :title }
         it { is_expected.to be true }
       end
 
-      context "for a single value string" do
+      context 'for a single value string' do
         let(:field) { :creator }
         it { is_expected.to be false }
       end
 
-      context "for a multivalue association" do
+      context 'for a multivalue association' do
         let(:field) { :contributors }
         it { is_expected.to be true }
       end
 
-      context "for a single value association" do
+      context 'for a single value association' do
         let(:field) { :publisher }
         it { is_expected.to be false }
       end
 
-      context "with anything else" do
+      context 'with anything else' do
         let(:field) { :visibility }
         it { is_expected.to be false }
       end
     end
 
-    describe "class method" do
+    describe 'class method' do
       before { allow(Deprecation).to receive(:warn) }
       subject { TestPresenter.multiple?(field) }
 
-      context "for a multivalue string" do
+      context 'for a multivalue string' do
         let(:field) { :title }
         it { is_expected.to be true }
       end
 
-      context "for a single value string" do
+      context 'for a single value string' do
         let(:field) { :creator }
         it { is_expected.to be false }
       end
 
-      context "for a multivalue association" do
+      context 'for a multivalue association' do
         let(:field) { :contributors }
         it { is_expected.to be true }
       end
 
-      context "for a single value association" do
+      context 'for a single value association' do
         let(:field) { :publisher }
         it { is_expected.to be false }
       end
     end
   end
 
-  describe "unique?" do
+  describe 'unique?' do
     before { allow(Deprecation).to receive(:warn) }
     subject { TestPresenter.unique?(field) }
 
-    context "for a multivalue string" do
+    context 'for a multivalue string' do
       let(:field) { :title }
       it { is_expected.to be false }
     end
 
-    context "for a single value string" do
+    context 'for a single value string' do
       let(:field) { :creator }
       it { is_expected.to be true }
     end
 
-    context "for a multivalue association" do
+    context 'for a multivalue association' do
       let(:field) { :contributors }
       it { is_expected.to be false }
     end
 
-    context "for a single value association" do
+    context 'for a single value association' do
       let(:field) { :publisher }
       it { is_expected.to be true }
     end
   end
-
-
 end

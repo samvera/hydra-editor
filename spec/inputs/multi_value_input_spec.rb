@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe 'MultiValueInput', type: :input do
-
   class Foo
     extend ActiveModel::Naming
     include ActiveModel::Conversion
@@ -10,17 +9,17 @@ describe 'MultiValueInput', type: :input do
     attr_accessor :bar
 
     def [](val)
-      raise "Unknown attribute" unless val == :bar
+      raise 'Unknown attribute' unless val == :bar
       bar
     end
   end
 
   context 'happy case' do
     let(:foo) { Foo.new }
-    let(:bar) { ["bar1", "bar2"] }
+    let(:bar) { ['bar1', 'bar2'] }
     subject do
       foo.bar = bar
-      input_for(foo, :bar, { as: :multi_value, required: true } )
+      input_for(foo, :bar, as: :multi_value, required: true)
     end
 
     it 'renders multi-value' do
@@ -34,9 +33,8 @@ describe 'MultiValueInput', type: :input do
     let(:bar) { nil }
     subject do
       foo.bar = bar
-      input_for(foo, :bar, { as: :multi_value, required: true } )
+      input_for(foo, :bar, as: :multi_value, required: true)
     end
-
 
     it 'renders multi-value given a nil object' do
       expect(subject).to have_selector('.form-group.foo_bar.multi_value label.required[for=foo_bar]', text: '* Bar')
@@ -47,7 +45,7 @@ describe 'MultiValueInput', type: :input do
   describe '#build_field' do
     let(:foo) { Foo.new }
     before { foo.bar = ['bar1', 'bar2'] }
-    let(:builder) { double("builder", object: foo, object_name: 'foo') }
+    let(:builder) { double('builder', object: foo, object_name: 'foo') }
 
     subject { MultiValueInput.new(builder, :bar, nil, :multi_value, {}) }
 

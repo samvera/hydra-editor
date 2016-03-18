@@ -4,7 +4,7 @@ class HydraEditor::ControllerResource < CanCan::ControllerResource
   end
 
   def resource_class
-    raise HydraEditor::InvalidType, "Lost the type" unless has_valid_type?
+    raise HydraEditor::InvalidType, 'Lost the type' unless has_valid_type?
     type_param.constantize
   end
 

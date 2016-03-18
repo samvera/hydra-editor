@@ -69,15 +69,6 @@ Style/BlockEndNewline:
   Exclude:
     - 'spec/forms/hydra_editor_form_permissions_spec.rb'
 
-# Offense count: 4
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-# SupportedStyles: braces, no_braces, context_dependent
-Style/BracesAroundHashParameters:
-  Exclude:
-    - 'spec/controllers/records_controller_spec.rb'
-    - 'spec/inputs/multi_value_input_spec.rb'
-
 # Offense count: 2
 # Cop supports --auto-correct.
 # Configuration parameters: SingleLineConditionsOnly.
@@ -122,58 +113,6 @@ Style/EmptyLineBetweenDefs:
   Exclude:
     - 'app/controllers/concerns/records_controller_behavior.rb'
 
-# Offense count: 3
-# Cop supports --auto-correct.
-Style/EmptyLines:
-  Exclude:
-    - 'app/inputs/multi_value_input.rb'
-    - 'spec/inputs/multi_value_input_spec.rb'
-    - 'spec/presenters/hydra_editor_presenter_spec.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/EmptyLinesAroundAccessModifier:
-  Exclude:
-    - 'app/forms/hydra_editor/form.rb'
-
-# Offense count: 8
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-# SupportedStyles: empty_lines, no_empty_lines
-Style/EmptyLinesAroundBlockBody:
-  Exclude:
-    - 'spec/controllers/records_controller_spec.rb'
-    - 'spec/features/create_record_spec.rb'
-    - 'spec/forms/hydra_editor_form_spec.rb'
-    - 'spec/inputs/multi_value_input_spec.rb'
-    - 'spec/presenters/hydra_editor_presenter_spec.rb'
-    - 'spec/routing/records_routing_spec.rb'
-
-# Offense count: 2
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-# SupportedStyles: empty_lines, no_empty_lines
-Style/EmptyLinesAroundClassBody:
-  Exclude:
-    - 'spec/test_app_templates/lib/generators/test_app_generator.rb'
-
-# Offense count: 2
-# Cop supports --auto-correct.
-Style/EmptyLinesAroundMethodBody:
-  Exclude:
-    - 'app/controllers/concerns/records_controller_behavior.rb'
-    - 'spec/test_app_templates/lib/generators/test_app_generator.rb'
-
-# Offense count: 3
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-# SupportedStyles: empty_lines, no_empty_lines
-Style/EmptyLinesAroundModuleBody:
-  Exclude:
-    - 'app/controllers/concerns/records_controller_behavior.rb'
-    - 'app/forms/hydra_editor/form/permissions.rb'
-    - 'lib/hydra-editor.rb'
-
 # Offense count: 1
 # Configuration parameters: ExpectMatchingDefinition, Regex, IgnoreExecutableScripts.
 Style/FileName:
@@ -185,37 +124,6 @@ Style/FileName:
 # Configuration parameters: EnforcedStyle, SupportedStyles, IndentationWidth.
 # SupportedStyles: special_inside_parentheses, consistent, align_brackets
 Style/IndentArray:
-  Enabled: false
-
-# Offense count: 12
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-# SupportedStyles: normal, rails
-Style/IndentationConsistency:
-  Exclude:
-    - 'app/forms/hydra_editor/form.rb'
-    - 'app/inputs/multi_value_input.rb'
-    - 'app/presenters/hydra/presenter.rb'
-
-# Offense count: 2
-# Cop supports --auto-correct.
-# Configuration parameters: Width.
-Style/IndentationWidth:
-  Exclude:
-    - 'app/helpers/concerns/records_helper_behavior.rb'
-    - 'app/inputs/multi_value_input.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/LeadingCommentSpace:
-  Exclude:
-    - 'spec/factories/users.rb'
-
-# Offense count: 2
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-# SupportedStyles: require_parentheses, require_no_parentheses, require_no_parentheses_except_multiline
-Style/MethodDefParentheses:
   Enabled: false
 
 # Offense count: 1
@@ -247,12 +155,6 @@ Style/PredicateName:
     - 'app/controllers/concerns/records_controller_behavior.rb'
     - 'lib/hydra_editor/controller_resource.rb'
 
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/RedundantSelf:
-  Exclude:
-    - 'app/presenters/hydra/presenter.rb'
-
 # Offense count: 2
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles, AllowInnerSlashes.
@@ -272,62 +174,10 @@ Style/SingleLineMethods:
 
 # Offense count: 1
 # Cop supports --auto-correct.
-Style/SpaceAfterColon:
-  Exclude:
-    - 'spec/helpers/records_helper_spec.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: SupportedStyles.
-# SupportedStyles: space, no_space
-Style/SpaceAroundEqualsInParameterDefault:
-  EnforcedStyle: no_space
-
-# Offense count: 5
-# Cop supports --auto-correct.
-# Configuration parameters: AllowForAlignment.
-Style/SpaceAroundOperators:
-  Exclude:
-    - 'app/forms/hydra_editor/form/permissions.rb'
-    - 'spec/features/create_record_spec.rb'
-
-# Offense count: 9
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, EnforcedStyleForEmptyBraces, SupportedStyles.
-# SupportedStyles: space, no_space
-Style/SpaceInsideHashLiteralBraces:
-  Enabled: false
-
-# Offense count: 3
-# Cop supports --auto-correct.
-Style/SpaceInsideParens:
-  Exclude:
-    - 'spec/controllers/records_controller_spec.rb'
-    - 'spec/inputs/multi_value_input_spec.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
 # Configuration parameters: SupportedStyles.
 # SupportedStyles: use_perl_names, use_english_names
 Style/SpecialGlobalVars:
   EnforcedStyle: use_perl_names
-
-# Offense count: 212
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles, ConsistentQuotesInMultiline.
-# SupportedStyles: single_quotes, double_quotes
-Style/StringLiterals:
-  Enabled: false
-
-# Offense count: 3
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-# SupportedStyles: final_newline, final_blank_line
-Style/TrailingBlankLines:
-  Exclude:
-    - 'spec/support/input_support.rb'
-    - 'spec/views/records/_form.html.erb_spec.rb'
-    - 'spec/views/records/edit_fields/_default.html.erb_spec.rb'
 
 # Offense count: 10
 # Cop supports --auto-correct.

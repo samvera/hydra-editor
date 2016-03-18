@@ -1,7 +1,7 @@
 class MultiValueInput < SimpleForm::Inputs::CollectionInput
   def input(wrapper_options)
     @rendered_first_element = false
-    input_html_classes.unshift("string")
+    input_html_classes.unshift('string')
     input_html_options[:name] ||= "#{object_name}[#{attribute_name}][]"
 
     outer_wrapper do
@@ -25,9 +25,8 @@ class MultiValueInput < SimpleForm::Inputs::CollectionInput
       "    <ul class=\"listing\">\n        #{yield}\n      </ul>\n"
     end
 
-
     def inner_wrapper
-        <<-HTML
+      <<-HTML
           <li class="field-wrapper">
             #{yield}
           </li>
