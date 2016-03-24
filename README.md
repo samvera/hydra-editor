@@ -1,5 +1,4 @@
-# HydraEditor [![Gem Version](https://badge.fury.io/rb/hydra-editor.png)](http://badge.fury.io/rb/hydra-editor) [![Build Status](https://travis-ci.org/projecthydra-labs/hydra-editor.png)](https://travis-ci.org/projecthydra-labs/hydra-editor)
-
+# HydraEditor [![Gem Version](https://badge.fury.io/rb/hydra-editor.png)](http://badge.fury.io/rb/hydra-editor) [![Build Status](https://travis-ci.org/projecthydra/hydra-editor.png)](https://travis-ci.org/projecthydra/hydra-editor)
 
 To use add to your gemfile:
 
@@ -79,3 +78,9 @@ end
 ```
 
 If you are not mounting the engine or using its default routes, you can include RecordsControllerBehavior in your own controller and add the appropriate routes to your app's config/routes.rb.
+
+# Project Hydra
+This software has been developed by and is brought to you by the Hydra community.  Learn more at the
+[Project Hydra website](http://projecthydra.org)
+
+![Project Hydra Logo](https://github.com/uvalib/libra-oa/blob/a6564a9e5c13b7873dc883367f5e307bf715d6cf/public/images/powered_by_hydra.png?raw=true)
