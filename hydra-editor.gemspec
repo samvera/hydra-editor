@@ -27,5 +27,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency "devise", '~> 3.4'
   s.add_development_dependency "hydra-head", '~> 9.0'
   s.add_development_dependency "engine_cart", '0.8.0'
-  s.add_development_dependency "jettywrapper", '~> 2.0'
+  s.add_development_dependency 'solr_wrapper', '~> 0.4'
+  s.add_development_dependency 'fcrepo_wrapper', '~> 0.2'
 end

@@ -5,6 +5,7 @@ log/*.log
 pkg/
 .internal_test_app
 Gemfile.lock
-
+fcrepo4-data/
+fcrepo4-test-data/
 jetty/
 tmp/
