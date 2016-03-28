@@ -18,7 +18,7 @@ feature 'User creates an object' do
 
     fill_in '* Title', with: 'My title'
 
-    expect_any_instance_of(Audio).to receive(:attributes=).with({}) # called when initializing a new object
+    allow_any_instance_of(Audio).to receive(:attributes=).with({}) # called when initializing a new object
     expect_any_instance_of(Audio).to receive(:attributes=).with('title' => ["My title"], "creator"=>[], "description"=>[], "subject"=>[], "isPartOf"=>[])
     # Avoid the catalog so we don't have to run Solr
     expect_any_instance_of(Audio).to receive(:save).and_return(true)
