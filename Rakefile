@@ -25,15 +25,15 @@ Bundler::GemHelper.install_tasks
 require 'rspec/core/rake_task'
 RSpec::Core::RakeTask.new(:spec)
 
-require 'jettywrapper'
-Jettywrapper.hydra_jetty_version = "v8.1.1"
-
+require 'solr_wrapper/rake_task'
+require 'fcrepo_wrapper'
+require 'active_fedora/rake_support'
 require 'engine_cart/rake_task'
 
-task ci: ['engine_cart:generate', 'jetty:clean'] do
+desc 'Continuous Integration'
+task ci: ['engine_cart:generate'] do
   ENV['environment'] = "test"
-  jetty_params = Jettywrapper.load_config
-  error = Jettywrapper.wrap(jetty_params) do
+  with_test_server do
     Rake::Task['spec'].invoke
   end
 end
