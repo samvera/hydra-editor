@@ -5,8 +5,8 @@ module HydraEditor
        #{config.root}/app/helpers/concerns
        #{config.root}/app/presenters
     )
-    initializer "hydra-editor.initialize" do
-      require "cancan"
+    initializer 'hydra-editor.initialize' do
+      require 'cancan'
     end
   end
 end

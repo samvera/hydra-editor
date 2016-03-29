@@ -16,7 +16,7 @@ module RecordsControllerBehavior
       HydraEditor::ControllerResource
     end
     def resource_instance_name
-      name.sub("Controller", "").underscore.split('/').last.singularize
+      name.sub('Controller', '').underscore.split('/').last.singularize
     end
   end
 
@@ -32,7 +32,6 @@ module RecordsControllerBehavior
 
   def create
     set_attributes
-
     respond_to do |format|
       if resource.save
         format.html { redirect_to redirect_after_create, notice: 'Object was successfully created.' }
@@ -42,7 +41,6 @@ module RecordsControllerBehavior
         format.json { render json: resource.errors, status: :unprocessable_entity }
       end
     end
-
   end
 
   def update
@@ -58,7 +56,7 @@ module RecordsControllerBehavior
     end
   end
 
-  protected
+protected
 
   def object_as_json
     resource.to_json
@@ -102,7 +100,7 @@ module RecordsControllerBehavior
   end
 
   def form_name
-    if resource_instance_name == 'record'.freeze
+    if resource_instance_name == 'record'
       if params[:id]
         "#{resource.class.name}Form"
       elsif has_valid_type?
@@ -132,5 +130,4 @@ module RecordsControllerBehavior
   def resource_instance_name
     self.class.resource_instance_name
   end
-
 end

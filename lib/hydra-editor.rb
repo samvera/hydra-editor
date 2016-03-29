@@ -1,14 +1,13 @@
-require "hydra_editor/engine"
+require 'hydra_editor/engine'
 
 module HydraEditor
-
   class InvalidType < RuntimeError; end
 
   extend ActiveSupport::Autoload
 
   autoload :ControllerResource
 
-  def self.models= val
+  def self.models=(val)
     @models = val
   end
 

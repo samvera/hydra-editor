@@ -14,25 +14,15 @@ module Hydra
       @model = object
     end
 
-    def to_key
-      model.to_key
-    end
+    delegate :to_key, to: :model
 
-    def to_param
-      model.to_param
-    end
+    delegate :to_param, to: :model
 
-    def to_model
-      model.to_model
-    end
+    delegate :to_model, to: :model
 
-    def persisted?
-      model.persisted?
-    end
+    delegate :persisted?, to: :model
 
-    def [](key)
-      model[key]
-    end
+    delegate :[], to: :model
 
     module ClassMethods
       def model_name
@@ -65,7 +55,7 @@ module Hydra
     module ClassMethods
       # @deprecated Because if we use an instance method, there will be no need to set self.model_class in most instances. Note, there is a class method multiple? on the form.
       def multiple?(field)
-        Deprecation.warn(ClassMethods, "The class method multiple? has been deprecated. Use the instance method instead. This will be removed in version 2.0")
+        Deprecation.warn(ClassMethods, 'The class method multiple? has been deprecated. Use the instance method instead. This will be removed in version 2.0')
         HydraEditor::FieldMetadataService.multiple?(model_class, field)
       end
 
@@ -84,7 +74,7 @@ module Hydra
       end
 
       def terms
-        self._terms
+        _terms
       end
 
       private

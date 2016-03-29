@@ -5,9 +5,9 @@ module RecordsHelperBehavior
 
   def object_type_options
     @object_type_options ||= HydraEditor.models.inject({}) do |h, model|
-        label = model_label(model)
-        h["#{label[0].upcase}#{label[1..-1]}"] = model
-        h
+      label = model_label(model)
+      h["#{label[0].upcase}#{label[1..-1]}"] = model
+      h
     end
   end
 
@@ -33,7 +33,7 @@ module RecordsHelperBehavior
     Array(form.title).first
   end
 
- protected
+protected
 
   # This finds a partial based on the record_type and field_name
   # if no partial exists for the record_type it tries using "records" as a default
@@ -44,7 +44,7 @@ module RecordsHelperBehavior
 
   def find_edit_field_partial(record_type, field_name)
     ["#{record_type}/edit_fields/_#{field_name}", "records/edit_fields/_#{field_name}",
-     "#{record_type}/edit_fields/_default", "records/edit_fields/_default"].find do |partial|
+     "#{record_type}/edit_fields/_default", 'records/edit_fields/_default'].find do |partial|
       logger.debug "Looking for edit field partial #{partial}"
       return partial.sub(/\/_/, '/') if partial_exists?(partial)
     end

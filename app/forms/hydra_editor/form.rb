@@ -85,6 +85,7 @@ module HydraEditor
     end
 
     protected
+
       def initialize_fields
         # we're making a local copy of the attributes that we can modify.
         @attributes = model.attributes

@@ -9,24 +9,22 @@ describe 'records/_form' do
     allow(view).to receive(:form).and_return(form)
   end
 
-  context "when there are no errors" do
-    it "should not have the error class" do
+  context 'when there are no errors' do
+    it 'should not have the error class' do
       render
-      expect(response).to have_selector ".form-group"
-      expect(response).to_not have_selector ".has-error"
+      expect(response).to have_selector '.form-group'
+      expect(response).to_not have_selector '.has-error'
     end
   end
 
-  context "when errors are present" do
-    let(:errors) { double("errors", :[] => ["can't be blank"]) }
+  context 'when errors are present' do
+    let(:errors) { double('errors', :[] => ["can't be blank"]) }
     before { allow(form).to receive(:errors).and_return(errors) }
 
-    it "should have the error class" do
+    it 'should have the error class' do
       render
-      expect(response).to have_selector ".form-group.has-error"
-      expect(response).to have_selector ".help-block", text: "can't be blank"
+      expect(response).to have_selector '.form-group.has-error'
+      expect(response).to have_selector '.help-block', text: "can't be blank"
     end
   end
 end
-
-
