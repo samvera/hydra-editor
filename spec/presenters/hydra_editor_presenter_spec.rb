@@ -39,13 +39,23 @@ describe Hydra::Presenter do
     it { is_expected.to eq [:title, :creator] }
   end
 
+  describe 'new_record?' do
+    subject { presenter.new_record? }
+    it { is_expected.to be true }
+  end
+
+  describe 'persisted?' do
+    subject { presenter.persisted? }
+    it { is_expected.to be false }
+  end
+
   describe 'the term accessors' do
-    it 'should have the accessors' do
+    it 'has the accessors' do
       expect(presenter.title).to eq ['foo', 'bar']
       expect(presenter.creator).to eq 'baz'
     end
 
-    it 'should have the hash accessors' do
+    it 'has the hash accessors' do
       expect(presenter[:title]).to eq ['foo', 'bar']
       expect(presenter[:creator]).to eq 'baz'
     end
@@ -62,7 +72,7 @@ describe Hydra::Presenter do
       end
     end
 
-    it 'should not be overridden by setting terms' do
+    it "isn't overridden by setting terms" do
       expect(presenter.count).to eq 7
     end
   end
