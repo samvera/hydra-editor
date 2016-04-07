@@ -2,15 +2,12 @@
 class Audio < ActiveFedora::Base
   include Hydra::AccessControls::Permissions
 
-  # Tufts specific needed metadata streams
-  contains 'descMetadata', class_name: 'ActiveFedora::QualifiedDublinCoreDatastream'
-
   validates_presence_of :title
 
   # the isPartOf attribute should not get set, because it's not listed in "terms_for_editing"
-  property :title, delegate_to: 'descMetadata'
-  property :creator, delegate_to: 'descMetadata'
-  property :description, delegate_to: 'descMetadata'
-  property :subject, delegate_to: 'descMetadata'
-  property :isPartOf, delegate_to: 'descMetadata'
+  property :title, predicate: ::RDF::Vocab::DC11.title
+  property :creator, predicate: ::RDF::Vocab::DC11.creator
+  property :description, predicate: ::RDF::Vocab::DC11.description
+  property :subject, predicate: ::RDF::Vocab::DC11.subject
+  property :isPartOf, predicate: ::RDF::Vocab::DC.isPartOf
 end
