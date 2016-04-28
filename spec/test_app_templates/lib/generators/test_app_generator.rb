@@ -10,6 +10,11 @@ class TestAppGenerator < Rails::Generators::Base
     end
   end
 
+  def run_simple_form_generator
+    say_status("warning", "GENERATING BL", :yellow)
+    generate "simple_form:install --bootstrap"
+  end
+
   def run_blacklight_generator
     say_status("warning", "GENERATING BL", :yellow)
     generate "blacklight:install --devise"

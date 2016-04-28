@@ -6,6 +6,16 @@ To use add to your gemfile:
 gem 'hydra-editor'
 ```
 
+Then run:
+```
+bundle install
+```
+
+Next generate the bootstrap form layouts:
+```
+rails generate simple_form:install --bootstrap
+```
+
 And to config/routes.rb add:
 
 ```ruby
