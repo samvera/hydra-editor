@@ -128,7 +128,7 @@ var HydraEditor = (function($) {
 
 
           controlsHtml:      "<span class=\"input-group-btn field-controls\">",
-          addButtonHtml:     "<button type=\"button\" class=\"btn btn-success add\"><i class=\"icon-white glyphicon-plus\"></i><span>Add</span></button>",
+          addButtonHtml:     "<button type=\"button\" class=\"btn btn-success add\"><i class=\"icon-white glyphicon-plus\"></i><span>More</span></button>",
           removeButtonHtml:  "<button type=\"button\" class=\"btn btn-danger remove\"><i class=\"icon-white glyphicon-minus\"></i><span>Remove</span></button>",
           warningClass:      '.has-warning',
           listClass:         '.listing',
