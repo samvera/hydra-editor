@@ -7,13 +7,13 @@ var HydraEditor = (function($) {
           this.element = $(element);
           this.options = options;
 
-          this.controls = $("<span class=\"input-group-btn field-controls\">");
-          this.remover  = $("<button type=\"button\" class=\"btn btn-danger remove\"><i class=\"icon-white glyphicon-minus\"></i><span>Remove</span></button>");
-          this.adder    = $("<button type=\"button\" class=\"btn btn-success add\"><i class=\"icon-white glyphicon-plus\"></i><span>Add</span></button>");
+          this.controls = $(options.controlsHtml);
+          this.remover  = $(options.removeButtonHtml);
+          this.adder    = $(options.addButtonHtml);
 
-          this.fieldWrapperClass = '.field-wrapper';
-          this.warningClass = '.has-warning';
-          this.listClass = '.listing';
+          this.fieldWrapperClass = options.fieldWrapperClass;
+          this.warningClass = options.warningClass;
+          this.listClass = options.listClass;
 
           this.init();
       }
@@ -121,8 +121,18 @@ var HydraEditor = (function($) {
       }
 
       FieldManager.DEFAULTS = {
-          add: null,
-          remove: null
+          /* callback to run after add is called */
+          add:    null,
+          /* callback to run after remove is called */
+          remove: null,
+
+
+          controlsHtml:      "<span class=\"input-group-btn field-controls\">",
+          addButtonHtml:     "<button type=\"button\" class=\"btn btn-success add\"><i class=\"icon-white glyphicon-plus\"></i><span>More</span></button>",
+          removeButtonHtml:  "<button type=\"button\" class=\"btn btn-danger remove\"><i class=\"icon-white glyphicon-minus\"></i><span>Remove</span></button>",
+          warningClass:      '.has-warning',
+          listClass:         '.listing',
+          fieldWrapperClass: '.field-wrapper'
       }
 
       return { FieldManager: FieldManager };
