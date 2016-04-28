@@ -30,6 +30,16 @@ require 'fcrepo_wrapper'
 require 'active_fedora/rake_support'
 require 'engine_cart/rake_task'
 
+require 'jasmine'
+load 'jasmine/tasks/jasmine.rake'
+
+# Set up the test application prior to running jasmine tasks.
+task 'jasmine:require' => :setup_test_server
+task :setup_test_server do
+  require 'engine_cart'
+  EngineCart.load_application!
+end
+
 desc 'Continuous Integration'
 task ci: ['engine_cart:generate'] do
   ENV['environment'] = "test"
