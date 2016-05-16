@@ -3,139 +3,183 @@
 // These assumptions are reflected in the MultiValueInput class.
 
 var HydraEditor = (function($) {
-      var FieldManager = function (element, options) {
-          this.element = $(element);
-          this.options = options;
+    var FieldManager = function (element, options) {
+        this.element = $(element);
+        this.options = options;
 
-          this.controls = $(options.controlsHtml);
-          this.remover  = $(options.removeButtonHtml);
-          this.adder    = $(options.addButtonHtml);
+        this.options.label = getFieldLabel(this.element, options)
 
-          this.fieldWrapperClass = options.fieldWrapperClass;
-          this.warningClass = options.warningClass;
-          this.listClass = options.listClass;
+        this.adder    = createAddHtml(this.options);
+        this.remover  = createRemoveHtml(this.options);
 
-          this.init();
-      }
+        this.controls = $(options.controlsHtml);
+        this.fieldWrapperClass = options.fieldWrapperClass;
+        this.warningClass = options.warningClass;
+        this.listClass = options.listClass;
 
-      FieldManager.prototype = {
-          init: function () {
-              this._addInitialClasses();
-              this._appendControls();
-              this._attachEvents();
-              this._addCallbacks();
-          },
+        this.init();
+    }
 
-          _addInitialClasses: function () {
-              this.element.addClass("managed");
-              $(this.fieldWrapperClass, this.element).addClass("input-group input-append");
-          },
+    FieldManager.prototype = {
+        init: function () {
+            this._addInitialClasses();
+            this._addAriaLiveRegions()
+            this._appendControls();
+            this._attachEvents();
+            this._addCallbacks();
+        },
 
-          _appendControls: function() {
-              $(this.fieldWrapperClass, this.element).append(this.controls);
-              $(this.fieldWrapperClass+':not(:last-child) .field-controls', this.element).append(this.remover);
-              $('.field-controls:last', this.element).append(this.adder);
-          },
+        _addInitialClasses: function() {
+            this.element.addClass("managed");
+            $(this.fieldWrapperClass, this.element).addClass("input-group input-append");
+        },
 
-          _attachEvents: function() {
-              var _this = this;
-              this.element.on('click', '.remove', function (e) {
-                _this.removeFromList(e);
-              });
-              this.element.on('click', '.add', function (e) {
-                _this.addToList(e);
-              });
-          },
+        _addAriaLiveRegions: function() {
+            $(this.element).find('.listing').attr('aria-live', 'polite')
+        },
 
-          _addCallbacks: function() {
-              this.element.bind('managed_field:add', this.options.add);
-              this.element.bind('managed_field:remove', this.options.remove);
-          },
+        _appendControls: function() {
+            $(this.fieldWrapperClass, this.element).append(this.controls);
+            $(this.fieldWrapperClass+' .field-controls', this.element).append(this.remover);
 
-          addToList: function( event ) {
+            if ($(this.element).find('.add').length == 0) {
+                $(this.element).find(this.listClass).after(this.adder);
+            }
+        },
+
+        _attachEvents: function() {
+            var _this = this;
+            this.element.on('click', '.remove', function (e) {
+              _this.removeFromList(e);
+            });
+            this.element.on('click', '.add', function (e) {
+              _this.addToList(e);
+            });
+        },
+
+        _addCallbacks: function() {
+            this.element.bind('managed_field:add', this.options.add);
+            this.element.bind('managed_field:remove', this.options.remove);
+        },
+
+        _manageFocus: function() {
+            $(this.element).find(this.listClass).children('li').last().find('.form-control').focus();
+        },
+
+        addToList: function( event ) {
             event.preventDefault();
-            var $activeField = $(event.target).parents(this.fieldWrapperClass)
+            var $listing = $(event.target).closest('.multi_value').find(this.listClass)
+            $activeField = $listing.children('li').last()
 
             if (this.inputIsEmpty($activeField)) {
                 this.displayEmptyWarning();
             } else {
-                var $listing = $(this.listClass, this.element);
                 this.clearEmptyWarning();
                 $listing.append(this._newField($activeField));
             }
-          },
 
-          inputIsEmpty: function($activeField) {
-              return $activeField.children('input.multi-text-field').val() === '';
-          },
+            this._manageFocus()
+        },
 
-          _newField: function ($activeField) {
-              var $newField = this.createNewField($activeField);
-              // _changeControlsToRemove must come after createNewField
-              // or the new field will not have an add button
-              this._changeControlsToRemove($activeField);
-              return $newField;
-          },
+        inputIsEmpty: function($activeField) {
+            return $activeField.children('input.multi-text-field').val() === '';
+        },
 
-          createNewField: function($activeField) {
-              $newField = $activeField.clone();
-              $newChildren = $newField.children('input');
-              $newChildren.val('').removeProp('required');
-              $newChildren.first().focus();
-              this.element.trigger("managed_field:add", $newChildren.first());
-              return $newField
-          },
+        _newField: function ($activeField) {
+            var $newField = this.createNewField($activeField);
+            return $newField;
+        },
 
-          _changeControlsToRemove: function($activeField) {
-              var $removeControl = this.remover.clone();
-              $activeFieldControls = $activeField.children('.field-controls');
-              $('.add', $activeFieldControls).remove();
-              $activeFieldControls.prepend($removeControl);
-          },
+        createNewField: function($activeField) {
+            $newField = $activeField.clone();
+            $newChildren = $newField.children('input');
+            $newChildren.val('').removeProp('required');
+            $newChildren.first().focus();
+            this.element.trigger("managed_field:add", $newChildren.first());
+            return $newField;
+        },
 
-          clearEmptyWarning: function() {
-              $listing = $(this.listClass, this.element),
-              $listing.children(this.warningClass).remove();
-          },
+        _changeControlsToRemove: function($activeField) {
+            var $removeControl = this.remover.clone();
+            $activeFieldControls = $activeField.children('.field-controls');
+            $('.add', $activeFieldControls).remove();
+            $activeFieldControls.prepend($removeControl);
+        },
 
-          displayEmptyWarning: function () {
-              $listing = $(this.listClass, this.element)
-              var $warningMessage  = $("<div class=\'message has-warning\'>cannot add new empty field</div>");
-              $listing.children(this.warningClass).remove();
-              $listing.append($warningMessage);
-          },
+        clearEmptyWarning: function() {
+            $listing = $(this.listClass, this.element),
+            $listing.children(this.warningClass).remove();
+        },
 
-          removeFromList: function( event ) {
+        displayEmptyWarning: function () {
+            $listing = $(this.listClass, this.element)
+            var $warningMessage  = $("<div class=\'message has-warning\'>cannot add another with empty field</div>");
+            $listing.children(this.warningClass).remove();
+            $listing.append($warningMessage);
+        },
+
+        removeFromList: function( event ) {
             event.preventDefault();
+            var $listing = $(event.target).closest('.multi_value').find(this.listClass)
+            var $field = $(event.target).parents(this.fieldWrapperClass).remove();
+            this.element.trigger("managed_field:remove", $field);
 
-            var field = $(event.target).parents(this.fieldWrapperClass)
-            field.remove();
+            this._manageFocus();
+        },
 
-            this.element.trigger("managed_field:remove", field);
-          },
-
-          destroy: function() {
+        destroy: function() {
             $(this.fieldWrapperClass, this.element).removeClass("input-append");
             this.element.removeClass( "managed" );
-          }
+        }
+    }
+
+    // Initialization helper functions
+    var getFieldLabel = function($element, options) {
+      var label = '';
+      var $label = $element.find("label");
+
+      if ($label.size && options.labelControls) {
+        var label = $label.data('label') || $.trim($label.contents().filter(function() { return this.nodeType === 3; }).text());
+        label = ' ' + label;
       }
 
-      FieldManager.DEFAULTS = {
-          /* callback to run after add is called */
-          add:    null,
-          /* callback to run after remove is called */
-          remove: null,
+      return label;
+    }
 
+    var createAddHtml = function(options) {
+      var $addHtml  = $(options.addHtml);
+      $addHtml.find('.controls-add-text').html(options.addText + options.label);
+      return $addHtml;
+    }
 
-          controlsHtml:      "<span class=\"input-group-btn field-controls\">",
-          addButtonHtml:     "<button type=\"button\" class=\"btn btn-success add\"><i class=\"icon-white glyphicon-plus\"></i><span>More</span></button>",
-          removeButtonHtml:  "<button type=\"button\" class=\"btn btn-danger remove\"><i class=\"icon-white glyphicon-minus\"></i><span>Remove</span></button>",
-          warningClass:      '.has-warning',
-          listClass:         '.listing',
-          fieldWrapperClass: '.field-wrapper'
-      }
+    var createRemoveHtml = function(options) {
+      var $removeHtml = $(options.removeHtml);
+      $removeHtml.find('.controls-remove-text').html(options.removeText);
+      $removeHtml.find('.controls-field-name-text').html(options.label);
+      return $removeHtml;
+    }
 
-      return { FieldManager: FieldManager };
+    FieldManager.DEFAULTS = {
+        /* callback to run after add is called */
+        add:    null,
+        /* callback to run after remove is called */
+        remove: null,
+
+        controlsHtml:      '<span class=\"input-group-btn field-controls\">',
+        fieldWrapperClass: '.field-wrapper',
+        warningClass:      '.has-warning',
+        listClass:         '.listing',
+
+        addHtml:           '<button type=\"button\" class=\"btn btn-link add\"><span class=\"glyphicon glyphicon-plus\"></span><span class="controls-add-text"></span></button>',
+        addText:           'Add another',
+
+        removeHtml:        '<button type=\"button\" class=\"btn btn-link remove\"><span class=\"glyphicon glyphicon-remove\"></span><span class="controls-remove-text"></span> <span class=\"sr-only\"> previous <span class="controls-field-name-text">field</span></span></button>',
+        removeText:         'Remove',
+
+        labelControls:      true,
+    }
+
+    return { FieldManager: FieldManager };
 })(jQuery);
 
 (function($){
