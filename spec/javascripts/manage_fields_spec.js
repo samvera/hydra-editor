@@ -11,8 +11,8 @@ describe("HydraEditor.FieldManager", function() {
     });
 
     describe("initialization", function() {
-      it("creates an add button", function() {
-        expect(element.find('.btn-success.add')).toExist()
+      it("creates a remove button for each multi-input field", function() {
+        expect(element.find('button.remove')).toExist()
       });
     });
   });
