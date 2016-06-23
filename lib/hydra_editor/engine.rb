@@ -10,6 +10,7 @@ module HydraEditor
     )
     initializer 'hydra-editor.initialize' do
       require 'cancan'
+      Sprockets::ES6.configuration = { 'modules' => 'amd', 'moduleIds' => true }
     end
   end
 end

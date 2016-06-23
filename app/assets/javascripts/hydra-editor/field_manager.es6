@@ -35,7 +35,7 @@ export class FieldManager {
 
     _appendControls() {
         $(this.fieldWrapperClass, this.element).append(this.controls);
-        $(this.fieldWrapperClass+' .field-controls', this.element).append(this.remover);
+        $(this.fieldWrapperClass + ' .field-controls', this.element).append(this.remover);
 
         if ($(this.element).find('.add').length == 0) {
             $(this.element).find(this.listClass).after(this.adder);
@@ -43,7 +43,6 @@ export class FieldManager {
     }
 
     _attachEvents() {
-      console.log("Attaching event")
         this.element.on('click', '.remove', (e) => this.removeFromList(e));
         this.element.on('click', '.add', (e) =>this.addToList(e));
     }
@@ -58,7 +57,6 @@ export class FieldManager {
     }
 
     addToList( event ) {
-      console.log('add to list')
         event.preventDefault();
         let $listing = $(event.target).closest('.multi_value').find(this.listClass)
         let $activeField = $listing.children('li').last()
