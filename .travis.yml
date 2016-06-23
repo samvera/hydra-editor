@@ -7,7 +7,6 @@ jdk:
 env:
   matrix:
     - "RAILS_VERSION=4.2.5"
-    - "RAILS_VERSION=4.1.14"
   global:
     - NOKOGIRI_USE_SYSTEM_LIBRARIES=true
 
