@@ -34,6 +34,11 @@ describe Hydra::Presenter do
   let(:object) { TestModel.new(title: ['foo', 'bar'], creator: 'baz') }
   let(:presenter) { TestPresenter.new(object) }
 
+  describe '#model_name' do
+    subject { presenter.model_name }
+    it { is_expected.to eq 'TestModel' }
+  end
+
   describe '#terms' do
     subject { presenter.terms }
     it { is_expected.to eq [:title, :creator] }
