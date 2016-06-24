@@ -15,7 +15,7 @@ module Hydra
     end
 
     delegate :to_key, :to_param, :to_model, :persisted?, :new_record?,
-             :[], to: :model
+             :[], :model_name, to: :model
 
     module ClassMethods
       def model_name
