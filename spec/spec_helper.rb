@@ -13,7 +13,12 @@ Rails.backtrace_cleaner.remove_silencers!
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
 
 RSpec.configure do |config|
-  config.include Devise::TestHelpers, type: :controller
+  if defined? Devise::Test::ControllerHelpers
+    config.include Devise::Test::ControllerHelpers, type: :controller
+  else
+    config.include Devise::TestHelpers, type: :controller
+  end
+
   config.use_transactional_fixtures = true
   config.infer_base_class_for_anonymous_controllers = false
   config.order = 'random'
