@@ -17,7 +17,7 @@ module RecordsHelperBehavior
   end
 
   def record_form_action_url(record)
-    router = respond_to?(:hydra_editor) ? hydra_editor : self
+    router = respond_to?(:hydra_editor) ? hydra_editor.routes.url_helpers : self
     record.persisted? ? router.record_path(record) : router.records_path
   end
 

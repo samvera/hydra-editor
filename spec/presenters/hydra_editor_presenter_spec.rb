@@ -56,12 +56,12 @@ describe Hydra::Presenter do
 
   describe 'the term accessors' do
     it 'has the accessors' do
-      expect(presenter.title).to eq ['foo', 'bar']
+      expect(presenter.title).to match_array ['foo', 'bar']
       expect(presenter.creator).to eq 'baz'
     end
 
     it 'has the hash accessors' do
-      expect(presenter[:title]).to eq ['foo', 'bar']
+      expect(presenter[:title]).to match_array ['foo', 'bar']
       expect(presenter[:creator]).to eq 'baz'
     end
   end

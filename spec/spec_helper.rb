@@ -29,5 +29,14 @@ RSpec.configure do |config|
 
   config.include InputSupport, type: :input
   config.include Capybara::RSpecMatchers, type: :input
+
+  config.include ControllerLevelHelpers, type: :view
+  config.before(:each, type: :view) { initialize_controller_helpers(view) }
+
+  if Rails::VERSION::MAJOR >= 5
+    config.include ::Rails.application.routes.url_helpers
+    config.include ::Rails.application.routes.mounted_helpers
+  end
+
   config.infer_spec_type_from_file_location!
 end
