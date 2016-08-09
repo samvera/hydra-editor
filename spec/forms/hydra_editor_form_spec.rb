@@ -41,13 +41,13 @@ describe HydraEditor::Form do
   end
 
   describe 'the term accessors' do
-    it 'should have the accessors' do
-      expect(form.title).to eq ['foo', 'bar']
+    it 'has the accessors' do
+      expect(form.title).to match_array ['foo', 'bar']
       expect(form.creator).to eq 'baz'
     end
 
-    it 'should have the hash accessors' do
-      expect(form[:title]).to eq ['foo', 'bar']
+    it 'has the hash accessors' do
+      expect(form[:title]).to match_array ['foo', 'bar']
       expect(form[:creator]).to eq 'baz'
     end
   end
