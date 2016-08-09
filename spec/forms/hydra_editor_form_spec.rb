@@ -3,8 +3,8 @@ require 'spec_helper'
 describe HydraEditor::Form do
   before do
     class TestModel < ActiveFedora::Base
-      property :title, predicate: ::RDF::DC.title
-      property :creator, predicate: ::RDF::DC.creator, multiple: false
+      property :title, predicate: ::RDF::Vocab::DC.title
+      property :creator, predicate: ::RDF::Vocab::DC.creator, multiple: false
     end
 
     class TestForm

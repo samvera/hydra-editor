@@ -3,10 +3,10 @@ require 'spec_helper'
 describe Hydra::Presenter do
   before do
     class TestModel < ActiveFedora::Base
-      property :title, predicate: ::RDF::DC.title
-      property :creator, predicate: ::RDF::DC.creator, multiple: false
-      has_and_belongs_to_many :contributors, predicate: ::RDF::DC.contributor
-      belongs_to :publisher, predicate: ::RDF::DC.publisher
+      property :title, predicate: ::RDF::Vocab::DC.title
+      property :creator, predicate: ::RDF::Vocab::DC.creator, multiple: false
+      has_and_belongs_to_many :contributors, predicate: ::RDF::Vocab::DC.contributor
+      belongs_to :publisher, predicate: ::RDF::Vocab::DC.publisher
     end
 
     class TestPresenter
