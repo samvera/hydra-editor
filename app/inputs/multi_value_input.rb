@@ -74,7 +74,11 @@ class MultiValueInput < SimpleForm::Inputs::CollectionInput
     end
 
     def collection
-      @collection ||= Array.wrap(object[attribute_name]).reject { |value| value.to_s.strip.blank? } + ['']
+      @collection ||= begin
+                        val = object[attribute_name]
+                        col = val.respond_to?(:to_ary) ? val.to_ary : val
+                        col.reject { |value| value.to_s.strip.blank? } + ['']
+                      end
     end
 
     def multiple?; true; end

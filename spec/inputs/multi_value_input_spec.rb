@@ -1,17 +1,8 @@
 require 'spec_helper'
 
 describe 'MultiValueInput', type: :input do
-  class Foo
-    extend ActiveModel::Naming
-    include ActiveModel::Conversion
-    include ActiveModel::Validations
-    def persisted?; false; end
-    attr_accessor :bar
-
-    def [](val)
-      raise 'Unknown attribute' unless val == :bar
-      bar
-    end
+  class Foo < ActiveFedora::Base
+    property :bar, predicate: ::RDF::URI('http://example.com/bar')
   end
 
   context 'happy case' do
@@ -50,8 +41,8 @@ describe 'MultiValueInput', type: :input do
     subject { MultiValueInput.new(builder, :bar, nil, :multi_value, {}) }
 
     it 'renders multi-value' do
-      expect(subject).to receive(:build_field).with('bar1', 0)
-      expect(subject).to receive(:build_field).with('bar2', 1)
+      expect(subject).to receive(:build_field).with('bar1', Fixnum)
+      expect(subject).to receive(:build_field).with('bar2', Fixnum)
       expect(subject).to receive(:build_field).with('', 2)
       subject.input({})
     end
