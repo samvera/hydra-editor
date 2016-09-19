@@ -82,10 +82,8 @@ export class FieldManager {
 
     createNewField($activeField) {
         let $newField = $activeField.clone();
-        let $newChildren = $newField.children('.multi_value');
-        $newChildren.val('').removeProp('required');
-        $newChildren.first().focus();
-        this.element.trigger("managed_field:add", $newChildren.first());
+        let $newChildren = this.createNewChildren($newField);
+        this.element.trigger("managed_field:add", $newChildren);
         return $newField;
     }
 
@@ -145,5 +143,12 @@ export class FieldManager {
         $removeHtml.find('.controls-remove-text').html(options.removeText);
         $removeHtml.find('.controls-field-name-text').html(options.label);
         return $removeHtml;
+    }
+
+    createNewChildren(clone) {
+        let $newChildren = $(clone).children('.multi_value');
+        $newChildren.val('').removeProp('required');
+        $newChildren.first().focus();
+        return $newChildren.first();
     }
 }

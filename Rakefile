@@ -33,6 +33,8 @@ require 'engine_cart/rake_task'
 require 'jasmine'
 load 'jasmine/tasks/jasmine.rake'
 
+import "#{Gem.loaded_specs['jasmine'].full_gem_path}/lib/jasmine/tasks/jasmine.rake"
+
 # Set up the test application prior to running jasmine tasks.
 task 'jasmine:require' => :setup_test_server
 task :setup_test_server do
