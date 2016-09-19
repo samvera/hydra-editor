@@ -82,7 +82,7 @@ export class FieldManager {
 
     createNewField($activeField) {
         let $newField = $activeField.clone();
-        let $newChildren = $newField.children('input');
+        let $newChildren = $newField.children('.multi_value');
         $newChildren.val('').removeProp('required');
         $newChildren.first().focus();
         this.element.trigger("managed_field:add", $newChildren.first());
