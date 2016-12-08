@@ -122,7 +122,7 @@ export class FieldManager {
 
     getFieldLabel($element, options) {
         var label = '';
-        var $label = $element.find("label");
+        var $label = $element.find("label").first();
 
         if ($label.size && options.labelControls) {
           var label = $label.data('label') || $.trim($label.contents().filter(function() { return this.nodeType === 3; }).text());

@@ -40,4 +40,12 @@ describe("FieldManager", function() {
       expect(child.attr('required')).toBeUndefined();
     })    
   })
+
+  describe("#getFieldLabel", function() {
+    it("only returns one label", function() {
+      var field = '<div class="form-group multi_value optional generic_work_inscription nested-field managed"><label class="control-label multi_value optional" for="generic_work_inscription">Inscription</label><ul class="listing" aria-live="polite"> <li class="field-wrapper nested-field input-group input-append"> <div class="row multi_value">  <div class="col-md-3"><label for="generic_work_inscription_attributes_0_location">Location</label>  </div>  <div class="col-md-9"><input class="string multi_value optional generic_work_inscription form-control multi-text-field" name="generic_work[inscription_attributes][0][location]" id="generic_work_inscription_attributes_0_location" aria-labelledby="generic_work_inscription_label" type="text">  </div></div><div class="row multi_value">  <div class="col-md-3"><label for="generic_work_inscription_attributes_0_text">Text</label>  </div>  <div class="col-md-9"><textarea class="string multi_value optional generic_work_inscription form-control multi-text-field" name="generic_work[inscription_attributes][0][text]" id="generic_work_inscription_attributes_0_text" aria-labelledby="generic_work_inscription_label" rows="2"></textarea>  </div></div> <span class="input-group-btn field-controls"><button type="button" class="btn btn-link remove"><span class="glyphicon glyphicon-remove"></span><span class="controls-remove-text">Remove</span> <span class="sr-only"> previous <span class="controls-field-name-text"> InscriptionLocationText</span></span></button></span></li> </ul> </div> ';
+      var options = { labelControls: true }
+      expect(target.getFieldLabel($(field), options)).toEqual(' Inscription');
+    });
+  });
 });
