@@ -46,7 +46,7 @@ module HydraEditor
       end
 
       def multiple?(field)
-        HydraEditor::FieldMetadataService.multiple?(model_class, field)
+        field_metadata_service.multiple?(model_class, field)
       end
 
       # Return a hash of all the parameters from the form as a hash.
