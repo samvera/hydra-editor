@@ -90,4 +90,21 @@ describe HydraEditor::Form do
       end
     end
   end
+
+  describe ".field_metadata_service" do
+    before do
+      class CustomMetadataService
+      end
+    end
+
+    after do
+      Object.send(:remove_const, :CustomMetadataService)
+    end
+
+    it "is settable" do
+      expect { TestForm.field_metadata_service = CustomMetadataService }.to change { TestForm.field_metadata_service }
+        .from(HydraEditor::FieldMetadataService)
+        .to(CustomMetadataService)
+    end
+  end
 end
