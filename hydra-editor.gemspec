@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
   s.add_dependency "cancancan", "~> 1.8"
   s.add_dependency "simple_form", '~> 3.2'
   s.add_dependency 'sprockets-es6'
-  s.add_dependency "almond-rails", '~> 0.0.3'
+  s.add_dependency "almond-rails", '~> 0.1'
 
   s.add_development_dependency 'sqlite3', '~> 1.3'
   s.add_development_dependency 'rspec-rails', '~> 3.1'
