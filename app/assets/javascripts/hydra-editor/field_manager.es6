@@ -89,13 +89,6 @@ export class FieldManager {
         return $newField;
     }
 
-    _changeControlsToRemove($activeField) {
-        var $removeControl = this.remover.clone();
-        $activeFieldControls = $activeField.children('.field-controls');
-        $('.add', $activeFieldControls).remove();
-        $activeFieldControls.prepend($removeControl);
-    }
-
     clearEmptyWarning() {
         let $listing = $(this.listClass, this.element)
         $listing.children(this.warningClass).remove();
