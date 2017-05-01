@@ -110,7 +110,6 @@ export class FieldManager {
 
     removeFromList( event ) {
         event.preventDefault();
-        var $listing = $(event.target).closest(this.inputTypeClass).find(this.listClass)
         var $field = $(event.target).parents(this.fieldWrapperClass).remove();
         this.element.trigger("managed_field:remove", $field);
 
