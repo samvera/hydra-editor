@@ -43,14 +43,14 @@ protected
   end
 
   def find_edit_field_partial(record_type, field_name)
-    ["#{record_type}/edit_fields/_#{field_name}", "records/edit_fields/_#{field_name}",
-     "#{record_type}/edit_fields/_default", 'records/edit_fields/_default'].find do |partial|
+    ["#{record_type}/edit_fields/#{field_name}", "records/edit_fields/#{field_name}",
+     "#{record_type}/edit_fields/default", 'records/edit_fields/default'].find do |partial|
       logger.debug "Looking for edit field partial #{partial}"
-      return partial.sub(/\/_/, '/') if partial_exists?(partial)
+      partial_exists?(partial)
     end
   end
 
   def partial_exists?(partial)
-    lookup_context.find_all(partial).any?
+    lookup_context.find_all(partial, lookup_context.prefixes + [''], true).any?
   end
 end
