@@ -9,6 +9,8 @@ export class FieldManager {
         this.remover  = this.createRemoveHtml(this.options);
 
         this.controls = $(options.controlsHtml);
+
+        this.inputTypeClass = options.inputTypeClass;
         this.fieldWrapperClass = options.fieldWrapperClass;
         this.warningClass = options.warningClass;
         this.listClass = options.listClass;
@@ -58,7 +60,7 @@ export class FieldManager {
 
     addToList( event ) {
         event.preventDefault();
-        let $listing = $(event.target).closest('.multi_value').find(this.listClass)
+        let $listing = $(event.target).closest(this.inputTypeClass).find(this.listClass)
         let $activeField = $listing.children('li').last()
 
         if (this.inputIsEmpty($activeField)) {
@@ -108,7 +110,6 @@ export class FieldManager {
 
     removeFromList( event ) {
         event.preventDefault();
-        var $listing = $(event.target).closest('.multi_value').find(this.listClass)
         var $field = $(event.target).parents(this.fieldWrapperClass).remove();
         this.element.trigger("managed_field:remove", $field);
 
@@ -146,7 +147,7 @@ export class FieldManager {
     }
 
     createNewChildren(clone) {
-        let $newChildren = $(clone).children('.multi_value');
+        let $newChildren = $(clone).children(this.inputTypeClass);
         $newChildren.val('').removeProp('required');
         $newChildren.first().focus();
         return $newChildren.first();
