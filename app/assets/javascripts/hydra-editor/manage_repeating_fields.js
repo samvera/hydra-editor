@@ -13,6 +13,7 @@
         fieldWrapperClass: '.field-wrapper',
         warningClass:      '.has-warning',
         listClass:         '.listing',
+        inputTypeClass:    '.multi_value',
 
         addHtml:           '<button type=\"button\" class=\"btn btn-link add\"><span class=\"glyphicon glyphicon-plus\"></span><span class="controls-add-text"></span></button>',
         addText:           'Add another',
