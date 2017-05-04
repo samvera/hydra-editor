@@ -15,8 +15,12 @@ describe RecordsHelper do
 
   describe 'render_edit_field_partial' do
     before do
-      class Dragon; end
-      class Serpent; end
+      class Dragon
+        extend ActiveModel::Naming
+      end
+      class Serpent
+        extend ActiveModel::Naming
+      end
     end
     let(:f) { double('form') }
     it 'draws partial elements based on class of the object' do
