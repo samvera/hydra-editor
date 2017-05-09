@@ -1,12 +1,12 @@
 language: ruby
 sudo: false
 rvm:
-  - 2.3.1
+  - 2.4.1
 jdk:
   - oraclejdk8
 env:
   matrix:
-    - "RAILS_VERSION=4.2.7"
-    - "RAILS_VERSION=5.0.0"
+    - "RAILS_VERSION=4.2.8"
+    - "RAILS_VERSION=5.0.2"
   global:
     - NOKOGIRI_USE_SYSTEM_LIBRARIES=true
