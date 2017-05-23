@@ -1,12 +1,16 @@
 export class FieldManager {
     constructor(element, options) {
         this.element = $(element);
+
         this.options = options;
 
         this.options.label = this.getFieldLabel(this.element, options)
 
-        this.adder    = this.createAddHtml(this.options);
-        this.remover  = this.createRemoveHtml(this.options);
+        this.addSelector = '.add'
+        this.removeSelector = '.remove'
+
+        this.adder    = this.createAddHtml(this.options)
+        this.remover  = this.createRemoveHtml(this.options)
 
         this.controls = $(options.controlsHtml);
 
@@ -35,18 +39,43 @@ export class FieldManager {
         $(this.element).find('.listing').attr('aria-live', 'polite')
     }
 
+    // Add the "Add another" and "Remove" controls to the DOM
     _appendControls() {
-        $(this.fieldWrapperClass, this.element).append(this.controls);
-        $(this.fieldWrapperClass + ' .field-controls', this.element).append(this.remover);
+        // We want to make these DOM additions idempotently, so exit if it's
+        // already set up.
+        if (!this._hasRemoveControl()) {
+          this._createRemoveWrapper()
+          this._createRemoveControl()
+        }
 
-        if ($(this.element).find('.add').length == 0) {
-            $(this.element).find(this.listClass).after(this.adder);
+        if (!this._hasAddControl()) {
+          this._createAddControl()
         }
     }
 
+    _createRemoveWrapper() {
+      $(this.fieldWrapperClass, this.element).append(this.controls);
+    }
+
+    _createRemoveControl() {
+      $(this.fieldWrapperClass + ' .field-controls', this.element).append(this.remover)
+    }
+
+    _createAddControl() {
+      this.element.find(this.listClass).after(this.adder)
+    }
+
+    _hasRemoveControl() {
+      return this.element.find(this.removeSelector).length > 0
+    }
+
+    _hasAddControl() {
+      return this.element.find(this.addSelector).length > 0
+    }
+
     _attachEvents() {
-        this.element.on('click', '.remove', (e) => this.removeFromList(e));
-        this.element.on('click', '.add', (e) =>this.addToList(e));
+        this.element.on('click', this.removeSelector, (e) => this.removeFromList(e))
+        this.element.on('click', this.addSelector, (e) => this.addToList(e))
     }
 
     _addCallbacks() {
