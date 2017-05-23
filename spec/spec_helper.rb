@@ -4,6 +4,7 @@ require 'devise'
 require 'engine_cart'
 EngineCart.load_application!
 
+require 'rails-controller-testing'
 require 'rspec/rails'
 require 'factory_girl_rails'
 
