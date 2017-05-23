@@ -6,7 +6,7 @@ jdk:
   - oraclejdk8
 env:
   matrix:
-    - "RAILS_VERSION=4.2.8"
-    - "RAILS_VERSION=5.0.2"
+    - "RAILS_VERSION=5.1.1"
+    - "RAILS_VERSION=5.0.3"
   global:
     - NOKOGIRI_USE_SYSTEM_LIBRARIES=true
