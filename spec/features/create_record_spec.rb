@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 feature 'User creates an object' do
-  let(:user) { FactoryGirl.create(:user) }
+  let(:user) { FactoryBot.create(:user) }
   let(:params) {
     ActionController::Parameters.new(
       'title' => ['My title'], 'creator' => [], 'description' => [], 'subject' => [], 'isPartOf' => []

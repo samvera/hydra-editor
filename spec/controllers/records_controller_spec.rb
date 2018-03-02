@@ -7,7 +7,7 @@ describe RecordsController do
   end
 
   describe 'an admin' do
-    let(:user) { FactoryGirl.create(:admin) }
+    let(:user) { FactoryBot.create(:admin) }
     before do
       sign_in user
     end
@@ -183,7 +183,7 @@ describe RecordsController do
   end
 
   describe 'a user without create ability' do
-    let(:user) { FactoryGirl.create(:user) }
+    let(:user) { FactoryBot.create(:user) }
     before do
       sign_in user
       controller.current_ability.cannot :create, Audio
