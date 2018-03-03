@@ -14,8 +14,7 @@ module Hydra
       @model = object
     end
 
-    delegate :to_key, :to_param, :to_model, :persisted?, :new_record?,
-             :[], :model_name, to: :model
+    delegate :to_key, :to_param, :persisted?, :new_record?, :[], :model_name, to: :model
 
     module ClassMethods
       def model_name
@@ -33,8 +32,8 @@ module Hydra
     included do
       class_attribute :_terms, instance_accessor: false
 
-      # You may want to set your own field_metadata_service that can 
-      # answer the questions about a fields cardinality regardless of the 
+      # You may want to set your own field_metadata_service that can
+      # answer the questions about a fields cardinality regardless of the
       # cardinality of the model
       class_attribute :field_metadata_service
       # This default service just give us the cardiality defined in the model.
