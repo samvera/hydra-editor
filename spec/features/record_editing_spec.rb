@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'record editing' do
-  let(:user) { FactoryGirl.create(:user) }
+  let(:user) { FactoryBot.create(:user) }
   let(:record) { Audio.new(id: 'audio-1', title: ['Cool Track']) }
   # We need a clone to give to the edit view b/c it gets changed by initialize_fields
   let(:record_clone) { Audio.new(id: 'audio-1', title: ['Cool Track']) }
