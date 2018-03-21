@@ -78,6 +78,21 @@ Add the stylesheets by adding this line to your app/assets/stylesheets/applicati
 ## Updating to 4.0.0
 
 * [SimpleForm](https://github.com/plataformatec/simple_form) is supported from release 3.2.0 onwards
+* `#to_model` now returns `self` (previously it was the value of `@model`):
+  ```ruby
+    class MyForm
+      include HydraEditor::Form
+      self.model_class = MyModel
+      self.terms = [:title, :creator]
+      # [...]
+    end
+    # [...]
+    some_work = MyModel.new(title: ['Black holes: The Reith Lectures.'], creator: 'S.W. Hawking')
+    some_form = MyForm.new(some_work)
+    # [...]
+    some_form.to_model
+    # => #<MyForm:0x00007fd5b2fd1468 @attributes={"id"=>nil, "title"=>["Black holes: The Reith Lectures."], "creator"=>"S.W. Hawking"}, @model=#<MyModel id: nil, title: ["Black holes: The Reith Lectures."], creator: "S.W. Hawking">>
+  ```
 * When a form field for a single value is empty, it now returns a `nil` value (as opposed to an empty `String`):
   ```ruby
     class MyForm
