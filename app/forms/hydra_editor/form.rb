@@ -56,11 +56,17 @@ module HydraEditor
       #   ImageForm.model_attributes(params[:image])
       #   # => { title: 'My new image' }
       def model_attributes(form_params)
-        clean_params = sanitize_params(form_params)
-        terms.each do |key|
-          clean_params[key].delete('') if clean_params[key]
+        sanitize_params(form_params).tap do |clean_params|
+          terms.each do |key|
+            if clean_params[key]
+              if multiple?(key)
+                clean_params[key].delete('')
+              elsif clean_params[key] == ''
+                clean_params[key] = nil
+              end
+            end
+          end
         end
-        clean_params
       end
 
       def sanitize_params(form_params)
