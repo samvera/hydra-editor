@@ -1,4 +1,4 @@
-# HydraEditor [![Gem Version](https://badge.fury.io/rb/hydra-editor.png)](http://badge.fury.io/rb/hydra-editor) [![Build Status](https://travis-ci.org/projecthydra/hydra-editor.png)](https://travis-ci.org/projecthydra/hydra-editor)
+# HydraEditor [![Gem Version](https://badge.fury.io/rb/hydra-editor.png)](http://badge.fury.io/rb/hydra-editor) [![Build Status](https://travis-ci.org/samvera/hydra-editor.png)](https://travis-ci.org/samvera/hydra-editor)
 
 To use add to your gemfile:
 
@@ -75,9 +75,45 @@ Add the stylesheets by adding this line to your app/assets/stylesheets/applicati
 
 (Note: The Javascript includes require Blacklight and must be put after that.)
 
+## Updating to 4.0.0
+
+* [SimpleForm](https://github.com/plataformatec/simple_form) is supported from release 3.2.0 onwards
+* `#to_model` now returns `self` (previously it was the value of `@model`):
+  ```ruby
+    class MyForm
+      include HydraEditor::Form
+      self.model_class = MyModel
+      self.terms = [:title, :creator]
+      # [...]
+    end
+    # [...]
+    some_work = MyModel.new(title: ['Black holes: The Reith Lectures.'], creator: 'S.W. Hawking')
+    some_form = MyForm.new(some_work)
+    # [...]
+    some_form.to_model
+    # => #<MyForm:0x00007fd5b2fd1468 @attributes={"id"=>nil, "title"=>["Black holes: The Reith Lectures."], "creator"=>"S.W. Hawking"}, @model=#<MyModel id: nil, title: ["Black holes: The Reith Lectures."], creator: "S.W. Hawking">>
+  ```
+* When a form field for a single value is empty, it now returns a `nil` value (as opposed to an empty `String`):
+  ```ruby
+    class MyForm
+      include HydraEditor::Form
+      self.model_class = MyModel
+      self.terms = [:title, :creator]
+      # [...]
+    end
+
+    # [...]
+    values = MyForm.model_attributes(
+      title: ['On the distribution of values of angles determined by coplanar points.'],
+      creator: ''
+    )
+    values['creator']
+    # => nil
+  ```
+
 ## Other customizations
 
-By default hydra-editor provides a RecordsController with :new, :create, :edit, and :update actions implemented in the included RecordsControllerBehavior module, and a RecordsHelper module with methods implemented in RecordsHelperBehavior.  If you are mounting the engine and using its routes, you can override the controller behaviors by creating your own RecordsController:
+By default `hydra-editor` provides a RecordsController with :new, :create, :edit, and :update actions implemented in the included RecordsControllerBehavior module, and a RecordsHelper module with methods implemented in RecordsHelperBehavior.  If you are mounting the engine and using its routes, you can override the controller behaviors by creating your own RecordsController:
 
 ```ruby
 class RecordsController < ApplicationController
@@ -89,8 +125,8 @@ end
 
 If you are not mounting the engine or using its default routes, you can include RecordsControllerBehavior in your own controller and add the appropriate routes to your app's config/routes.rb.
 
-# Project Hydra
-This software has been developed by and is brought to you by the Hydra community.  Learn more at the
-[Project Hydra website](http://projecthydra.org)
+# Samvera
+This software has been developed by and is brought to you by the Samvera community.  Learn more at the
+[Samvera website](https://samvera.org/)
 
-![Project Hydra Logo](https://github.com/uvalib/libra-oa/blob/a6564a9e5c13b7873dc883367f5e307bf715d6cf/public/images/powered_by_hydra.png?raw=true)
+![Samvera Logo](https://wiki.duraspace.org/download/thumbnails/87459292/samvera-fall-font2-200w.png?version=1&modificationDate=1498550535816&api=v2)
