@@ -1,5 +1,8 @@
 # History of hydra-editor releases
 
+## 4.0.0
+* 2018-04-25: Released after testing
+
 ## 4.0.0.rc1
 * 2018-03-21: Updates HydraEditor::Form.model_attributes. [dchandekstark]
 * 2018-03-21: Replace `Hydra::Presenter#to_model` delegation with `self` [no-reply]
