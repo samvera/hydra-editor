@@ -7,9 +7,9 @@ require "hydra_editor/version"
 Gem::Specification.new do |s|
   s.name        = "hydra-editor"
   s.version     = HydraEditor::VERSION
-  s.authors     = ["Justin Coyne", "David Chandek-Stark"]
-  s.email       = ["hydra-tech@googlegroups.com"]
-  s.homepage    = "http://github.com/projecthydra/hydra-editor"
+  s.authors     = ["Justin Coyne", "David Chandek-Stark", "Thomas Johnson"]
+  s.email       = ["samvera-tech@googlegroups.com"]
+  s.homepage    = "http://github.com/samvera/hydra-editor"
   s.summary     = "A basic metadata editor for hydra-head"
   s.description = "A basic metadata editor for hydra-head"
 

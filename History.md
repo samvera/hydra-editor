@@ -1,5 +1,8 @@
 # History of hydra-editor releases
 
+## 4.0.1
+* 2018-04-25: Updated the gemspec for authors, email, and homepage
+
 ## 4.0.0
 * 2018-04-25: Released after testing
 
