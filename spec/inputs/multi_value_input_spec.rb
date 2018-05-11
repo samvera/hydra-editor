@@ -3,19 +3,31 @@ require 'spec_helper'
 describe 'MultiValueInput', type: :input do
   class Foo < ActiveFedora::Base
     property :bar, predicate: ::RDF::URI('http://example.com/bar')
+
+    def double_bar
+      bar.map { |b| b+ b }
+    end
   end
 
   context 'happy case' do
-    let(:foo) { Foo.new }
+    let(:foo) do
+      Foo.new.tap { |f| f.bar = bar }
+    end
     let(:bar) { ['bar1', 'bar2'] }
-    subject do
-      foo.bar = bar
-      input_for(foo, :bar, as: :multi_value, required: true)
+
+    context "for values from a property on the object" do
+      subject { input_for(foo, :bar, as: :multi_value, required: true) }
+      it 'renders multi-value' do
+        expect(subject).to have_selector('.form-group.foo_bar.multi_value label.required[for=foo_bar]', text: '* Bar')
+        expect(subject).to have_selector('.form-group.foo_bar.multi_value ul.listing li input.foo_bar', count: 3)
+      end
     end
 
-    it 'renders multi-value' do
-      expect(subject).to have_selector('.form-group.foo_bar.multi_value label.required[for=foo_bar]', text: '* Bar')
-      expect(subject).to have_selector('.form-group.foo_bar.multi_value ul.listing li input.foo_bar', count: 3)
+    context 'for values from a method on the object' do
+      subject { input_for(foo, :double_bar, as: :multi_value) }
+      it 'renders multi-value' do
+        expect(subject).to have_selector('.form-group.foo_double_bar.multi_value ul.listing li input.foo_double_bar', count: 3)
+      end
     end
   end
 
