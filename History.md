@@ -1,5 +1,8 @@
 # History of hydra-editor releases
 
+## 4.0.2
+* 2018-05-10: MultiValue gets values from object methods and attributes [afred]
+
 ## 4.0.1
 * 2018-04-25: Updated the gemspec for authors, email, and homepage
 
