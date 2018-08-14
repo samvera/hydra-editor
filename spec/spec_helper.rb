@@ -1,6 +1,16 @@
 ENV['RAILS_ENV'] ||= 'test'
-require 'devise'
+require "simplecov"
+require "coveralls"
 
+SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new(
+  [
+    SimpleCov::Formatter::HTMLFormatter,
+    Coveralls::SimpleCov::Formatter
+  ]
+)
+SimpleCov.start "rails"
+
+require 'devise'
 require 'engine_cart'
 EngineCart.load_application!
 
