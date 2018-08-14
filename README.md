@@ -1,5 +1,35 @@
-# HydraEditor [![Gem Version](https://badge.fury.io/rb/hydra-editor.png)](http://badge.fury.io/rb/hydra-editor) [![Build Status](https://travis-ci.org/samvera/hydra-editor.png)](https://travis-ci.org/samvera/hydra-editor)
+# HydraEditor
+
+Code:
+[![Gem Version](https://badge.fury.io/rb/hydra-editor.png)](http://badge.fury.io/rb/hydra-editor)
+[![Build Status](https://travis-ci.org/samvera/hydra-editor.png)](https://travis-ci.org/samvera/hydra-editor)
 [![Coverage Status](https://coveralls.io/repos/github/samvera/hydra-editor/badge.svg?branch=master)](https://coveralls.io/github/samvera/hydra-editor?branch=master)
+
+Docs:
+[![Contribution Guidelines](http://img.shields.io/badge/CONTRIBUTING-Guidelines-blue.svg)](./CONTRIBUTING.md)
+[![Apache 2.0 License](http://img.shields.io/badge/APACHE2-license-blue.svg)](./LICENSE.txt)
+
+Jump in: [![Slack Status](http://slack.samvera.org/badge.svg)](http://slack.samvera.org/)
+
+# What is hydra-editor?
+
+A basic metadata editor for Rails applications based on hydra-head.
+
+## Product Owner & Maintenance
+
+**hydra-editor** is a Core Component of the Samvera community. The documentation for
+what this means can be found
+[here](http://samvera.github.io/core_components.html#requirements-for-a-core-component).
+
+### Product Owner
+
+[jrgriffiniii](https://github.com/jrgriffiniii)
+
+# Help
+
+The Samvera community is here to help. Please see our [support guide](./SUPPORT.md).
+
+# Getting Started
 
 To use add to your gemfile:
 
@@ -126,8 +156,9 @@ end
 
 If you are not mounting the engine or using its default routes, you can include RecordsControllerBehavior in your own controller and add the appropriate routes to your app's config/routes.rb.
 
-# Samvera
+# Acknowledgments
+
 This software has been developed by and is brought to you by the Samvera community.  Learn more at the
-[Samvera website](https://samvera.org/)
+[Samvera website](http://samvera.org/).
 
 ![Samvera Logo](https://wiki.duraspace.org/download/thumbnails/87459292/samvera-fall-font2-200w.png?version=1&modificationDate=1498550535816&api=v2)
