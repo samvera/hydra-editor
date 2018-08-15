@@ -18,7 +18,7 @@ describe 'MultiValueInput', type: :input do
     context "for values from a property on the object" do
       subject { input_for(foo, :bar, as: :multi_value, required: true) }
       it 'renders multi-value' do
-        expect(subject).to have_selector('.form-group.foo_bar.multi_value label.required[for=foo_bar]', text: '* Bar')
+        expect(subject).to have_selector('.form-group.foo_bar.multi_value label.required[for=foo_bar]', text: 'Bar *')
         expect(subject).to have_selector('.form-group.foo_bar.multi_value ul.listing li input.foo_bar', count: 3)
       end
     end
@@ -40,7 +40,7 @@ describe 'MultiValueInput', type: :input do
     end
 
     it 'renders multi-value given a nil object' do
-      expect(subject).to have_selector('.form-group.foo_bar.multi_value label.required[for=foo_bar]', text: '* Bar')
+      expect(subject).to have_selector('.form-group.foo_bar.multi_value label.required[for=foo_bar]', text: 'Bar *')
       expect(subject).to have_selector('.form-group.foo_bar.multi_value ul.listing li input.foo_bar')
     end
   end
@@ -53,8 +53,8 @@ describe 'MultiValueInput', type: :input do
     subject { MultiValueInput.new(builder, :bar, nil, :multi_value, {}) }
 
     it 'renders multi-value' do
-      expect(subject).to receive(:build_field).with('bar1', Fixnum)
-      expect(subject).to receive(:build_field).with('bar2', Fixnum)
+      expect(subject).to receive(:build_field).with('bar1', Integer)
+      expect(subject).to receive(:build_field).with('bar2', Integer)
       expect(subject).to receive(:build_field).with('', 2)
       subject.input({})
     end

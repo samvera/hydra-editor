@@ -22,7 +22,7 @@ feature 'User creates an object' do
     select 'Audio', from: 'Select an object type'
     click_button 'Next'
 
-    fill_in '* Title', with: 'My title'
+    fill_in 'Title', with: 'My title'
 
     allow_any_instance_of(Audio).to receive(:attributes=).with({}) # called when initializing a new object
     expect_any_instance_of(Audio).to receive(:attributes=).with(params)

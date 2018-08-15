@@ -5,7 +5,7 @@ FactoryBot.define do
     sequence :email do |n|
       "person#{n}@example.com"
     end
-    password 'password'
+    password { "password" }
     factory :admin do
       # admin true
     end
