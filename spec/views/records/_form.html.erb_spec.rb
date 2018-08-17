@@ -19,13 +19,18 @@ describe 'records/_form' do
   end
 
   context 'when errors are present' do
-    let(:errors) { double('errors', :[] => ["can't be blank"]) }
-    before { allow(form).to receive(:errors).and_return(errors) }
+    let(:errors) { instance_double(ActiveModel::Errors) }
+
+    before do
+      allow(errors).to receive(:[]).and_return(["can't be blank"])
+      allow(errors).to receive(:full_messages_for).and_return(["can't be blank"])
+      allow(form).to receive(:errors).and_return(errors)
+    end
 
     it 'has the error class' do
       render
-      expect(response).to have_selector '.form-group.has-error'
-      expect(response).to have_selector '.help-block', text: "can't be blank"
+      expect(response).to have_selector '.form-group.form-group-invalid'
+      expect(response).to have_selector '.invalid-feedback', text: "can't be blank"
     end
   end
 end
