@@ -19,8 +19,8 @@ Gem::Specification.new do |s|
   s.add_dependency "active-fedora", ">= 9.0.0"
   s.add_dependency "almond-rails", '~> 0.1'
   s.add_dependency "cancancan", "~> 1.8"
-  s.add_dependency "rails", ">= 5.0.7", "< 6"
-  s.add_dependency "simple_form", '~> 4.0'
+  s.add_dependency "rails", ">= 5", "< 6"
+  s.add_dependency "simple_form", '>= 3.5.0'
   s.add_dependency 'sprockets-es6'
   s.add_dependency 'thor', '~> 0.19'
 
