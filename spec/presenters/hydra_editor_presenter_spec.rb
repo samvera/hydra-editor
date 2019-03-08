@@ -2,6 +2,14 @@ require 'spec_helper'
 
 describe Hydra::Presenter do
   before do
+    class Contributor < ActiveFedora::Base
+      has_and_belongs_to_many :books, predicate: ::RDF::Vocab::DC.title
+    end
+
+    class Publisher < ActiveFedora::Base
+      has_many :books, predicate: ::RDF::Vocab::DC.title
+    end
+
     class TestModel < ActiveFedora::Base
       property :title, predicate: ::RDF::Vocab::DC.title
       property :creator, predicate: ::RDF::Vocab::DC.creator, multiple: false
