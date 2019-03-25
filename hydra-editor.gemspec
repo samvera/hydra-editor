@@ -20,14 +20,13 @@ Gem::Specification.new do |s|
   s.add_dependency "almond-rails", '~> 0.1'
   s.add_dependency "cancancan", "~> 1.8"
   s.add_dependency "rails", ">= 5", "< 6"
-  s.add_dependency "simple_form", '>= 3.5.0'
+  s.add_dependency "simple_form", '~> 4.1.0'
   s.add_dependency 'sprockets-es6'
   s.add_dependency 'thor', '~> 0.19'
 
   s.add_development_dependency "capybara", '~> 2.4'
-  s.add_development_dependency "coveralls", '~> 0.8'
   s.add_development_dependency "devise", '~> 4.0'
-  s.add_development_dependency "engine_cart", '~> 2.0'
+  s.add_development_dependency "engine_cart", '~> 2.2'
   s.add_development_dependency 'factory_bot_rails', '~> 4.8'
   s.add_development_dependency 'fcrepo_wrapper', '~> 0.5'
   s.add_development_dependency "hydra-head", '~> 10.5'

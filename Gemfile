@@ -34,7 +34,3 @@ end
 if !ENV['RAILS_VERSION'] || ENV['RAILS_VERSION'] =~ /^5.0/
   gem 'rails-controller-testing'
 end
-
-if ENV['RAILS_VERSION'] =~ /^5\.[0,1]/
-  gem 'active-fedora', '~> 12.0', '< 12.1'
-end
