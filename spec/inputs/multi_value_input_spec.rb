@@ -17,14 +17,19 @@ describe 'MultiValueInput', type: :input do
 
     context "for values from a property on the object" do
       subject { input_for(foo, :bar, as: :multi_value, required: true) }
+
       it 'renders multi-value' do
-        expect(subject).to have_selector('.form-group.foo_bar.multi_value label.required[for=foo_bar]', text: 'Bar *')
+
+        # For handling older releases of SimpleForm
+        expect(subject).to have_selector('.form-group.foo_bar.multi_value label.required[for=foo_bar]', text: /(\*\s)?Bar(\s\*)?/)
         expect(subject).to have_selector('.form-group.foo_bar.multi_value ul.listing li input.foo_bar', count: 3)
       end
     end
 
     context 'for values from a method on the object' do
       subject { input_for(foo, :double_bar, as: :multi_value) }
+
+      # For handling older releases of SimpleForm
       it 'renders multi-value' do
         expect(subject).to have_selector('.form-group.foo_double_bar.multi_value ul.listing li input.foo_double_bar', count: 3)
       end
@@ -40,7 +45,7 @@ describe 'MultiValueInput', type: :input do
     end
 
     it 'renders multi-value given a nil object' do
-      expect(subject).to have_selector('.form-group.foo_bar.multi_value label.required[for=foo_bar]', text: 'Bar *')
+      expect(subject).to have_selector('.form-group.foo_bar.multi_value label.required[for=foo_bar]', text: /(\*\s)?Bar(\s\*)?/)
       expect(subject).to have_selector('.form-group.foo_bar.multi_value ul.listing li input.foo_bar')
     end
   end
