@@ -18,10 +18,10 @@ describe 'routes to the records controller' do
   end
 
   context 'ids with percent' do
-    let(:id) { 'test_7%2Fa-b' }
+    let(:id) { 'test_7%2Ca-b' }
     it 'routes them' do
       expect(get: edit_record_path(audio)).
-          to route_to(controller: 'records', action: 'edit', id: 'test_7/a-b')
+          to route_to(controller: 'records', action: 'edit', id: 'test_7,a-b')
     end
   end
 

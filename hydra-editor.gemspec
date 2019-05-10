@@ -33,6 +33,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency "jasmine", '~> 2.3'
   s.add_development_dependency "pry-byebug"
   s.add_development_dependency 'rails-controller-testing'
+  s.add_development_dependency 'rspec_junit_formatter'
   s.add_development_dependency 'rspec-rails', '~> 3.1'
   s.add_development_dependency 'sdoc', '~> 1.0'
   s.add_development_dependency 'simplecov', '~> 0.16'
