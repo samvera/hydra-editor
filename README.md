@@ -2,7 +2,7 @@
 
 Code:
 [![Gem Version](https://badge.fury.io/rb/hydra-editor.png)](http://badge.fury.io/rb/hydra-editor)
-[![Build Status](https://travis-ci.org/samvera/hydra-editor.png)](https://travis-ci.org/samvera/hydra-editor)
+[![Build Status](https://circleci.com/gh/samvera/hydra-editor.svg?style=svg)](https://circleci.com/gh/samvera/hydra-editor)
 [![Coverage Status](https://coveralls.io/repos/github/samvera/hydra-editor/badge.svg?branch=master)](https://coveralls.io/github/samvera/hydra-editor?branch=master)
 
 Docs:
