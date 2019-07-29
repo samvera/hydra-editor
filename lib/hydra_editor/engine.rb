@@ -4,10 +4,10 @@ module HydraEditor
     require 'sprockets/es6'
     require 'almond-rails'
     engine_name 'hydra_editor'
-    config.eager_load_paths += %W(
+    config.eager_load_paths += %W[
        #{config.root}/app/helpers/concerns
        #{config.root}/app/presenters
-    )
+    ]
     initializer 'hydra-editor.initialize' do
       require 'cancan'
       Sprockets::ES6.configuration = { 'modules' => 'amd', 'moduleIds' => true }

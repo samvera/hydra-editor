@@ -1,3 +1,5 @@
+inherit_gem:
+  bixby: bixby_default.yml
 inherit_from: .rubocop_todo.yml
 
 AllCops:
@@ -10,17 +12,75 @@ AllCops:
     - 'script/**/*'
     - 'spec/test_app_templates/**/*'
 
-Metrics/LineLength:
-  Max: 400
+Bundler/DuplicatedGem:
+  Exclude:
+    - 'Gemfile'
+
+Layout/IndentationConsistency:
+  EnforcedStyle: rails
 
 Metrics/AbcSize:
   Max: 50
 
+Metrics/BlockLength:
+  Exclude:
+    - 'hydra-editor.gemspec'
+    - 'spec/views/records/_form.html.erb_spec.rb'
+    - 'spec/helpers/records_helper_spec.rb'
+    - 'spec/inputs/multi_value_input_spec.rb'
+    - 'spec/controllers/records_controller_spec.rb'
+    - 'spec/routing/records_routing_spec.rb'
+    - 'spec/presenters/hydra_editor_presenter_spec.rb'
+    - 'spec/forms/hydra_editor_form_permissions_spec.rb'
+    - 'spec/forms/hydra_editor_form_spec.rb'
+    - 'spec/features/record_editing_spec.rb'
+
+Metrics/LineLength:
+  Max: 400
+
 Metrics/MethodLength:
   Max: 30
 
-Style/IndentationConsistency:
-  EnforcedStyle: rails
+Naming/FileName:
+  Exclude:
+    - 'lib/tasks/hydra-editor_tasks.rake'
+    - 'lib/hydra-editor.rb'
+    - 'hydra-editor.gemspec'
+    - 'Gemfile'
+    - 'spec/hydra-editor_spec.rb'
+
+Rails:
+  Enabled: true
+
+RSpec/AnyInstance:
+  Exclude:
+    - 'spec/features/record_editing_spec.rb'
+    - 'spec/features/create_record_spec.rb'
+
+RSpec/DescribeClass:
+  Exclude:
+    - 'spec/views/records/edit_fields/_default.html.erb_spec.rb'
+    - 'spec/views/records/_form.html.erb_spec.rb'
+    - 'spec/routing/records_routing_spec.rb'
+    - 'spec/javascripts/jasmine_spec.rb'
+    - 'spec/features/record_editing_spec.rb'
+
+RSpec/ExampleLength:
+  Exclude:
+    - 'spec/helpers/records_helper_spec.rb'
+    - 'spec/javascripts/jasmine_spec.rb'
+    - 'spec/features/record_editing_spec.rb'
+    - 'spec/features/create_record_spec.rb'
+
+RSpec/InstanceVariable:
+  Exclude:
+    - 'spec/controllers/records_controller_spec.rb'
+
+RSpec/VerifiedDoubles:
+  Exclude:
+    - 'spec/inputs/multi_value_input_spec.rb'
+    - 'spec/helpers/records_helper_spec.rb'
+    - 'spec/forms/hydra_editor_form_spec.rb'
 
 Style/CollectionMethods:
   PreferredMethods:
@@ -30,11 +90,9 @@ Style/CollectionMethods:
     detect: 'find'
     find_all: 'select'
 
+
 Style/RegexpLiteral:
   Enabled: false
 
 Style/SingleLineBlockParams:
   Enabled: false
-
-Rails:
-  Enabled: true

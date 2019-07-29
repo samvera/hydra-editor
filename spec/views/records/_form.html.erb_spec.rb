@@ -14,7 +14,7 @@ describe 'records/_form' do
     it 'does not have the error class' do
       render
       expect(response).to have_selector '.form-group'
-      expect(response).to_not have_selector '.has-error'
+      expect(response).not_to have_selector '.has-error'
     end
   end
 
