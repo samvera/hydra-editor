@@ -25,8 +25,8 @@ describe HydraEditor::Form do
     it { is_expected.to eq 'TestModel' }
 
     describe 'model_attributes' do
-      let(:params) { ActionController::Parameters.new(title: [''], creator: 'bob', description: ['huh']) }
       subject { TestForm.model_attributes(params) }
+      let(:params) { ActionController::Parameters.new(title: [''], creator: 'bob', description: ['huh']) }
 
       it { is_expected.to eq('creator' => 'bob', 'title' => []) }
 
@@ -62,7 +62,7 @@ describe HydraEditor::Form do
       form[:title] = nil
     end
 
-    it 'should put an empty element in the value' do
+    it 'puts an empty element in the value' do
       expect { form.send(:initialize_field, :title) }.to change { form[:title] }.
         from(nil).to([''])
     end
@@ -73,7 +73,7 @@ describe HydraEditor::Form do
     before do
       allow(object).to receive(:errors).and_return(errors)
     end
-    it 'should delegate to model' do
+    it 'delegates to model' do
       expect(form.errors).to eq errors
     end
   end
@@ -83,14 +83,14 @@ describe HydraEditor::Form do
       before do
         TestForm.required_fields = [:title]
       end
-      it 'should create them for required fields' do
+      it 'creates them for required fields' do
         expect(TestForm.validators_on(:title).first).to be_instance_of HydraEditor::Form::Validator
         expect(TestForm.validators_on(:title).first.options).to eq({})
         expect(TestForm.validators_on(:title).first.kind).to eq :presence
       end
     end
     context 'without required fields' do
-      it 'should create them for required fields' do
+      it 'creates them for required fields' do
         expect(TestForm.validators_on(:title)).to eq []
       end
     end

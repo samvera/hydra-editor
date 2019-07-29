@@ -2,11 +2,11 @@ require 'spec_helper'
 
 feature 'User creates an object' do
   let(:user) { FactoryBot.create(:user) }
-  let(:params) {
+  let(:params) do
     ActionController::Parameters.new(
       'title' => ['My title'], 'creator' => [], 'description' => [], 'subject' => [], 'isPartOf' => []
     )
-  }
+  end
 
   before do
     HydraEditor.models = ['Audio']
@@ -22,12 +22,10 @@ feature 'User creates an object' do
     select 'Audio', from: 'Select an object type'
     click_button 'Next'
 
-    fill_in 'Title', with: 'My title'
-
-    allow_any_instance_of(Audio).to receive(:attributes=).with({}) # called when initializing a new object
-    expect_any_instance_of(Audio).to receive(:attributes=).with(params)
-    # Avoid the catalog so we don't have to run Solr
-    expect_any_instance_of(Audio).to receive(:save).and_return(true)
+    fill_in 'Title', with: 'My audio work at Tufts'
     click_button 'Save'
+
+    audio_work = Audio.all.to_a.find { |audio| audio.title.include?('My audio work at Tufts') }
+    expect(audio_work).not_to be nil
   end
 end

@@ -31,6 +31,4 @@ else
 end
 # END ENGINE_CART BLOCK
 
-if !ENV['RAILS_VERSION'] || ENV['RAILS_VERSION'] =~ /^5.0/
-  gem 'rails-controller-testing'
-end
+gem 'rails-controller-testing' if !ENV['RAILS_VERSION'] || ENV['RAILS_VERSION'] =~ /^5.0/

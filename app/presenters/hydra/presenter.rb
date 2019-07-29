@@ -24,9 +24,7 @@ module Hydra
 
     module ClassMethods
       def model_name
-        if model_class.nil?
-          raise "You must set `self.model_class = ' after including Hydra::Presenter on #{self}."
-        end
+        raise "You must set `self.model_class = ' after including Hydra::Presenter on #{self}." if model_class.nil?
         model_class.model_name
       end
     end

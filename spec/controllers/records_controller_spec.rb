@@ -12,12 +12,12 @@ describe RecordsController do
       sign_in user
     end
     describe 'who goes to the new page' do
-      it 'should be successful' do
+      it 'renders the template for choosing a format type' do
         get :new
         expect(response).to be_successful
         expect(response).to render_template(:choose_type)
       end
-      it 'should be successful' do
+      it 'renders the template for a new audio work' do
         get :new, params: { type: 'Audio' }
         expect(response).to be_successful
         expect(response).to render_template(:new)
@@ -29,28 +29,28 @@ describe RecordsController do
 
       before do
         allow(stub_audio).to receive(:persisted?).and_return(true)
-        expect(Audio).to receive(:new).and_return(stub_audio)
+        allow(Audio).to receive(:new).and_return(stub_audio)
       end
 
       context 'when save is successful' do
         before do
-          expect(stub_audio).to receive(:save).and_return(true)
+          allow(stub_audio).to receive(:save).and_return(true)
         end
 
-        it 'should be successful' do
+        it 'saves the audio work with a title' do
           post :create, params: { type: 'Audio', audio: { title: ['My title'] } }
           expect(response).to redirect_to("/catalog/#{assigns[:record].id}")
           expect(assigns[:record].title).to eq ['My title']
         end
 
-        it "should not set attributes that aren't listed in terms_for_editing" do
+        it "does not set attributes that aren't listed in terms_for_editing" do
           # params[:audio][:collection_id] would be a good test, but that doesn't work in ActiveFedora 6.7
           post :create, params: { type: 'Audio', audio: { isPartOf: 'my collection' } }
           expect(response).to redirect_to("/catalog/#{assigns[:record].id}")
           expect(assigns[:record].isPartOf).to eq []
         end
 
-        it 'should be successful with json' do
+        it 'is successful with json' do
           post :create, params: { type: 'Audio', audio: { title: ['My title'] } }, format: :json
           expect(response.status).to eq 201
         end
@@ -60,7 +60,7 @@ describe RecordsController do
             controller.current_ability.cannot :create, ActiveFedora::Base
             controller.current_ability.can :create, Audio
           end
-          it 'should be successful' do
+          it 'permits users to create works with the authorized format types' do
             post :create, params: { type: 'Audio', audio: { title: ['My title'] } }
             expect(response).to redirect_to("/catalog/#{assigns[:record].id}")
             expect(assigns[:record].title).to eq ['My title']
@@ -68,16 +68,18 @@ describe RecordsController do
         end
 
         describe 'when set_attributes is overloaded' do
-          controller(RecordsController) do
+          controller(described_class) do
             def set_attributes
               super
               @record.creator = ['Fleece Vest']
             end
           end
           # since this is using an an anonymous class, we have to stub
-          before { allow(controller).to receive(:resource_instance_name).and_return('record') }
+          before do
+            allow(controller).to receive(:resource_instance_name).and_return('record')
+          end
 
-          it 'should run set_attributes' do
+          it 'runs set_attributes' do
             post :create, params: { type: 'Audio', audio: { title: ['My title'] } }
             expect(response).to redirect_to("/catalog/#{assigns[:record].id}")
             expect(assigns[:record].creator).to eq ['Fleece Vest']
@@ -89,7 +91,7 @@ describe RecordsController do
             allow(controller).to receive(:object_as_json).and_return(message: 'it works')
           end
 
-          it 'should run object_as_json' do
+          it 'runs object_as_json' do
             post :create, params: { type: 'Audio', audio: { title: ['My title'] } }, format: 'json'
             expect(JSON.parse(response.body)).to eq('message' => 'it works')
             expect(response.code).to eq '201'
@@ -97,7 +99,7 @@ describe RecordsController do
         end
 
         describe 'when redirect_after_create is overridden' do
-          it 'should redirect to the alternate location' do
+          it 'redirects to the alternate location' do
             allow(controller).to receive(:redirect_after_create).and_return('/')
             post :create, params: { type: 'Audio', audio: { title: ['My title'] } }
             expect(response).to redirect_to('/')
@@ -107,9 +109,9 @@ describe RecordsController do
 
       context 'when it fails to save' do
         before do
-          expect(stub_audio).to receive(:save).and_return(false)
+          allow(stub_audio).to receive(:save).and_return(false)
         end
-        it 'should draw the form' do
+        it 'draws the form' do
           post :create, params: { type: 'Audio', audio: { title: ['My title'] } }
           expect(response).to render_template('records/new')
           expect(assigns[:form].title).to eq ['My title']
@@ -122,11 +124,11 @@ describe RecordsController do
       let(:audio) { Audio.new(title: ['My title2'], id: 'test:7') }
       before do
         allow(audio).to receive(:persisted?).and_return(true)
-        expect(ActiveFedora::Base).to receive(:find).with('test:7').and_return(audio)
-        expect(controller).to receive(:authorize!).with(:edit, audio)
+        allow(ActiveFedora::Base).to receive(:find).and_return(audio)
+        allow(controller).to receive(:authorize!)
       end
 
-      it 'should be successful' do
+      it 'updates the audio work' do
         get :edit, params: { id: audio }
         expect(response).to be_successful
         expect(assigns[:record].title).to eq ['My title2']
@@ -137,16 +139,16 @@ describe RecordsController do
       let(:audio) { Audio.new(title: ['My title2'], id: 'test:7') }
       before do
         allow(audio).to receive(:persisted?).and_return(true)
-        expect(ActiveFedora::Base).to receive(:find).with('test:7').and_return(audio)
-        expect(controller).to receive(:authorize!).with(:update, audio)
+        allow(ActiveFedora::Base).to receive(:find).with('test:7').and_return(audio)
+        allow(controller).to receive(:authorize!)
       end
 
       context 'when saving is unsuccessful' do
         before do
-          expect(audio).to receive(:save).and_return(false)
+          allow(audio).to receive(:save).and_return(false)
         end
 
-        it 'should draw the form' do
+        it 'draws the form' do
           put :update, params: { id: audio, audio: { title: ['My title 3'] } }
           expect(response).to be_successful
           expect(response).to render_template('records/edit')
@@ -157,22 +159,22 @@ describe RecordsController do
 
       context 'when saving is successful' do
         before do
-          expect(audio).to receive(:save).and_return(true)
+          allow(audio).to receive(:save).and_return(true)
         end
 
-        it 'should be successful' do
+        it 'updates the work and redirects to the work show view' do
           put :update, params: { id: audio, audio: { title: ['My title 3'] } }
           expect(response).to redirect_to("/catalog/#{assigns[:record].id}")
           expect(assigns[:record].title).to eq ['My title 3']
         end
 
-        it 'should be successful with json' do
+        it 'is successful with json' do
           put :update, params: { id: audio, audio: { title: ['My title'] } }, format: :json
           expect(response.status).to eq 204
         end
 
         context 'when redirect_after_update is overridden' do
-          it 'should redirect to the alternate location' do
+          it 'redirects to the alternate location' do
             allow(controller).to receive(:redirect_after_update).and_return('/')
             put :update, params: { id: audio, audio: { title: ['My title 3'] } }
             expect(response).to redirect_to('/')
@@ -190,7 +192,7 @@ describe RecordsController do
     end
 
     describe 'who goes to the new page' do
-      it 'should not be allowed' do
+      it 'is not allowed' do
         get :new, params: { type: 'Audio' }
         expect(response).to redirect_to '/'
         expect(flash[:alert]).to eq 'You are not authorized to access this page.'
