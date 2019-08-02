@@ -3,94 +3,47 @@ version: 2.1
 orbs:
   samvera: samvera/circleci-orb@0
 jobs:
-  bundle:
+  bundle_lint_test:
     parameters:
       ruby_version:
         type: string
-        default: 2.6.3
       bundler_version:
         type: string
         default: 1.17.3
       rails_version:
         type: string
-        default: '5.2.3'
-    executor:
-      name: 'samvera/ruby'
-      ruby_version: << parameters.ruby_version >>
-    environment:
-      RAILS_VERSION: << parameters.rails_version >>
-      NOKOGIRI_USE_SYSTEM_LIBRARIES: true
-    steps:
-      - samvera/cached_checkout
-      - samvera/bundle_for_gem:
-          ruby_version: << parameters.ruby_version >>
-          bundler_version: << parameters.bundler_version >>
-          project: hydra-editor
-      - persist_to_workspace:
-          root: ~/
-          paths:
-          - project/*
-          - project/**/*
-  build:
-    parameters:
-      ruby_version:
-        type: string
-        default: 2.6.3
-      bundler_version:
-        type: string
-        default: 1.17.3
-      rails_version:
-        type: string
-        default: '5.2.3'
-    executor:
-      name: 'samvera/ruby'
-      ruby_version: << parameters.ruby_version >>
-    environment:
-      RAILS_VERSION: << parameters.rails_version >>
-      NOKOGIRI_USE_SYSTEM_LIBRARIES: true
-      ENGINE_CART_RAILS_OPTIONS: --skip-git --skip-bundle --skip-listen --skip-spring --skip-yarn --skip-keeps --skip-action-cable --skip-coffee --skip-puma --skip-test
-    steps:
-      - attach_workspace:
-          at: ~/
-      - samvera/engine_cart_generate:
-          cache_key: v1-internal-test-app-{{ checksum "hydra-editor.gemspec" }}-{{ checksum "spec/test_app_templates/lib/generators/test_app_generator.rb" }}-<< parameters.rails_version >>-<< parameters.ruby_version >>
-      - samvera/bundle_for_gem:
-          ruby_version: << parameters.ruby_version >>
-          bundler_version: << parameters.bundler_version >>
-          project: hydra-editor
-      - persist_to_workspace:
-          root: ~/
-          paths:
-          - project/*
-          - project/**/*
-  test:
-    parameters:
-      ruby_version:
-        type: string
-        default: 2.6.3
-      bundler_version:
-        type: string
-        default: 1.17.3
     executor:
       name: 'samvera/ruby_fcrepo_solr'
       ruby_version: << parameters.ruby_version >>
+    working_directory: ~/project
     environment:
+      ENGINE_CART_RAILS_OPTIONS: --skip-git --skip-bundle --skip-listen --skip-spring --skip-yarn --skip-keeps --skip-coffee --skip-puma --skip-test
+      RAILS_VERSION: << parameters.rails_version >>
+      NOKOGIRI_USE_SYSTEM_LIBRARIES: true
       CC_TEST_REPORTER_ID: e52010675d2774ee408c14c0de08c143d0749e59beb6dd729254d1b3ea94c7b1
     steps:
-      - attach_workspace:
-          at: ~/
+      - samvera/cached_checkout
+
+      - samvera/bundle_for_gem:
+          ruby_version: << parameters.ruby_version >>
+          bundler_version: << parameters.bundler_version >>
+          project: hydra-editor
       - run:
           name: "Download the Code Climate reporter"
           command: |
             curl -L "https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64" > ./cc-test-reporter
             chmod +x ./cc-test-reporter
             ./cc-test-reporter before-build
-      - samvera/install_solr_core:
-          solr_config_path: .internal_test_app/solr/config
+
+      - samvera/engine_cart_generate:
+          cache_key: v5-internal-test-app-{{ checksum "hydra-editor.gemspec" }}-{{ checksum "spec/test_app_templates/lib/generators/test_app_generator.rb" }}-<< parameters.rails_version >>-<< parameters.ruby_version >>
+
       - samvera/bundle_for_gem:
           ruby_version: << parameters.ruby_version >>
           bundler_version: << parameters.bundler_version >>
           project: hydra-editor
+
+      - samvera/rubocop
       - samvera/parallel_rspec
       - run:
           name: "Submit the exit code to Code Climate"
@@ -100,93 +53,27 @@ workflows:
   version: 2
   ci:
     jobs:
-      - bundle:
-          name: "bundle_ruby2-6_rails5-2"
-          ruby_version: "2.6.3"
-          rails_version: "5.2.3"
-      - build:
-          name: "build_ruby2-6_rails5-2"
-          ruby_version: "2.6.3"
-          rails_version: "5.2.3"
-          requires:
-            - bundle_ruby2-6_rails5-2
-      - test:
-          name: "ruby2-6_rails5-2"
-          ruby_version: "2.6.3"
-          requires:
-            - build_ruby2-6_rails5-2
-      - bundle:
-          name: "bundle_ruby2-6_rails5-1"
-          ruby_version: "2.6.3"
-          rails_version: "5.1.7"
-      - build:
-          name: "build_ruby2-6_rails5-1"
-          ruby_version: "2.6.3"
-          rails_version: "5.1.7"
-          requires:
-            - bundle_ruby2-6_rails5-1
-      - test:
-          name: "ruby2-6_rails5-1"
-          ruby_version: "2.6.3"
-          requires:
-            - build_ruby2-6_rails5-1
-      - bundle:
-          name: "bundle_ruby2-5_rails5-2"
-          ruby_version: "2.5.5"
-          rails_version: "5.2.3"
-      - build:
-          name: "build_ruby2-5_rails5-2"
-          ruby_version: "2.5.5"
-          rails_version: "5.2.3"
-          requires:
-            - bundle_ruby2-5_rails5-2
-      - test:
-          name: "ruby2-5_rails5-2"
-          ruby_version: "2.5.5"
-          requires:
-            - build_ruby2-5_rails5-2
-      - bundle:
-          name: "bundle_ruby2-5_rails5-1"
-          ruby_version: "2.5.5"
-          rails_version: "5.1.7"
-      - build:
-          name: "build_ruby2-5_rails5-1"
-          ruby_version: "2.5.5"
-          rails_version: "5.1.7"
-          requires:
-            - bundle_ruby2-5_rails5-1
-      - test:
-          name: "ruby2-5_rails5-1"
-          ruby_version: "2.5.5"
-          requires:
-            - build_ruby2-5_rails5-1
-      - bundle:
-          name: "bundle_ruby2-4_rails5-2"
-          ruby_version: "2.4.6"
-          rails_version: "5.2.3"
-      - build:
-          name: "build_ruby2-4_rails5-2"
-          ruby_version: "2.4.6"
-          rails_version: "5.2.3"
-          requires:
-            - bundle_ruby2-4_rails5-2
-      - test:
-          name: "ruby2-4_rails5-2"
-          ruby_version: "2.4.6"
-          requires:
-            - build_ruby2-4_rails5-2
-      - bundle:
-          name: "bundle_ruby2-4_rails5-1"
-          ruby_version: "2.4.6"
-          rails_version: "5.1.7"
-      - build:
-          name: "build_ruby2-4_rails5-1"
-          ruby_version: "2.4.6"
-          rails_version: "5.1.7"
-          requires:
-            - bundle_ruby2-4_rails5-1
-      - test:
-          name: "ruby2-4_rails5-1"
-          ruby_version: "2.4.6"
-          requires:
-            - build_ruby2-4_rails5-1
+      - bundle_lint_test:
+          name: bundle_ruby2-6_rails5-2
+          ruby_version: 2.6.3
+          rails_version: 5.2.3
+      - bundle_lint_test:
+          name: bundle_ruby2-6_rails5-1
+          ruby_version: 2.6.3
+          rails_version: 5.1.7
+      - bundle_lint_test:
+          name: bundle_ruby2-5_rails5-2
+          ruby_version: 2.5.5
+          rails_version: 5.2.3
+      - bundle_lint_test:
+          name: bundle_ruby2-5_rails5-1
+          ruby_version: 2.5.5
+          rails_version: 5.1.7
+      - bundle_lint_test:
+          name: bundle_ruby2-4_rails5-2
+          ruby_version: 2.4.6
+          rails_version: 5.2.3
+      - bundle_lint_test:
+          name: bundle_ruby2-4_rails5-1
+          ruby_version: 2.4.6
+          rails_version: 5.1.7

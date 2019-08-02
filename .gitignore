@@ -9,3 +9,4 @@ fcrepo4-data/
 fcrepo4-test-data/
 jetty/
 tmp/
+coverage/
