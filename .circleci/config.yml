@@ -15,7 +15,6 @@ jobs:
     executor:
       name: 'samvera/ruby_fcrepo_solr'
       ruby_version: << parameters.ruby_version >>
-    working_directory: ~/project
     environment:
       ENGINE_CART_RAILS_OPTIONS: --skip-git --skip-bundle --skip-listen --skip-spring --skip-yarn --skip-keeps --skip-coffee --skip-puma --skip-test
       RAILS_VERSION: << parameters.rails_version >>
@@ -23,7 +22,6 @@ jobs:
       CC_TEST_REPORTER_ID: e52010675d2774ee408c14c0de08c143d0749e59beb6dd729254d1b3ea94c7b1
     steps:
       - samvera/cached_checkout
-
       - samvera/bundle_for_gem:
           ruby_version: << parameters.ruby_version >>
           bundler_version: << parameters.bundler_version >>
@@ -34,15 +32,18 @@ jobs:
             curl -L "https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64" > ./cc-test-reporter
             chmod +x ./cc-test-reporter
             ./cc-test-reporter before-build
-
-      - samvera/engine_cart_generate:
-          cache_key: v5-internal-test-app-{{ checksum "hydra-editor.gemspec" }}-{{ checksum "spec/test_app_templates/lib/generators/test_app_generator.rb" }}-<< parameters.rails_version >>-<< parameters.ruby_version >>
-
       - samvera/bundle_for_gem:
           ruby_version: << parameters.ruby_version >>
           bundler_version: << parameters.bundler_version >>
           project: hydra-editor
-
+      - samvera/engine_cart_generate:
+          cache_key: v1-internal-test-app-{{ checksum "hydra-editor.gemspec" }}-{{ checksum "spec/test_app_templates/lib/generators/test_app_generator.rb" }}-<< parameters.rails_version >>-<< parameters.ruby_version >>
+      - samvera/install_solr_core:
+          solr_config_path: .internal_test_app/solr/config
+      - samvera/bundle_for_gem:
+          ruby_version: << parameters.ruby_version >>
+          bundler_version: << parameters.bundler_version >>
+          project: hydra-editor
       - samvera/rubocop
       - samvera/parallel_rspec
       - run:
