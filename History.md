@@ -1,5 +1,15 @@
 # History of hydra-editor releases
 
+## 5.0.1
+* 2019-09-30: Update the dependency for the `simple_form` Gem to 5.0.x releases
+
+## 5.0.0
+* 2019-03-26: Added CodeClimate [@cjcolvar]
+* 2019-03-26: Updates testing for Rails support to releases 5.2.2, 5.1.6.1, and 5.0.7.1 [@cjcolvar]
+* 2019-03-26: Updates simple_form to releases 4.1.0 (or later) [@cjcolvar]
+* 2019-03-26: Updates engine_cart to release 2.2 [@cjcolvar]
+* 2018-08-14: Updates the repository documentation in compliance with the guidelines of the Core Component Maintenance Working Group [@botimer]
+
 ## 4.0.2
 * 2018-05-10: MultiValue gets values from object methods and attributes [afred]
 
