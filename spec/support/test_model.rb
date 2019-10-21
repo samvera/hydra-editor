@@ -23,4 +23,8 @@ class TestModel
       creator: creator
     }.with_indifferent_access
   end
+
+  def new_record?
+    true
+  end
 end

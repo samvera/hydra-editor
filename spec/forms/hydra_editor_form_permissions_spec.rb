@@ -2,11 +2,6 @@ require 'spec_helper'
 
 describe HydraEditor::Form::Permissions do
   before do
-    class TestModel < ActiveFedora::Base
-      property :title, predicate: ::RDF::Vocab::DC.title
-      property :creator, predicate: ::RDF::Vocab::DC.creator, multiple: false
-    end
-
     class TestForm
       include HydraEditor::Form
       include HydraEditor::Form::Permissions
@@ -18,7 +13,6 @@ describe HydraEditor::Form::Permissions do
 
   after do
     Object.send(:remove_const, :TestForm)
-    Object.send(:remove_const, :TestModel)
   end
 
   describe 'model_attributes' do

@@ -10,12 +10,12 @@ describe Hydra::Presenter do
       has_many :books, predicate: ::RDF::Vocab::DC.title
     end
 
-    class TestModel < ActiveFedora::Base
-      property :title, predicate: ::RDF::Vocab::DC.title
-      property :creator, predicate: ::RDF::Vocab::DC.creator, multiple: false
-      has_and_belongs_to_many :contributors, predicate: ::RDF::Vocab::DC.contributor
-      belongs_to :publisher, predicate: ::RDF::Vocab::DC.publisher
-    end
+    # class TestModel < ActiveFedora::Base
+    #   property :title, predicate: ::RDF::Vocab::DC.title
+    #   property :creator, predicate: ::RDF::Vocab::DC.creator, multiple: false
+    #   has_and_belongs_to_many :contributors, predicate: ::RDF::Vocab::DC.contributor
+    #   belongs_to :publisher, predicate: ::RDF::Vocab::DC.publisher
+    # end
 
     class TestPresenter
       include Hydra::Presenter
@@ -31,7 +31,7 @@ describe Hydra::Presenter do
 
   after do
     Object.send(:remove_const, :TestPresenter)
-    Object.send(:remove_const, :TestModel)
+    # Object.send(:remove_const, :TestModel)
   end
 
   describe 'class methods' do

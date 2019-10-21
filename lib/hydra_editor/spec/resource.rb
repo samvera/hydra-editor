@@ -24,4 +24,16 @@ RSpec.shared_examples 'a Hydra::Editor compatible resource' do
       end
     end
   end
+
+  describe ".model_name" do
+    it "returns a string version of the model's class" do
+      expect(resource.class.model_name).to eq resource.class.to_s
+    end
+  end
+
+  describe "#new_record?" do
+    it "returns true" do
+      expect(resource.new_record?).to eq true
+    end
+  end
 end
