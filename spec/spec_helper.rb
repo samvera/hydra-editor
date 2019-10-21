@@ -15,6 +15,7 @@ EngineCart.load_application!
 require 'rails-controller-testing'
 require 'rspec/rails'
 require 'factory_bot_rails'
+require 'pry'
 
 Rails.backtrace_cleaner.remove_silencers!
 # Load support files

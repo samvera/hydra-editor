@@ -2,11 +2,6 @@ require 'spec_helper'
 
 describe HydraEditor::Form do
   before do
-    class TestModel < ActiveFedora::Base
-      property :title, predicate: ::RDF::Vocab::DC.title
-      property :creator, predicate: ::RDF::Vocab::DC.creator, multiple: false
-    end
-
     class TestForm
       include HydraEditor::Form
       self.model_class = TestModel
@@ -17,7 +12,6 @@ describe HydraEditor::Form do
 
   after do
     Object.send(:remove_const, :TestForm)
-    Object.send(:remove_const, :TestModel)
   end
 
   describe 'class methods' do
