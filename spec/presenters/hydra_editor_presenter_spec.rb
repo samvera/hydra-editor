@@ -2,21 +2,6 @@ require 'spec_helper'
 
 describe Hydra::Presenter do
   before do
-    class Contributor < ActiveFedora::Base
-      has_and_belongs_to_many :books, predicate: ::RDF::Vocab::DC.title
-    end
-
-    class Publisher < ActiveFedora::Base
-      has_many :books, predicate: ::RDF::Vocab::DC.title
-    end
-
-    # class TestModel < ActiveFedora::Base
-    #   property :title, predicate: ::RDF::Vocab::DC.title
-    #   property :creator, predicate: ::RDF::Vocab::DC.creator, multiple: false
-    #   has_and_belongs_to_many :contributors, predicate: ::RDF::Vocab::DC.contributor
-    #   belongs_to :publisher, predicate: ::RDF::Vocab::DC.publisher
-    # end
-
     class TestPresenter
       include Hydra::Presenter
       self.model_class = TestModel
@@ -104,16 +89,6 @@ describe Hydra::Presenter do
         it { is_expected.to be false }
       end
 
-      context 'for a multivalue association' do
-        let(:field) { :contributors }
-        it { is_expected.to be true }
-      end
-
-      context 'for a single value association' do
-        let(:field) { :publisher }
-        it { is_expected.to be false }
-      end
-
       context 'with anything else' do
         let(:field) { :visibility }
         it { is_expected.to be false }
@@ -133,16 +108,6 @@ describe Hydra::Presenter do
         let(:field) { :creator }
         it { is_expected.to be false }
       end
-
-      context 'for a multivalue association' do
-        let(:field) { :contributors }
-        it { is_expected.to be true }
-      end
-
-      context 'for a single value association' do
-        let(:field) { :publisher }
-        it { is_expected.to be false }
-      end
     end
   end
 
@@ -157,16 +122,6 @@ describe Hydra::Presenter do
 
     context 'for a single value string' do
       let(:field) { :creator }
-      it { is_expected.to be true }
-    end
-
-    context 'for a multivalue association' do
-      let(:field) { :contributors }
-      it { is_expected.to be false }
-    end
-
-    context 'for a single value association' do
-      let(:field) { :publisher }
       it { is_expected.to be true }
     end
   end

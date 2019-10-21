@@ -21,7 +21,7 @@ describe 'records/edit_fields/_default' do
   end
 
   context 'when the field is not multivalued' do
-    before { allow(Audio).to receive(:multiple?).with(:title).and_return(false) }
+    before { allow(view).to receive(:key).and_return(:publisher) }
 
     it 'does not have the input-group class or the add another button' do
       render

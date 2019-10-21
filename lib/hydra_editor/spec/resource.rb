@@ -36,4 +36,29 @@ RSpec.shared_examples 'a Hydra::Editor compatible resource' do
       expect(resource.new_record?).to eq true
     end
   end
+
+  describe "#model_name" do
+    it "returns a string version of the model's class" do
+      expect(resource.model_name).to eq resource.class.to_s
+    end
+  end
+
+  describe "#persisted?" do
+    it "returns false" do
+      expect(resource.persisted?).to eq false
+    end
+  end
+
+  describe ".attribute_names" do
+    it "returns the attribute keys" do
+      expect(resource.class.attribute_names).to eq resource.attributes.keys
+    end
+  end
+
+  describe "attribute writers" do
+    it "can write to attributes" do
+      resource.title = ["Something"]
+      expect(resource.title).to eq ["Something"]
+    end
+  end
 end
