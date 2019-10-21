@@ -25,9 +25,6 @@ Bundler::GemHelper.install_tasks
 require 'rspec/core/rake_task'
 RSpec::Core::RakeTask.new(:spec)
 
-require 'solr_wrapper/rake_task'
-require 'fcrepo_wrapper'
-require 'active_fedora/rake_support'
 require 'engine_cart/rake_task'
 
 require 'jasmine'
@@ -47,18 +44,6 @@ task ci: ['engine_cart:generate'] do
   ENV['environment'] = "test"
   with_test_server do
     Rake::Task['spec'].invoke
-  end
-end
-
-desc 'Start up test server'
-task :test_server do
-  ENV["RAILS_ENV"] = "test"
-  with_test_server do
-    puts "Solr: http://localhost:#{ENV['SOLR_TEST_PORT']}/solr"
-    puts "Fedora: http://localhost:#{ENV['FCREPO_TEST_PORT']}/rest"
-    loop do
-      sleep(1)
-    end
   end
 end
 

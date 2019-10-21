@@ -16,11 +16,6 @@ module RecordsHelperBehavior
     render_edit_field_partial_with_action(collection, field_name, locals)
   end
 
-  def record_form_action_url(record)
-    router = respond_to?(:hydra_editor) ? hydra_editor.routes.url_helpers : self
-    record.persisted? ? router.record_path(record) : router.records_path
-  end
-
   def new_record_title
     I18n.t('hydra_editor.new.title') % model_label(params[:type])
   end
