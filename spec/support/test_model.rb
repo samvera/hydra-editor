@@ -7,8 +7,6 @@ class TestModel
       OpenStruct.new(collection?: false)
     when :title
       OpenStruct.new(collection?: true)
-    else
-      nil
     end
   end
 
@@ -37,7 +35,7 @@ class TestModel
   end
 
   def self.attribute_names
-    ["title", "creator", "publisher"]
+    %w[title creator publisher]
   end
 
   def new_record?
@@ -52,8 +50,7 @@ class TestModel
     false
   end
 
-  def to_key
-  end
+  def to_key; end
 
   def errors
     {}

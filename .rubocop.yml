@@ -35,6 +35,7 @@ Metrics/BlockLength:
     - 'spec/forms/hydra_editor_form_permissions_spec.rb'
     - 'spec/forms/hydra_editor_form_spec.rb'
     - 'spec/features/record_editing_spec.rb'
+    - 'lib/hydra_editor/spec/resource.rb'
 
 Metrics/LineLength:
   Max: 400
