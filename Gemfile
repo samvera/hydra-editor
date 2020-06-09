@@ -32,3 +32,4 @@ end
 # END ENGINE_CART BLOCK
 
 gem 'rails-controller-testing' if !ENV['RAILS_VERSION'] || ENV['RAILS_VERSION'] =~ /^5.0/
+gem "bixby", :git => 'https://github.com/samvera-labs/bixby.git', :branch => "rubocop-version"
