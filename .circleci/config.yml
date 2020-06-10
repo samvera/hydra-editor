@@ -30,12 +30,6 @@ jobs:
           bundler_version: << parameters.bundler_version >>
           cache_version: '2'
           project: hydra-editor
-      - run:
-          name: "Download the Code Climate reporter"
-          command: |
-            curl -L "https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64" > ./cc-test-reporter
-            chmod +x ./cc-test-reporter
-            ./cc-test-reporter before-build
       - samvera/engine_cart_generate:
           cache_key: v2-internal-test-app-{{ checksum "hydra-editor.gemspec" }}-{{ checksum "Gemfile" }}-{{ checksum "spec/test_app_templates/lib/generators/test_app_generator.rb" }}-<< parameters.rails_version >>-<< parameters.ruby_version >>
       - samvera/install_solr_core:
@@ -47,9 +41,6 @@ jobs:
           project: hydra-editor
       - samvera/rubocop
       - samvera/parallel_rspec
-      - run:
-          name: "Submit the exit code to Code Climate"
-          command: ./cc-test-reporter after-build --exit-code $?
 
 workflows:
   version: 2
