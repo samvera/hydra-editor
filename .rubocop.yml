@@ -18,7 +18,9 @@ Bundler/DuplicatedGem:
     - 'Gemfile'
 
 Layout/IndentationConsistency:
-  EnforcedStyle: rails
+  EnforcedStyle: indented_internal_methods
+  Exclude:
+    - 'Rakefile'
 
 Metrics/AbcSize:
   Max: 50
@@ -36,7 +38,7 @@ Metrics/BlockLength:
     - 'spec/forms/hydra_editor_form_spec.rb'
     - 'spec/features/record_editing_spec.rb'
 
-Metrics/LineLength:
+Layout/LineLength:
   Max: 400
 
 Metrics/MethodLength:
