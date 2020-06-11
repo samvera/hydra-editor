@@ -25,7 +25,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'sprockets-es6'
   s.add_dependency 'thor', '~> 0.19'
 
-  s.add_development_dependency "bixby"
+  s.add_development_dependency "bixby", '~> 3.0'
   s.add_development_dependency "capybara", '~> 2.4'
   s.add_development_dependency "devise", '~> 4.0'
   s.add_development_dependency "engine_cart", '~> 2.2'
