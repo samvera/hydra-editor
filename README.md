@@ -156,6 +156,21 @@ end
 
 If you are not mounting the engine or using its default routes, you can include RecordsControllerBehavior in your own controller and add the appropriate routes to your app's config/routes.rb.
 
+## Releasing
+
+1. `bundle install`
+2. Increase the version number in `lib/hydra-editor/version.rb`
+3. Increase the same version number in `.github_changelog_generator`
+4. Update `CHANGELOG.md` by running this command:
+
+  ```
+  github_changelog_generator --user samvera --project hydra-editor --token YOUR_GITHUB_TOKEN_HERE
+  ```
+
+5. Commit these changes to the master branch
+
+6. Run `rake release`
+
 # Acknowledgments
 
 This software has been developed by and is brought to you by the Samvera community.  Learn more at the
