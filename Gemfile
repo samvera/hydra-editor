@@ -31,4 +31,5 @@ else
 end
 # END ENGINE_CART BLOCK
 
+gem 'github_changelog_generator'
 gem 'rails-controller-testing' if !ENV['RAILS_VERSION'] || ENV['RAILS_VERSION'] =~ /^5.0/
