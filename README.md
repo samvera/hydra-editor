@@ -159,7 +159,7 @@ If you are not mounting the engine or using its default routes, you can include 
 ## Releasing
 
 1. `bundle install`
-2. Increase the version number in `lib/hydra-editor/version.rb`
+2. Increase the version number in `lib/hydra_editor/version.rb`
 3. Increase the same version number in `.github_changelog_generator`
 4. Update `CHANGELOG.md` by running this command:
 
