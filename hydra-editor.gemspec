@@ -23,7 +23,6 @@ Gem::Specification.new do |s|
   s.add_dependency "simple_form", '>= 4.1.0', '< 6.0'
   s.add_dependency 'sprockets', '~> 3.7'
   s.add_dependency 'sprockets-es6'
-  s.add_dependency 'thor', '~> 0.19'
 
   s.add_development_dependency "bixby", '~> 3.0'
   s.add_development_dependency "capybara", '~> 2.4'
