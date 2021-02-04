@@ -1,5 +1,17 @@
 # Changelog
 
+## [5.0.4](https://github.com/samvera/hydra-editor/tree/5.0.4) (2021-02-04)
+
+[Full Changelog](https://github.com/samvera/hydra-editor/compare/v5.0.3...5.0.4)
+
+**Closed issues:**
+
+- Hiding the link that could remove required input [samvera/hyrax\#3526](https://github.com/samvera/hyrax/issues/3526)
+
+**Merged pull requests:**
+
+- Hiding the link that could remove required input [\#193](https://github.com/samvera/hydra-editor/pull/193) ([jeremyf](https://github.com/jeremyf))
+
 ## [5.0.3](https://github.com/samvera/hydra-editor/tree/5.0.3) (2020-08-04)
 
 [Full Changelog](https://github.com/samvera/hydra-editor/compare/v5.0.2...5.0.3)
