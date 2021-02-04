@@ -60,8 +60,8 @@
     margin-bottom: 0.5rem;
   }
 
-  .listing li:only-of-type {
-    width: 100%;
+  .listing li:first-of-type {
+    width: 83.3333333333%;
 
     input {
       border-radius: 4px;
