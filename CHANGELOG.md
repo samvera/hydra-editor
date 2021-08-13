@@ -1,20 +1,28 @@
 # Changelog
 
-## [5.0.4](https://github.com/samvera/hydra-editor/tree/5.0.4) (2021-02-04)
+## [5.0.5](https://github.com/samvera/hydra-editor/tree/5.0.5) (2021-08-13)
 
-[Full Changelog](https://github.com/samvera/hydra-editor/compare/v5.0.3...5.0.4)
-
-**Closed issues:**
-
-- Hiding the link that could remove required input [samvera/hyrax\#3526](https://github.com/samvera/hyrax/issues/3526)
+[Full Changelog](https://github.com/samvera/hydra-editor/compare/v5.0.4...5.0.5)
 
 **Merged pull requests:**
 
+- use `Kernel#Array` to cast values to an Array [\#197](https://github.com/samvera/hydra-editor/pull/197) ([no-reply](https://github.com/no-reply))
+- Adding CONTRIBUTING.md
+
+This was uploaded via automation. [\#189](https://github.com/samvera/hydra-editor/pull/189) ([jeremyf](https://github.com/jeremyf))
+
+## [v5.0.4](https://github.com/samvera/hydra-editor/tree/v5.0.4) (2021-02-04)
+
+[Full Changelog](https://github.com/samvera/hydra-editor/compare/v5.0.3...v5.0.4)
+
+**Merged pull requests:**
+
+- Commits for v5.0.4 [\#194](https://github.com/samvera/hydra-editor/pull/194) ([jeremyf](https://github.com/jeremyf))
 - Hiding the link that could remove required input [\#193](https://github.com/samvera/hydra-editor/pull/193) ([jeremyf](https://github.com/jeremyf))
 
-## [5.0.3](https://github.com/samvera/hydra-editor/tree/5.0.3) (2020-08-04)
+## [v5.0.3](https://github.com/samvera/hydra-editor/tree/v5.0.3) (2020-08-04)
 
-[Full Changelog](https://github.com/samvera/hydra-editor/compare/v5.0.2...5.0.3)
+[Full Changelog](https://github.com/samvera/hydra-editor/compare/v5.0.2...v5.0.3)
 
 **Closed issues:**
 
@@ -22,6 +30,7 @@
 
 **Merged pull requests:**
 
+- Prepare for 5.0.3 release [\#191](https://github.com/samvera/hydra-editor/pull/191) ([cjcolvar](https://github.com/cjcolvar))
 - Remove unnecessary thor dependency [\#190](https://github.com/samvera/hydra-editor/pull/190) ([cjcolvar](https://github.com/cjcolvar))
 
 ## [v5.0.2](https://github.com/samvera/hydra-editor/tree/v5.0.2) (2020-06-11)
@@ -104,10 +113,6 @@
 
 [Full Changelog](https://github.com/samvera/hydra-editor/compare/v4.0.0...v3.4.0)
 
-**Merged pull requests:**
-
-- Releases 3.4.0 [\#150](https://github.com/samvera/hydra-editor/pull/150) ([jrgriffiniii](https://github.com/jrgriffiniii))
-
 ## [v4.0.0](https://github.com/samvera/hydra-editor/tree/v4.0.0) (2018-04-25)
 
 [Full Changelog](https://github.com/samvera/hydra-editor/compare/v4.0.0.rc1...v4.0.0)
@@ -128,7 +133,7 @@
 
 - Updating the README for Samvera Community branding and an update guide [\#148](https://github.com/samvera/hydra-editor/pull/148) ([jrgriffiniii](https://github.com/jrgriffiniii))
 - Updates HydraEditor::Form.model\_attributes. [\#147](https://github.com/samvera/hydra-editor/pull/147) ([dchandekstark](https://github.com/dchandekstark))
-- Replace `Hydra::Presenter\#to\_model` delegation with `self` [\#145](https://github.com/samvera/hydra-editor/pull/145) ([no-reply](https://github.com/no-reply))
+- Replace `Hydra::Presenter#to_model` delegation with `self` [\#145](https://github.com/samvera/hydra-editor/pull/145) ([no-reply](https://github.com/no-reply))
 
 ## [v3.4.0.beta](https://github.com/samvera/hydra-editor/tree/v3.4.0.beta) (2018-03-05)
 
@@ -138,10 +143,12 @@
 
 - Bump version to 3.4.0-beta [\#142](https://github.com/samvera/hydra-editor/pull/142) ([no-reply](https://github.com/no-reply))
 - Change FactoryGirl dependency to FactoryBot [\#140](https://github.com/samvera/hydra-editor/pull/140) ([no-reply](https://github.com/no-reply))
-- Restrict `simple\_form` to `\<= 3.5.0` [\#138](https://github.com/samvera/hydra-editor/pull/138) ([no-reply](https://github.com/no-reply))
+- Restrict `simple_form` to `<= 3.5.0` [\#138](https://github.com/samvera/hydra-editor/pull/138) ([no-reply](https://github.com/no-reply))
 - Testing on supported version of rails. Fixes \#135 [\#136](https://github.com/samvera/hydra-editor/pull/136) ([jcoyne](https://github.com/jcoyne))
 - Make DOM manipulations idempotent. [\#134](https://github.com/samvera/hydra-editor/pull/134) ([jcoyne](https://github.com/jcoyne))
 - Update travis build matrix [\#133](https://github.com/samvera/hydra-editor/pull/133) ([cbeer](https://github.com/cbeer))
+- Use ActiveModel::Naming to find partials [\#132](https://github.com/samvera/hydra-editor/pull/132) ([jcoyne](https://github.com/jcoyne))
+- Remove unused method [\#131](https://github.com/samvera/hydra-editor/pull/131) ([jcoyne](https://github.com/jcoyne))
 
 ## [v3.3.2](https://github.com/samvera/hydra-editor/tree/v3.3.2) (2017-05-23)
 
@@ -151,26 +158,13 @@
 
 - Rails 4 build stopped working [\#135](https://github.com/samvera/hydra-editor/issues/135)
 
-**Merged pull requests:**
-
-- Backport Idempotent DOM manipulation [\#137](https://github.com/samvera/hydra-editor/pull/137) ([jcoyne](https://github.com/jcoyne))
-
 ## [v3.3.1](https://github.com/samvera/hydra-editor/tree/v3.3.1) (2017-05-04)
 
 [Full Changelog](https://github.com/samvera/hydra-editor/compare/v3.3.0...v3.3.1)
 
-**Merged pull requests:**
-
-- Use ActiveModel::Naming to find partials [\#132](https://github.com/samvera/hydra-editor/pull/132) ([jcoyne](https://github.com/jcoyne))
-
 ## [v3.3.0](https://github.com/samvera/hydra-editor/tree/v3.3.0) (2017-05-04)
 
 [Full Changelog](https://github.com/samvera/hydra-editor/compare/v3.2.1...v3.3.0)
-
-**Merged pull requests:**
-
-- Remove unused method [\#131](https://github.com/samvera/hydra-editor/pull/131) ([jcoyne](https://github.com/jcoyne))
-- Allow setting a custom field\_metadata\_service [\#127](https://github.com/samvera/hydra-editor/pull/127) ([jcoyne](https://github.com/jcoyne))
 
 ## [v3.2.1](https://github.com/samvera/hydra-editor/tree/v3.2.1) (2017-05-01)
 
@@ -187,7 +181,8 @@
 **Merged pull requests:**
 
 - Use almond 0.1.0 [\#128](https://github.com/samvera/hydra-editor/pull/128) ([jcoyne](https://github.com/jcoyne))
-- Use first label to avoid smushing nested labels in more complex fields [\#126](https://github.com/samvera/hydra-editor/pull/126) ([hackmastera](https://github.com/hackmastera))
+- Allow setting a custom field\_metadata\_service [\#127](https://github.com/samvera/hydra-editor/pull/127) ([jcoyne](https://github.com/jcoyne))
+- Use first label to avoid smushing nested labels in more complex fields [\#126](https://github.com/samvera/hydra-editor/pull/126) ([hackartisan](https://github.com/hackartisan))
 - Stop spamming IRC with Travis builds [\#125](https://github.com/samvera/hydra-editor/pull/125) ([mjgiarlo](https://github.com/mjgiarlo))
 
 ## [v3.1.2](https://github.com/samvera/hydra-editor/tree/v3.1.2) (2016-09-21)
@@ -301,10 +296,6 @@
 **Closed issues:**
 
 - \[ENTER\] key not intuitive [\#82](https://github.com/samvera/hydra-editor/issues/82)
-
-**Merged pull requests:**
-
-- Don't test Fedora 4, and clean up testing on Travis [\#92](https://github.com/samvera/hydra-editor/pull/92) ([awead](https://github.com/awead))
 
 ## [v1.0.4](https://github.com/samvera/hydra-editor/tree/v1.0.4) (2015-04-16)
 
