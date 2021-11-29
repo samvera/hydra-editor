@@ -5,8 +5,7 @@ require 'rake'
 # The spec will fail if any jasmine tests fails.
 describe "Jasmine" do
   it "expects all jasmine tests to pass" do
-    load_rake_environment ["#{jasmine_path}/lib/jasmine/tasks/jasmine.rake"]
-    jasmine_out = run_task 'jasmine:ci'
+    jasmine_out = `npx jasmine-browser-runner runSpecs`
     if jasmine_out.include? "0 failures"
       js_specs_count = Dir['spec/javascripts/**/*_spec.js*'].count
       puts "\n#{jasmine_out.match(/\n(.+) specs?/)[1]} jasmine specs run (in #{js_specs_count} jasmine test files)"

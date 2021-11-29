@@ -1,0 +1,6 @@
+{
+  "devDependencies": {
+    "jasmine-browser-runner": "0.6.0",
+    "jasmine-core": "^3.10.1"
+  }
+}

@@ -54,4 +54,7 @@ class TestAppGenerator < Rails::Generators::Base
 
   end
 
+  def precompile_assets
+    rake "assets:precompile"
+  end
 end
