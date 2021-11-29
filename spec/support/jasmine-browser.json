@@ -1,0 +1,16 @@
+{
+  "srcDir": ".internal_test_app/public/assets",
+  "srcFiles": [
+    "application-*.js"
+  ],
+  "specDir": "spec/javascripts",
+  "specFiles": [
+    "**/*[sS]pec.?(m)js"
+  ],
+  "helpers": [
+    "helpers/**/*.?(m)js"
+  ],
+  "browser": {
+    "name": "headlessChrome"
+  }
+}
