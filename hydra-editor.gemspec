@@ -31,7 +31,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'factory_bot_rails', '~> 4.8'
   s.add_development_dependency 'fcrepo_wrapper', '~> 0.5'
   s.add_development_dependency "hydra-head", '~> 10.5'
-  s.add_development_dependency "jasmine", '~> 2.3'
   s.add_development_dependency "pry-byebug"
   s.add_development_dependency 'rails-controller-testing'
   s.add_development_dependency 'rspec_junit_formatter'

@@ -1,7 +1,6 @@
 require 'spec_helper'
-require 'rake'
 
-# Run the jasmine tests by running the jasmine:ci rake command and parses the output for failures.
+# Run the jasmine tests by running the `npx jasmine-browser-runner` command and parses the output for failures.
 # The spec will fail if any jasmine tests fails.
 describe "Jasmine" do
   it "expects all jasmine tests to pass" do
@@ -17,8 +16,4 @@ describe "Jasmine" do
     expect(jasmine_out).to include "0 failures"
     expect(jasmine_out).not_to include "\n0 specs"
   end
-end
-
-def jasmine_path
-  Gem.loaded_specs['jasmine'].full_gem_path
 end
