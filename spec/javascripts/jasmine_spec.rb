@@ -4,6 +4,7 @@ require 'spec_helper'
 # The spec will fail if any jasmine tests fails.
 describe "Jasmine" do
   it "expects all jasmine tests to pass" do
+    Rake::Task['assets:precompile'].invoke
     jasmine_out = `npx jasmine-browser-runner runSpecs`
     if jasmine_out.include? " 0 failures"
       js_specs_count = Dir['spec/javascripts/**/*_spec.js*'].count

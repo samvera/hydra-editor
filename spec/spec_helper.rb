@@ -21,6 +21,8 @@ Rails.backtrace_cleaner.remove_silencers!
 
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
 
+Rails.application.load_tasks # Loads assets:precompile for jasmine specs
+
 RSpec.configure do |config|
   if defined? Devise::Test::ControllerHelpers
     config.include Devise::Test::ControllerHelpers, type: :controller
