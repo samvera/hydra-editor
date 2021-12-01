@@ -15,11 +15,11 @@ Gem::Specification.new do |s|
 
   s.files = Dir["{app,config,db,lib}/**/*"] + ["Rakefile", "README.md", "History.md"]
 
-  s.add_dependency "activerecord", ">= 5.2", "< 7"
+  s.add_dependency "activerecord", ">= 5.2", "< 6.1"
   s.add_dependency "active-fedora", ">= 9.0.0"
   s.add_dependency "almond-rails", '~> 0.1'
   s.add_dependency "cancancan", "~> 1.8"
-  s.add_dependency "rails", ">= 5.2", "< 7"
+  s.add_dependency "rails", ">= 5.2", "< 6.1"
   s.add_dependency "simple_form", '>= 4.1.0', '< 6.0'
   s.add_dependency 'sprockets', '>= 3.7'
   s.add_dependency 'sprockets-es6'
