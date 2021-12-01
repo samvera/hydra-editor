@@ -31,7 +31,7 @@ jobs:
           cache_version: '2'
           project: hydra-editor
       - samvera/engine_cart_generate:
-          cache_key: v3-internal-test-app-{{ checksum "hydra-editor.gemspec" }}-{{ checksum "Gemfile" }}-{{ checksum "spec/test_app_templates/lib/generators/test_app_generator.rb" }}-<< parameters.rails_version >>-<< parameters.ruby_version >>
+          cache_key: v4-internal-test-app-{{ checksum "hydra-editor.gemspec" }}-{{ checksum "Gemfile" }}-{{ checksum "spec/test_app_templates/lib/generators/test_app_generator.rb" }}-<< parameters.rails_version >>-<< parameters.ruby_version >>
       - samvera/install_solr_core:
           solr_config_path: << parameters.solr_config_path >>
       - samvera/bundle_for_gem:
