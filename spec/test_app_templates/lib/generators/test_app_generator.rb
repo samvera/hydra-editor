@@ -38,7 +38,7 @@ class TestAppGenerator < Rails::Generators::Base
   end
 
   def inject_js
-    insert_into_file 'app/assets/javascripts/application.js', after: '//= require_tree .' do
+    append_to_file 'app/assets/javascripts/application.js' do
       <<-EOF.strip_heredoc
 
         //= require hydra-editor/hydra-editor
@@ -54,4 +54,7 @@ class TestAppGenerator < Rails::Generators::Base
 
   end
 
+  def precompile_assets
+    rake "assets:precompile"
+  end
 end
