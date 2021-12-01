@@ -1,6 +1,6 @@
 # A class just for testing
 class Audio < ActiveFedora::Base
-  include Hydra::AccessControls::Permissions
+  # include Hydra::AccessControls::Permissions
 
   validates_presence_of :title
 

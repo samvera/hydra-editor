@@ -1,6 +1,5 @@
 {
   "devDependencies": {
-    "@rails/webpacker": "^5.4.3",
     "jasmine-browser-runner": "^0.9.0",
     "jasmine-core": "^3.10.1"
   }
