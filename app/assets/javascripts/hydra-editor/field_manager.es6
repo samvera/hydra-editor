@@ -146,8 +146,7 @@ export class FieldManager {
     getFieldLabel($element, options) {
         var label = '';
         var $label = $element.find("label").first();
-
-        if ($label.size && options.labelControls) {
+        if ($label.length && options.labelControls) {
           var label = $label.data('label') || $.trim($label.contents().filter(function() { return this.nodeType === 3; }).text());
           label = ' ' + label;
         }
@@ -170,7 +169,7 @@ export class FieldManager {
 
     createNewChildren(clone) {
         let $newChildren = $(clone).children(this.inputTypeClass);
-        $newChildren.val('').removeProp('required');
+        $newChildren.val('').removeAttr('required');
         $newChildren.first().focus();
         return $newChildren.first();
     }
