@@ -3,7 +3,7 @@
 Code:
 [![Gem Version](https://badge.fury.io/rb/hydra-editor.png)](http://badge.fury.io/rb/hydra-editor)
 [![Build Status](https://circleci.com/gh/samvera/hydra-editor.svg?style=svg)](https://circleci.com/gh/samvera/hydra-editor)
-[![Coverage Status](https://coveralls.io/repos/github/samvera/hydra-editor/badge.svg?branch=master)](https://coveralls.io/github/samvera/hydra-editor?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/samvera/hydra-editor/badge.svg?branch=main)](https://coveralls.io/github/samvera/hydra-editor?branch=main)
 
 Docs:
 [![Contribution Guidelines](http://img.shields.io/badge/CONTRIBUTING-Guidelines-blue.svg)](./CONTRIBUTING.md)
@@ -167,7 +167,7 @@ If you are not mounting the engine or using its default routes, you can include 
   github_changelog_generator --user samvera --project hydra-editor --token YOUR_GITHUB_TOKEN_HERE
   ```
 
-5. Commit these changes to the master branch
+5. Commit these changes to the main branch
 
 6. Run `rake release`
 
