@@ -1,3 +1,3 @@
 module HydraEditor
-  VERSION = '5.0.5'.freeze
+  VERSION = '6.0.0'.freeze
 end

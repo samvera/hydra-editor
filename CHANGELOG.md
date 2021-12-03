@@ -1,11 +1,24 @@
 # Changelog
 
-## [5.0.5](https://github.com/samvera/hydra-editor/tree/5.0.5) (2021-08-13)
+## [6.0.0](https://github.com/samvera/hydra-editor/tree/6.0.0) (2021-12-03)
 
-[Full Changelog](https://github.com/samvera/hydra-editor/compare/v5.0.4...5.0.5)
+[Full Changelog](https://github.com/samvera/hydra-editor/compare/v5.0.5...6.0.0)
+
+**Closed issues:**
+
+- Add support for Rails 6.0.z releases [\#184](https://github.com/samvera/hydra-editor/issues/184)
 
 **Merged pull requests:**
 
+- Rails 6 support [\#203](https://github.com/samvera/hydra-editor/pull/203) ([cjcolvar](https://github.com/cjcolvar))
+
+## [v5.0.5](https://github.com/samvera/hydra-editor/tree/v5.0.5) (2021-08-13)
+
+[Full Changelog](https://github.com/samvera/hydra-editor/compare/v5.0.4...v5.0.5)
+
+**Merged pull requests:**
+
+- prepare release 5.0.5 [\#198](https://github.com/samvera/hydra-editor/pull/198) ([no-reply](https://github.com/no-reply))
 - use `Kernel#Array` to cast values to an Array [\#197](https://github.com/samvera/hydra-editor/pull/197) ([no-reply](https://github.com/no-reply))
 - Adding CONTRIBUTING.md
 
