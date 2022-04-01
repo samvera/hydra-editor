@@ -79,8 +79,8 @@ export class FieldManager {
     }
 
     _addCallbacks() {
-        this.element.bind('managed_field:add', this.options.add);
-        this.element.bind('managed_field:remove', this.options.remove);
+        this.element.on('managed_field:add', this.options.add);
+        this.element.on('managed_field:remove', this.options.remove);
     }
 
     _manageFocus() {
@@ -147,7 +147,7 @@ export class FieldManager {
         var label = '';
         var $label = $element.find("label").first();
         if ($label.length && options.labelControls) {
-          var label = $label.data('label') || $.trim($label.contents().filter(function() { return this.nodeType === 3; }).text());
+          var label = $label.data('label') || $label.contents().filter(function() { return this.nodeType === 3; }).text().trim();
           label = ' ' + label;
         }
 
