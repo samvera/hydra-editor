@@ -25,8 +25,6 @@ Bundler::GemHelper.install_tasks
 require 'rspec/core/rake_task'
 RSpec::Core::RakeTask.new(:spec)
 
-require 'solr_wrapper/rake_task'
-require 'fcrepo_wrapper'
 require 'active_fedora/rake_support'
 require 'engine_cart/rake_task'
 
