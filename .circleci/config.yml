@@ -57,6 +57,10 @@ workflows:
   ci:
     jobs:
       - bundle_lint_test:
+          name: bundle_ruby2-7_rails6-1
+          ruby_version: 2.7.5
+          rails_version: 6.1.6.1
+      - bundle_lint_test:
           name: bundle_ruby2-7_rails6-0
           ruby_version: 2.7.5
           rails_version: 6.0.3.4
