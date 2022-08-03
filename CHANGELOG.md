@@ -1,8 +1,29 @@
 # Changelog
 
-## [6.0.0](https://github.com/samvera/hydra-editor/tree/6.0.0) (2021-12-03)
+## [6.1.0](https://github.com/samvera/hydra-editor/tree/6.1.0) (2022-08-03)
 
-[Full Changelog](https://github.com/samvera/hydra-editor/compare/v5.0.5...6.0.0)
+[Full Changelog](https://github.com/samvera/hydra-editor/compare/v6.0.0...6.1.0)
+
+**Implemented enhancements:**
+
+- Add Circle CI step that fails if branch name is master [\#195](https://github.com/samvera/hydra-editor/issues/195)
+
+**Closed issues:**
+
+- Configure nightly CircleCI test suite executions [\#206](https://github.com/samvera/hydra-editor/issues/206)
+- Update the CircleCI config. to test against Rails 6.x releases [\#162](https://github.com/samvera/hydra-editor/issues/162)
+- $border-radius-base is undefined [\#57](https://github.com/samvera/hydra-editor/issues/57)
+
+**Merged pull requests:**
+
+- Prepare for 6.1 release [\#211](https://github.com/samvera/hydra-editor/pull/211) ([cjcolvar](https://github.com/cjcolvar))
+- Test on rails 6.1 [\#210](https://github.com/samvera/hydra-editor/pull/210) ([hackartisan](https://github.com/hackartisan))
+- Ensures that CircleCI executes nightly test suites [\#207](https://github.com/samvera/hydra-editor/pull/207) ([jrgriffiniii](https://github.com/jrgriffiniii))
+- Adds Circle CI step that fails if branch name is master [\#196](https://github.com/samvera/hydra-editor/pull/196) ([jrgriffiniii](https://github.com/jrgriffiniii))
+
+## [v6.0.0](https://github.com/samvera/hydra-editor/tree/v6.0.0) (2021-12-03)
+
+[Full Changelog](https://github.com/samvera/hydra-editor/compare/v5.0.5...v6.0.0)
 
 **Closed issues:**
 
@@ -10,6 +31,7 @@
 
 **Merged pull requests:**
 
+- Prepare 6.0.0 release [\#204](https://github.com/samvera/hydra-editor/pull/204) ([cjcolvar](https://github.com/cjcolvar))
 - Rails 6 support [\#203](https://github.com/samvera/hydra-editor/pull/203) ([cjcolvar](https://github.com/cjcolvar))
 
 ## [v5.0.5](https://github.com/samvera/hydra-editor/tree/v5.0.5) (2021-08-13)
