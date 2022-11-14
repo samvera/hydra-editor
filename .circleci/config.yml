@@ -1,7 +1,7 @@
 ---
 version: 2.1
 orbs:
-  samvera: samvera/circleci-orb@0
+  samvera: samvera/circleci-orb@1.0
 jobs:
   bundle_lint_test:
     parameters:
@@ -34,20 +34,18 @@ jobs:
              echo "$(git branch --all --list master */master)"
            fi
            [[ -z "$(git branch --all --list master */master)" ]]
-      - samvera/bundle_for_gem:
+      - samvera/bundle:
           ruby_version: << parameters.ruby_version >>
           bundler_version: << parameters.bundler_version >>
-          cache_version: '2'
-          project: hydra-editor
+          cache_version: '3'
       - samvera/engine_cart_generate:
-          cache_key: v4-internal-test-app-{{ checksum "hydra-editor.gemspec" }}-{{ checksum "Gemfile" }}-{{ checksum "spec/test_app_templates/lib/generators/test_app_generator.rb" }}-<< parameters.rails_version >>-<< parameters.ruby_version >>
+          cache_key: v6-internal-test-app-{{ checksum "hydra-editor.gemspec" }}-{{ checksum "Gemfile" }}-{{ checksum "spec/test_app_templates/lib/generators/test_app_generator.rb" }}-<< parameters.rails_version >>-<< parameters.ruby_version >>
       - samvera/install_solr_core:
           solr_config_path: << parameters.solr_config_path >>
-      - samvera/bundle_for_gem:
+      - samvera/bundle:
           ruby_version: << parameters.ruby_version >>
           bundler_version: << parameters.bundler_version >>
-          cache_version: '2'
-          project: hydra-editor
+          cache_version: '3'
       - run: yarn install
       - samvera/rubocop
       - samvera/parallel_rspec
@@ -76,14 +74,6 @@ workflows:
           name: bundle_ruby2-6_rails5-2
           ruby_version: 2.6.9
           rails_version: 5.2.3
-      - bundle_lint_test:
-          name: bundle_ruby2-5_rails6-0
-          ruby_version: 2.5.9
-          rails_version: 6.0.3.4
-      - bundle_lint_test:
-          name: bundle_ruby2-5_rails5-2
-          ruby_version: 2.5.9
-          rails_version: 5.2.3
 
   nightly:
     triggers:
@@ -109,13 +99,5 @@ workflows:
       - bundle_lint_test:
           name: bundle_ruby2-6_rails5-2
           ruby_version: 2.6.9
-          rails_version: 5.2.3
-      - bundle_lint_test:
-          name: bundle_ruby2-5_rails6-0
-          ruby_version: 2.5.9
-          rails_version: 6.0.3.4
-      - bundle_lint_test:
-          name: bundle_ruby2-5_rails5-2
-          ruby_version: 2.5.9
           rails_version: 5.2.3
 
