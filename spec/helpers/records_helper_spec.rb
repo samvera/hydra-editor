@@ -33,6 +33,7 @@ describe RecordsHelper do
           false
         end
       end
+
       class Serpent
         extend ActiveModel::Naming
 
