@@ -9,7 +9,7 @@ jobs:
         type: string
       bundler_version:
         type: string
-        default: 2.3.10
+        default: 2.4.5
       rails_version:
         type: string
       solr_config_path:
