@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
   s.add_dependency "almond-rails", '~> 0.1'
   s.add_dependency "cancancan", "~> 1.8"
   s.add_dependency "psych", "~> 3.3", "< 4"
-  s.add_dependency "rails", ">= 5.2", "< 6.2"
+  s.add_dependency "rails", ">= 5.2", "< 7.1"
   s.add_dependency "simple_form", '>= 4.1.0', '< 6.0'
   s.add_dependency 'sprockets', '>= 3.7'
   s.add_dependency 'sprockets-es6'
