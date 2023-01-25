@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
 
   s.files = Dir["{app,config,db,lib}/**/*"] + ["Rakefile", "README.md", "History.md"]
 
-  s.add_dependency "activerecord", ">= 5.2", "< 6.2"
+  s.add_dependency "activerecord", ">= 5.2", "< 7.1"
   s.add_dependency "active-fedora", ">= 9.0.0"
   s.add_dependency "almond-rails", '~> 0.1'
   s.add_dependency "cancancan", "~> 1.8"
@@ -25,7 +25,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'sprockets', '>= 3.7'
   s.add_dependency 'sprockets-es6'
 
-  s.add_development_dependency "bixby", '~> 3.0'
+  s.add_development_dependency "bixby"
   s.add_development_dependency "capybara", '~> 2.4'
   s.add_development_dependency "devise", '~> 4.0'
   s.add_development_dependency "engine_cart", '~> 2.2'
