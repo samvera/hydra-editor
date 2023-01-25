@@ -6,6 +6,7 @@ source "https://rubygems.org"
 gemspec path: File.expand_path('..', __FILE__)
 
 gem 'active-fedora', git: 'https://github.com/samvera/active_fedora.git', branch: 'ruby3'
+gem 'active-triples', git: 'https://gitlab.com/cjcolvar/activetriples.git', branch: 'ruby3'
 gem 'hydra-head', git: 'https://github.com/samvera/hydra-head.git', branch: 'ruby3'
 
 # BEGIN ENGINE_CART BLOCK
