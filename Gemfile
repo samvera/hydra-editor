@@ -5,10 +5,6 @@ source "https://rubygems.org"
 # development dependencies will be added by default to the :development group.
 gemspec path: File.expand_path('..', __FILE__)
 
-gem 'active-fedora', git: 'https://github.com/samvera/active_fedora.git', branch: 'ruby3'
-gem 'active-triples', git: 'https://gitlab.com/cjcolvar/activetriples.git', branch: 'ruby3'
-gem 'hydra-head', git: 'https://github.com/samvera/hydra-head.git', branch: 'ruby3'
-
 # BEGIN ENGINE_CART BLOCK
 # engine_cart: 0.10.0
 # engine_cart stanza: 0.10.0
