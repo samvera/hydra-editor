@@ -12,6 +12,7 @@ Gem::Specification.new do |s|
   s.homepage    = "http://github.com/samvera/hydra-editor"
   s.summary     = "A basic metadata editor for hydra-head"
   s.description = "A basic metadata editor for hydra-head"
+  s.metadata    = { "rubygems_mfa_required" => "true" }
 
   s.files = Dir["{app,config,db,lib}/**/*"] + ["Rakefile", "README.md", "History.md"]
 
