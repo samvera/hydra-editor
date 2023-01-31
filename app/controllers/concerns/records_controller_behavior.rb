@@ -123,7 +123,7 @@ protected
 
   # Get resource ivar based on the current resource controller.
   #
-  def get_resource_ivar #:nodoc:
+  def get_resource_ivar # :nodoc:
     instance_variable_get("@#{resource_instance_name}")
   end
 
