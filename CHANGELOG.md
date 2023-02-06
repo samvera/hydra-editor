@@ -1,6 +1,6 @@
 # Changelog
 
-## [6.2.0](https://github.com/samvera/hydra-editor/tree/6.2.0) (2023-01-31)
+## [6.2.0](https://github.com/samvera/hydra-editor/tree/6.2.0) (2023-02-06)
 
 [Full Changelog](https://github.com/samvera/hydra-editor/compare/v6.1.0...6.2.0)
 
@@ -11,6 +11,8 @@
 
 **Merged pull requests:**
 
+- Fix failing build [\#218](https://github.com/samvera/hydra-editor/pull/218) ([cjcolvar](https://github.com/cjcolvar))
+- Release prep 6.2 [\#217](https://github.com/samvera/hydra-editor/pull/217) ([cjcolvar](https://github.com/cjcolvar))
 - Test with newer ruby and rails versions [\#216](https://github.com/samvera/hydra-editor/pull/216) ([cjcolvar](https://github.com/cjcolvar))
 - Updating support for Ruby 2.7.7 [\#215](https://github.com/samvera/hydra-editor/pull/215) ([jrgriffiniii](https://github.com/jrgriffiniii))
 - Updating the Product Owner information in preparation for the 2022 autumn request for maintenance [\#213](https://github.com/samvera/hydra-editor/pull/213) ([jrgriffiniii](https://github.com/jrgriffiniii))
