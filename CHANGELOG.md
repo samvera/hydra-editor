@@ -1,8 +1,23 @@
 # Changelog
 
-## [6.1.0](https://github.com/samvera/hydra-editor/tree/6.1.0) (2022-08-03)
+## [6.2.0](https://github.com/samvera/hydra-editor/tree/6.2.0) (2023-01-31)
 
-[Full Changelog](https://github.com/samvera/hydra-editor/compare/v6.0.0...6.1.0)
+[Full Changelog](https://github.com/samvera/hydra-editor/compare/v6.1.0...6.2.0)
+
+**Closed issues:**
+
+- Support Ruby 3.0.3 [\#200](https://github.com/samvera/hydra-editor/issues/200)
+- Support Rails 6.1 releases [\#199](https://github.com/samvera/hydra-editor/issues/199)
+
+**Merged pull requests:**
+
+- Test with newer ruby and rails versions [\#216](https://github.com/samvera/hydra-editor/pull/216) ([cjcolvar](https://github.com/cjcolvar))
+- Updating support for Ruby 2.7.7 [\#215](https://github.com/samvera/hydra-editor/pull/215) ([jrgriffiniii](https://github.com/jrgriffiniii))
+- Updating the Product Owner information in preparation for the 2022 autumn request for maintenance [\#213](https://github.com/samvera/hydra-editor/pull/213) ([jrgriffiniii](https://github.com/jrgriffiniii))
+
+## [v6.1.0](https://github.com/samvera/hydra-editor/tree/v6.1.0) (2022-08-03)
+
+[Full Changelog](https://github.com/samvera/hydra-editor/compare/v6.0.0...v6.1.0)
 
 **Implemented enhancements:**
 
@@ -16,6 +31,7 @@
 
 **Merged pull requests:**
 
+- Update changelog before release [\#212](https://github.com/samvera/hydra-editor/pull/212) ([cjcolvar](https://github.com/cjcolvar))
 - Prepare for 6.1 release [\#211](https://github.com/samvera/hydra-editor/pull/211) ([cjcolvar](https://github.com/cjcolvar))
 - Test on rails 6.1 [\#210](https://github.com/samvera/hydra-editor/pull/210) ([hackartisan](https://github.com/hackartisan))
 - Ensures that CircleCI executes nightly test suites [\#207](https://github.com/samvera/hydra-editor/pull/207) ([jrgriffiniii](https://github.com/jrgriffiniii))
