@@ -1,7 +1,7 @@
 module HydraEditor
   module Form
     extend ActiveSupport::Autoload
-    autoload :Permissions
+    # autoload :Permissions
     extend ActiveSupport::Concern
 
     include Hydra::Presenter
