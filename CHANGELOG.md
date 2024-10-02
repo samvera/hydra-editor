@@ -1,8 +1,21 @@
 # Changelog
 
-## [6.2.0](https://github.com/samvera/hydra-editor/tree/6.2.0) (2023-02-06)
+## [6.3.0](https://github.com/samvera/hydra-editor/tree/6.3.0) (2024-10-01)
 
-[Full Changelog](https://github.com/samvera/hydra-editor/compare/v6.1.0...6.2.0)
+[Full Changelog](https://github.com/samvera/hydra-editor/compare/v6.2.0...6.3.0)
+
+**Closed issues:**
+
+- Update the gemspec to require MFA for RubyGems releases [\#209](https://github.com/samvera/hydra-editor/issues/209)
+
+**Merged pull requests:**
+
+- Test with latest ruby/rails versions [\#221](https://github.com/samvera/hydra-editor/pull/221) ([cjcolvar](https://github.com/cjcolvar))
+- Removal of "autoload :Permissions" [\#220](https://github.com/samvera/hydra-editor/pull/220) ([trmccormick](https://github.com/trmccormick))
+
+## [v6.2.0](https://github.com/samvera/hydra-editor/tree/v6.2.0) (2023-02-06)
+
+[Full Changelog](https://github.com/samvera/hydra-editor/compare/v6.1.0...v6.2.0)
 
 **Closed issues:**
 
