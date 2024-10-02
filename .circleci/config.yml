@@ -40,6 +40,9 @@ jobs:
           cache_version: '4'
       - samvera/engine_cart_generate:
           cache_key: v7-internal-test-app-{{ checksum "hydra-editor.gemspec" }}-{{ checksum "Gemfile" }}-{{ checksum "spec/test_app_templates/lib/generators/test_app_generator.rb" }}-<< parameters.rails_version >>-<< parameters.ruby_version >>
+      - run:
+          name: Fix test app's Gemfile
+          command: sed -i 's/\(^.*error_highlight.*$\)/# \1/' .internal_test_app/Gemfile
       - samvera/install_solr_core:
           solr_config_path: << parameters.solr_config_path >>
       - samvera/bundle:
