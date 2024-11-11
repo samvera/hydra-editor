@@ -28,11 +28,11 @@ describe HydraEditor::Form do
       subject { TestForm.model_attributes(params) }
       let(:params) { ActionController::Parameters.new(title: [''], creator: 'bob', description: ['huh']) }
 
-      it { is_expected.to eq('creator' => 'bob', 'title' => []) }
+      it { is_expected.to eq ActionController::Parameters.new('creator' => 'bob', 'title' => []).permit! }
 
       describe "setting non-multiple attribute to nil when value is empty string" do
         let(:params) { ActionController::Parameters.new(title: [''], creator: '') }
-        it { is_expected.to eq('creator' => nil, 'title' => []) }
+        it { is_expected.to eq ActionController::Parameters.new('creator' => nil, 'title' => []).permit! }
       end
     end
   end
