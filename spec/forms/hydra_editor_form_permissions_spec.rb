@@ -25,8 +25,8 @@ describe HydraEditor::Form::Permissions do
     subject(:permissions) { TestForm.model_attributes(params) }
     let(:params) { ActionController::Parameters.new(title: [''], creator: 'bob', description: ['huh'], permissions_attributes: { '0' => { id: '123', _destroy: 'true' } }) }
 
-    it { is_expected.to eq('creator' => 'bob', 'title' => [],
-                           'permissions_attributes' => { '0' => { 'id' => '123', '_destroy' => 'true' } }) }
+    it { is_expected.to eq ActionController::Parameters.new('creator' => 'bob', 'title' => [],
+                                                            'permissions_attributes' => { '0' => { 'id' => '123', '_destroy' => 'true' } }).permit! }
   end
 
   describe 'permissions_attributes=' do

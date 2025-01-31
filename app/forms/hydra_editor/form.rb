@@ -47,14 +47,14 @@ module HydraEditor
         field_metadata_service.multiple?(model_class, field)
       end
 
-      # Return a hash of all the parameters from the form as a hash.
+      # Return an ActionController::Parameters object with all of the parameters from the form.
       # This is typically used by the controller as the main read interface to the form.
       # This hash can then be used to create or update an object in the data store.
       # example:
       #   ImageForm.model_attributes(params[:image])
-      #   # => { title: 'My new image' }
+      #   # => <ActionController::Parameters { title: 'My new image' } permitted: true>
       def model_attributes(form_params)
-        sanitize_params(form_params).to_h.tap do |clean_params|
+        sanitize_params(form_params).tap do |clean_params|
           terms.each do |key|
             if clean_params[key]
               if multiple?(key)
