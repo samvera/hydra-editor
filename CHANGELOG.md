@@ -1,8 +1,17 @@
 # Changelog
 
-## [6.3.0](https://github.com/samvera/hydra-editor/tree/6.3.0) (2024-10-01)
+## [7.0.0](https://github.com/samvera/hydra-editor/tree/7.0.0) (2025-01-31)
 
-[Full Changelog](https://github.com/samvera/hydra-editor/compare/v6.2.0...6.3.0)
+[Full Changelog](https://github.com/samvera/hydra-editor/compare/v6.3.0...7.0.0)
+
+**Merged pull requests:**
+
+- Modernize hydra-editor to assume ActionController::Parameter [\#225](https://github.com/samvera/hydra-editor/pull/225) ([cjcolvar](https://github.com/cjcolvar))
+- Comment out error\_highlight  in generated test app's Gemfile [\#224](https://github.com/samvera/hydra-editor/pull/224) ([cjcolvar](https://github.com/cjcolvar))
+
+## [v6.3.0](https://github.com/samvera/hydra-editor/tree/v6.3.0) (2024-10-02)
+
+[Full Changelog](https://github.com/samvera/hydra-editor/compare/v6.2.0...v6.3.0)
 
 **Closed issues:**
 
@@ -10,6 +19,7 @@
 
 **Merged pull requests:**
 
+- Prepare for release [\#222](https://github.com/samvera/hydra-editor/pull/222) ([cjcolvar](https://github.com/cjcolvar))
 - Test with latest ruby/rails versions [\#221](https://github.com/samvera/hydra-editor/pull/221) ([cjcolvar](https://github.com/cjcolvar))
 - Removal of "autoload :Permissions" [\#220](https://github.com/samvera/hydra-editor/pull/220) ([trmccormick](https://github.com/trmccormick))
 
