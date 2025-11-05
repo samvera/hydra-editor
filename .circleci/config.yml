@@ -23,6 +23,7 @@ jobs:
       RAILS_VERSION: << parameters.rails_version >>
       NOKOGIRI_USE_SYSTEM_LIBRARIES: true
       CC_TEST_REPORTER_ID: e52010675d2774ee408c14c0de08c143d0749e59beb6dd729254d1b3ea94c7b1
+      BLACKLIGHT_VERSION: 7.29
     steps:
       - samvera/cached_checkout
       - run:

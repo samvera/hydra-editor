@@ -21,12 +21,12 @@ Gem::Specification.new do |s|
   s.add_dependency "almond-rails", '~> 0.1'
   s.add_dependency "cancancan"
   s.add_dependency "psych", "~> 3.3", "< 4"
-  s.add_dependency "rails", ">= 5.2", "< 9.0"
+  s.add_dependency "rails", ">= 5.2", "<= 8.2"
   s.add_dependency "simple_form", '>= 4.1.0', '< 5.2'
   s.add_dependency 'sprockets', '>= 3.7'
   s.add_dependency 'sprockets-es6'
   s.add_dependency 'concurrent-ruby', '1.3.4' # Pinned until Rails 7 update
-
+  
   s.add_development_dependency "bixby"
   s.add_development_dependency "capybara", '~> 2.4'
   s.add_development_dependency "devise", '~> 4.0'
@@ -34,6 +34,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'factory_bot_rails', '~> 4.8'
   s.add_development_dependency 'fcrepo_wrapper'
   s.add_development_dependency "hydra-head", '>= 10.5'
+  s.add_development_dependency "blacklight-access_controls", '6.0'
   s.add_development_dependency "pry-byebug"
   s.add_development_dependency 'rails-controller-testing'
   s.add_development_dependency 'rspec_junit_formatter'
