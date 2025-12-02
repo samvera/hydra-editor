@@ -3,7 +3,7 @@ require 'rails/generators'
 class TestAppGenerator < Rails::Generators::Base
 
   def add_gems
-    gem 'blacklight'
+    gem 'blacklight', '~> 7.29'
     gem 'hydra-head'
     Bundler.with_clean_env do
       run "bundle install"
