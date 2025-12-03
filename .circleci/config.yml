@@ -23,6 +23,7 @@ jobs:
       RAILS_VERSION: << parameters.rails_version >>
       NOKOGIRI_USE_SYSTEM_LIBRARIES: true
       CC_TEST_REPORTER_ID: e52010675d2774ee408c14c0de08c143d0749e59beb6dd729254d1b3ea94c7b1
+      BLACKLIGHT_VERSION: 7.29
     steps:
       - samvera/cached_checkout
       - run:
@@ -57,6 +58,11 @@ workflows:
   version: 2
   ci:
     jobs:
+      # Ruby 3.3 releases
+      - bundle_lint_test:
+          name: bundle_ruby3-3_rails8-0
+          ruby_version: 3.3.5
+          rails_version: 8.0.4
       - bundle_lint_test:
           name: bundle_ruby3-3_rails7-2
           ruby_version: 3.3.5
@@ -69,6 +75,11 @@ workflows:
           name: bundle_ruby3-3_rails7-0
           ruby_version: 3.3.5
           rails_version: 7.0.8.4
+      # Ruby 3.2 releases
+      - bundle_lint_test:
+          name: bundle_ruby3-2_rails8-0
+          ruby_version: 3.2.5
+          rails_version: 8.0.4
       - bundle_lint_test:
           name: bundle_ruby3-2_rails7-2
           ruby_version: 3.2.5
@@ -81,6 +92,7 @@ workflows:
           name: bundle_ruby3-2_rails7-0
           ruby_version: 3.2.5
           rails_version: 7.0.8.4
+      # Ruby 3.1 releases
       - bundle_lint_test:
           name: bundle_ruby3-1_rails7-2
           ruby_version: 3.1.6
@@ -103,6 +115,15 @@ workflows:
               only:
                 - main
     jobs:
+      # Ruby 3.3 releases
+      - bundle_lint_test:
+          name: bundle_ruby3-3_rails8-1
+          ruby_version: 3.3.5
+          rails_version: 8.1.1
+      - bundle_lint_test:
+          name: bundle_ruby3-3_rails8-0
+          ruby_version: 3.3.5
+          rails_version: 8.0.4
       - bundle_lint_test:
           name: bundle_ruby3-3_rails7-2
           ruby_version: 3.3.5
@@ -115,6 +136,15 @@ workflows:
           name: bundle_ruby3-3_rails7-0
           ruby_version: 3.3.5
           rails_version: 7.0.8.4
+      # Ruby 3.2 releases
+      - bundle_lint_test:
+          name: bundle_ruby3-2_rails8-1
+          ruby_version: 3.2.5
+          rails_version: 8.1.1
+      - bundle_lint_test:
+          name: bundle_ruby3-2_rails8-0
+          ruby_version: 3.2.5
+          rails_version: 8.0.4
       - bundle_lint_test:
           name: bundle_ruby3-2_rails7-2
           ruby_version: 3.2.5
@@ -127,6 +157,7 @@ workflows:
           name: bundle_ruby3-2_rails7-0
           ruby_version: 3.2.5
           rails_version: 7.0.8.4
+      # Ruby 3.1 releases
       - bundle_lint_test:
           name: bundle_ruby3-1_rails7-2
           ruby_version: 3.1.6
