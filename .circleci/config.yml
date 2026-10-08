@@ -18,6 +18,7 @@ jobs:
     executor:
       name: 'samvera/ruby_fcrepo_solr'
       ruby_version: << parameters.ruby_version >>
+      solr_version: 9-slim
     environment:
       ENGINE_CART_RAILS_OPTIONS: --skip-git --skip-bundle --skip-listen --skip-spring --skip-keeps --skip-coffee --skip-puma --skip-test
       RAILS_VERSION: << parameters.rails_version >>
@@ -58,53 +59,38 @@ workflows:
   version: 2
   ci:
     jobs:
+      # Ruby 4.0 releases
+      - bundle_lint_test:
+          name: bundle_ruby4-0_rails8-1
+          ruby_version: 4.0.7
+          rails_version: 8.1.4
+      # Ruby 3.4 releases
+      - bundle_lint_test:
+          name: bundle_ruby3-4_rails8-1
+          ruby_version: 3.4.11
+          rails_version: 8.1.4
       # Ruby 3.3 releases
       - bundle_lint_test:
+          name: bundle_ruby3-3_rails8-1
+          ruby_version: 3.3.12
+          rails_version: 8.1.4
+      - bundle_lint_test:
           name: bundle_ruby3-3_rails8-0
-          ruby_version: 3.3.5
+          ruby_version: 3.3.12
           rails_version: 8.0.4
       - bundle_lint_test:
           name: bundle_ruby3-3_rails7-2
-          ruby_version: 3.3.5
+          ruby_version: 3.3.12
           rails_version: 7.2.1
-      - bundle_lint_test:
-          name: bundle_ruby3-3_rails7-1
-          ruby_version: 3.3.5
-          rails_version: 7.1.4
-      - bundle_lint_test:
-          name: bundle_ruby3-3_rails7-0
-          ruby_version: 3.3.5
-          rails_version: 7.0.8.4
       # Ruby 3.2 releases
       - bundle_lint_test:
           name: bundle_ruby3-2_rails8-0
-          ruby_version: 3.2.5
+          ruby_version: 3.2.11
           rails_version: 8.0.4
       - bundle_lint_test:
           name: bundle_ruby3-2_rails7-2
-          ruby_version: 3.2.5
+          ruby_version: 3.2.11
           rails_version: 7.2.1
-      - bundle_lint_test:
-          name: bundle_ruby3-2_rails7-1
-          ruby_version: 3.2.5
-          rails_version: 7.1.4
-      - bundle_lint_test:
-          name: bundle_ruby3-2_rails7-0
-          ruby_version: 3.2.5
-          rails_version: 7.0.8.4
-      # Ruby 3.1 releases
-      - bundle_lint_test:
-          name: bundle_ruby3-1_rails7-2
-          ruby_version: 3.1.6
-          rails_version: 7.2.1
-      - bundle_lint_test:
-          name: bundle_ruby3-1_rails7-1
-          ruby_version: 3.1.6
-          rails_version: 7.1.4
-      - bundle_lint_test:
-          name: bundle_ruby3-1_rails7-0
-          ruby_version: 3.1.6
-          rails_version: 7.0.8.4
 
   nightly:
     triggers:
@@ -115,58 +101,35 @@ workflows:
               only:
                 - main
     jobs:
+      # Ruby 4.0 releases
+      - bundle_lint_test:
+          name: bundle_ruby4-0_rails8-1
+          ruby_version: 4.0.7
+          rails_version: 8.1.4
+      # Ruby 3.4 releases
+      - bundle_lint_test:
+          name: bundle_ruby3-4_rails8-1
+          ruby_version: 3.4.11
+          rails_version: 8.1.4
       # Ruby 3.3 releases
       - bundle_lint_test:
           name: bundle_ruby3-3_rails8-1
-          ruby_version: 3.3.5
+          ruby_version: 3.3.12
           rails_version: 8.1.1
       - bundle_lint_test:
           name: bundle_ruby3-3_rails8-0
-          ruby_version: 3.3.5
+          ruby_version: 3.3.12
           rails_version: 8.0.4
       - bundle_lint_test:
           name: bundle_ruby3-3_rails7-2
-          ruby_version: 3.3.5
+          ruby_version: 3.3.12
           rails_version: 7.2.1
-      - bundle_lint_test:
-          name: bundle_ruby3-3_rails7-1
-          ruby_version: 3.3.5
-          rails_version: 7.1.4
-      - bundle_lint_test:
-          name: bundle_ruby3-3_rails7-0
-          ruby_version: 3.3.5
-          rails_version: 7.0.8.4
       # Ruby 3.2 releases
       - bundle_lint_test:
-          name: bundle_ruby3-2_rails8-1
-          ruby_version: 3.2.5
-          rails_version: 8.1.1
-      - bundle_lint_test:
           name: bundle_ruby3-2_rails8-0
-          ruby_version: 3.2.5
+          ruby_version: 3.2.11
           rails_version: 8.0.4
       - bundle_lint_test:
           name: bundle_ruby3-2_rails7-2
-          ruby_version: 3.2.5
+          ruby_version: 3.2.11
           rails_version: 7.2.1
-      - bundle_lint_test:
-          name: bundle_ruby3-2_rails7-1
-          ruby_version: 3.2.5
-          rails_version: 7.1.4
-      - bundle_lint_test:
-          name: bundle_ruby3-2_rails7-0
-          ruby_version: 3.2.5
-          rails_version: 7.0.8.4
-      # Ruby 3.1 releases
-      - bundle_lint_test:
-          name: bundle_ruby3-1_rails7-2
-          ruby_version: 3.1.6
-          rails_version: 7.2.1
-      - bundle_lint_test:
-          name: bundle_ruby3-1_rails7-1
-          ruby_version: 3.1.6
-          rails_version: 7.1.4
-      - bundle_lint_test:
-          name: bundle_ruby3-1_rails7-0
-          ruby_version: 3.1.6
-          rails_version: 7.0.8.4
