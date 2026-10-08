@@ -20,7 +20,7 @@ jobs:
       ruby_version: << parameters.ruby_version >>
       solr_version: 9-slim
     environment:
-      ENGINE_CART_RAILS_OPTIONS: --skip-git --skip-bundle --skip-listen --skip-spring --skip-keeps --skip-coffee --skip-puma --skip-test
+      ENGINE_CART_RAILS_OPTIONS: --skip-git --skip-bundle --skip-listen --skip-spring --skip-keeps --skip-coffee --skip-puma --skip-test --skip-docker --skip-active-storage
       RAILS_VERSION: << parameters.rails_version >>
       NOKOGIRI_USE_SYSTEM_LIBRARIES: true
       CC_TEST_REPORTER_ID: e52010675d2774ee408c14c0de08c143d0749e59beb6dd729254d1b3ea94c7b1
@@ -77,20 +77,20 @@ workflows:
       - bundle_lint_test:
           name: bundle_ruby3-3_rails8-0
           ruby_version: 3.3.12
-          rails_version: 8.0.4
+          rails_version: 8.0.5.1
       - bundle_lint_test:
           name: bundle_ruby3-3_rails7-2
           ruby_version: 3.3.12
-          rails_version: 7.2.1
+          rails_version: 7.2.4
       # Ruby 3.2 releases
       - bundle_lint_test:
           name: bundle_ruby3-2_rails8-0
           ruby_version: 3.2.11
-          rails_version: 8.0.4
+          rails_version: 8.0.5.1
       - bundle_lint_test:
           name: bundle_ruby3-2_rails7-2
           ruby_version: 3.2.11
-          rails_version: 7.2.1
+          rails_version: 7.2.4
 
   nightly:
     triggers:
@@ -115,21 +115,21 @@ workflows:
       - bundle_lint_test:
           name: bundle_ruby3-3_rails8-1
           ruby_version: 3.3.12
-          rails_version: 8.1.1
+          rails_version: 8.1.4
       - bundle_lint_test:
           name: bundle_ruby3-3_rails8-0
           ruby_version: 3.3.12
-          rails_version: 8.0.4
+          rails_version: 8.0.5.1
       - bundle_lint_test:
           name: bundle_ruby3-3_rails7-2
           ruby_version: 3.3.12
-          rails_version: 7.2.1
+          rails_version: 7.2.4
       # Ruby 3.2 releases
       - bundle_lint_test:
           name: bundle_ruby3-2_rails8-0
           ruby_version: 3.2.11
-          rails_version: 8.0.4
+          rails_version: 8.0.5.1
       - bundle_lint_test:
           name: bundle_ruby3-2_rails7-2
           ruby_version: 3.2.11
-          rails_version: 7.2.1
+          rails_version: 7.2.4
