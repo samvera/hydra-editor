@@ -19,6 +19,7 @@ jobs:
       name: 'samvera/ruby_fcrepo_solr'
       ruby_version: << parameters.ruby_version >>
       solr_version: 9-slim
+    resource_class: medium+
     environment:
       ENGINE_CART_RAILS_OPTIONS: --skip-git --skip-bundle --skip-listen --skip-spring --skip-keeps --skip-coffee --skip-puma --skip-test --skip-docker --skip-active-storage
       RAILS_VERSION: << parameters.rails_version >>
