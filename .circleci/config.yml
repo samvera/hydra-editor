@@ -86,39 +86,47 @@ jobs:
       - samvera/rubocop
       - samvera/parallel_rspec
 
+job_groups:
+  build_and_test:
+    jobs:
+      - generate_test_app
+      - bundle_lint_test:
+          requires:
+            - generate_test_app
+
 workflows:
   version: 2
   ci:
     jobs:
       # Ruby 4.0 releases
-      - bundle_lint_test:
+      - build_and_test:
           name: bundle_ruby4-0_rails8-1
           ruby_version: 4.0.7
           rails_version: 8.1.4
       # Ruby 3.4 releases
-      - bundle_lint_test:
+      - build_and_test:
           name: bundle_ruby3-4_rails8-1
           ruby_version: 3.4.11
           rails_version: 8.1.4
       # Ruby 3.3 releases
-      - bundle_lint_test:
+      - build_and_test:
           name: bundle_ruby3-3_rails8-1
           ruby_version: 3.3.12
           rails_version: 8.1.4
-      - bundle_lint_test:
+      - build_and_test:
           name: bundle_ruby3-3_rails8-0
           ruby_version: 3.3.12
           rails_version: 8.0.5.1
-      - bundle_lint_test:
+      - build_and_test:
           name: bundle_ruby3-3_rails7-2
           ruby_version: 3.3.12
           rails_version: 7.2.4
       # Ruby 3.2 releases
-      - bundle_lint_test:
+      - build_and_test:
           name: bundle_ruby3-2_rails8-0
           ruby_version: 3.2.11
           rails_version: 8.0.5.1
-      - bundle_lint_test:
+      - build_and_test:
           name: bundle_ruby3-2_rails7-2
           ruby_version: 3.2.11
           rails_version: 7.2.4
