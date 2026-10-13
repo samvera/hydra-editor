@@ -42,3 +42,6 @@ end
 
 gem 'github_changelog_generator'
 gem 'rails-controller-testing' if !ENV['RAILS_VERSION'] || ENV['RAILS_VERSION'] =~ /^5.0/
+
+# Limit json due to "ArgumentError: unknown keyowrd: create_additions"
+gem 'json', '< 3'
