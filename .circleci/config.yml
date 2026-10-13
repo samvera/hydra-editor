@@ -93,6 +93,17 @@ job-groups:
       - bundle_lint_test:
           requires:
             - generate_test_app
+    parameters:
+      ruby_version:
+        type: string
+      bundler_version:
+        type: string
+        default: 2.4.5
+      rails_version:
+        type: string
+      solr_config_path:
+        type: string
+        default: '.internal_test_app/solr/conf'
 
 workflows:
   version: 2
