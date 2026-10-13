@@ -86,7 +86,7 @@ jobs:
       - samvera/rubocop
       - samvera/parallel_rspec
 
-job_groups:
+job-groups:
   build_and_test:
     jobs:
       - generate_test_app
