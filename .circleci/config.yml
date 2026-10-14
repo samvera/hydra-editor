@@ -3,7 +3,7 @@ version: 2.1
 orbs:
   samvera: samvera/circleci-orb@1.0
 jobs:
-  bundle_lint_test:
+  generate_test_app:
     parameters:
       ruby_version:
         type: string
@@ -16,14 +16,16 @@ jobs:
         type: string
         default: '.internal_test_app/solr/conf'
     executor:
-      name: 'samvera/ruby_fcrepo_solr'
+      name: 'samvera/ruby'
       ruby_version: << parameters.ruby_version >>
+    resource_class: medium+
     environment:
-      ENGINE_CART_RAILS_OPTIONS: --skip-git --skip-bundle --skip-listen --skip-spring --skip-keeps --skip-coffee --skip-puma --skip-test
+      ENGINE_CART_RAILS_OPTIONS: --skip-git --skip-bundle --skip-listen --skip-spring --skip-keeps --skip-coffee --skip-puma --skip-test --skip-docker --skip-active-storage
       RAILS_VERSION: << parameters.rails_version >>
       NOKOGIRI_USE_SYSTEM_LIBRARIES: true
       CC_TEST_REPORTER_ID: e52010675d2774ee408c14c0de08c143d0749e59beb6dd729254d1b3ea94c7b1
       BLACKLIGHT_VERSION: 7.29
+      BUNDLE_JOBS: 1
     steps:
       - samvera/cached_checkout
       - run:
@@ -44,13 +46,44 @@ jobs:
       - run:
           name: Fix test app's Gemfile
           command: sed -i 's/\(^.*error_highlight.*$\)/# \1/' .internal_test_app/Gemfile
-      - samvera/install_solr_core:
-          solr_config_path: << parameters.solr_config_path >>
       - samvera/bundle:
           ruby_version: << parameters.ruby_version >>
           bundler_version: << parameters.bundler_version >>
           cache_version: '3'
       - run: yarn install
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+
+  bundle_lint_test:
+    parameters:
+      ruby_version:
+        type: string
+      bundler_version:
+        type: string
+        default: 2.4.5
+      rails_version:
+        type: string
+      solr_config_path:
+        type: string
+        default: '.internal_test_app/solr/conf'
+    executor:
+      name: 'samvera/ruby_fcrepo_solr'
+      ruby_version: << parameters.ruby_version >>
+      solr_version: 9-slim
+    resource_class: medium+
+    environment:
+      ENGINE_CART_RAILS_OPTIONS: --skip-git --skip-bundle --skip-listen --skip-spring --skip-keeps --skip-coffee --skip-puma --skip-test --skip-docker --skip-active-storage
+      RAILS_VERSION: << parameters.rails_version >>
+      NOKOGIRI_USE_SYSTEM_LIBRARIES: true
+      CC_TEST_REPORTER_ID: e52010675d2774ee408c14c0de08c143d0749e59beb6dd729254d1b3ea94c7b1
+      BLACKLIGHT_VERSION: 7.29
+    steps:
+      - attach_workspace:
+          at: .
+      - samvera/install_solr_core:
+          solr_config_path: << parameters.solr_config_path >>
       - samvera/rubocop
       - samvera/parallel_rspec
 
@@ -58,53 +91,20 @@ workflows:
   version: 2
   ci:
     jobs:
-      # Ruby 3.3 releases
+      - generate_test_app:
+          name: generate_test_app-ruby-<< matrix.ruby_version >>-rails-<< matrix.rails_version >>
+          matrix:
+            parameters:
+              ruby_version: ["3.2.11", "3.3.12", "3.4.11", "4.0.7"]
+              rails_version: ["7.2.4", "8.0.5.1", "8.1.4"]
       - bundle_lint_test:
-          name: bundle_ruby3-3_rails8-0
-          ruby_version: 3.3.5
-          rails_version: 8.0.4
-      - bundle_lint_test:
-          name: bundle_ruby3-3_rails7-2
-          ruby_version: 3.3.5
-          rails_version: 7.2.1
-      - bundle_lint_test:
-          name: bundle_ruby3-3_rails7-1
-          ruby_version: 3.3.5
-          rails_version: 7.1.4
-      - bundle_lint_test:
-          name: bundle_ruby3-3_rails7-0
-          ruby_version: 3.3.5
-          rails_version: 7.0.8.4
-      # Ruby 3.2 releases
-      - bundle_lint_test:
-          name: bundle_ruby3-2_rails8-0
-          ruby_version: 3.2.5
-          rails_version: 8.0.4
-      - bundle_lint_test:
-          name: bundle_ruby3-2_rails7-2
-          ruby_version: 3.2.5
-          rails_version: 7.2.1
-      - bundle_lint_test:
-          name: bundle_ruby3-2_rails7-1
-          ruby_version: 3.2.5
-          rails_version: 7.1.4
-      - bundle_lint_test:
-          name: bundle_ruby3-2_rails7-0
-          ruby_version: 3.2.5
-          rails_version: 7.0.8.4
-      # Ruby 3.1 releases
-      - bundle_lint_test:
-          name: bundle_ruby3-1_rails7-2
-          ruby_version: 3.1.6
-          rails_version: 7.2.1
-      - bundle_lint_test:
-          name: bundle_ruby3-1_rails7-1
-          ruby_version: 3.1.6
-          rails_version: 7.1.4
-      - bundle_lint_test:
-          name: bundle_ruby3-1_rails7-0
-          ruby_version: 3.1.6
-          rails_version: 7.0.8.4
+          name: bundle_lint_test-ruby-<< matrix.ruby_version >>-rails-<< matrix.rails_version >>
+          matrix:
+            parameters:
+              ruby_version: ["3.2.11", "3.3.12", "3.4.11", "4.0.7"]
+              rails_version: ["7.2.4", "8.0.5.1", "8.1.4"]
+          requires:
+            - generate_test_app-ruby-<< matrix.ruby_version >>-rails-<< matrix.rails_version >>
 
   nightly:
     triggers:
@@ -115,58 +115,17 @@ workflows:
               only:
                 - main
     jobs:
-      # Ruby 3.3 releases
+      - generate_test_app:
+          name: generate_test_app-ruby-<< matrix.ruby_version >>-rails-<< matrix.rails_version >>
+          matrix:
+            parameters:
+              ruby_version: ["3.2.11", "3.3.12", "3.4.11", "4.0.7"]
+              rails_version: ["7.2.4", "8.0.5.1", "8.1.4"]
       - bundle_lint_test:
-          name: bundle_ruby3-3_rails8-1
-          ruby_version: 3.3.5
-          rails_version: 8.1.1
-      - bundle_lint_test:
-          name: bundle_ruby3-3_rails8-0
-          ruby_version: 3.3.5
-          rails_version: 8.0.4
-      - bundle_lint_test:
-          name: bundle_ruby3-3_rails7-2
-          ruby_version: 3.3.5
-          rails_version: 7.2.1
-      - bundle_lint_test:
-          name: bundle_ruby3-3_rails7-1
-          ruby_version: 3.3.5
-          rails_version: 7.1.4
-      - bundle_lint_test:
-          name: bundle_ruby3-3_rails7-0
-          ruby_version: 3.3.5
-          rails_version: 7.0.8.4
-      # Ruby 3.2 releases
-      - bundle_lint_test:
-          name: bundle_ruby3-2_rails8-1
-          ruby_version: 3.2.5
-          rails_version: 8.1.1
-      - bundle_lint_test:
-          name: bundle_ruby3-2_rails8-0
-          ruby_version: 3.2.5
-          rails_version: 8.0.4
-      - bundle_lint_test:
-          name: bundle_ruby3-2_rails7-2
-          ruby_version: 3.2.5
-          rails_version: 7.2.1
-      - bundle_lint_test:
-          name: bundle_ruby3-2_rails7-1
-          ruby_version: 3.2.5
-          rails_version: 7.1.4
-      - bundle_lint_test:
-          name: bundle_ruby3-2_rails7-0
-          ruby_version: 3.2.5
-          rails_version: 7.0.8.4
-      # Ruby 3.1 releases
-      - bundle_lint_test:
-          name: bundle_ruby3-1_rails7-2
-          ruby_version: 3.1.6
-          rails_version: 7.2.1
-      - bundle_lint_test:
-          name: bundle_ruby3-1_rails7-1
-          ruby_version: 3.1.6
-          rails_version: 7.1.4
-      - bundle_lint_test:
-          name: bundle_ruby3-1_rails7-0
-          ruby_version: 3.1.6
-          rails_version: 7.0.8.4
+          name: bundle_lint_test-ruby-<< matrix.ruby_version >>-rails-<< matrix.rails_version >>
+          matrix:
+            parameters:
+              ruby_version: ["3.2.11", "3.3.12", "3.4.11", "4.0.7"]
+              rails_version: ["7.2.4", "8.0.5.1", "8.1.4"]
+          requires:
+            - generate_test_app-ruby-<< matrix.ruby_version >>-rails-<< matrix.rails_version >>

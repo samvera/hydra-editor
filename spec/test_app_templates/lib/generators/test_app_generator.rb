@@ -5,6 +5,7 @@ class TestAppGenerator < Rails::Generators::Base
   def add_gems
     gem 'blacklight', '~> 7.29'
     gem 'hydra-head'
+    gem 'json', '< 3'
     Bundler.with_clean_env do
       run "bundle install"
     end

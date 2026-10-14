@@ -16,16 +16,14 @@ Gem::Specification.new do |s|
 
   s.files = Dir["{app,config,db,lib}/**/*"] + ["Rakefile", "README.md", "History.md"]
 
-  s.add_dependency "activerecord", ">= 5.2", "< 8.1"
   s.add_dependency "active-fedora", ">= 9.0.0"
   s.add_dependency "almond-rails", '~> 0.1'
   s.add_dependency "cancancan"
   s.add_dependency "psych", "~> 3.3", "< 4"
-  s.add_dependency "rails", ">= 5.2", "< 8.1"
+  s.add_dependency "rails", ">= 5.2", "< 9.0"
   s.add_dependency "simple_form", '>= 4.1.0', '< 5.2'
   s.add_dependency 'sprockets', '~> 3.7'
   s.add_dependency 'sprockets-es6'
-  s.add_dependency 'concurrent-ruby', '1.3.4' # Pinned until Rails 7 update
 
   s.add_development_dependency "bixby"
   s.add_development_dependency "capybara", '~> 2.4'
