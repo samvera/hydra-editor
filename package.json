@@ -1,6 +1,5 @@
 {
   "devDependencies": {
-    "jasmine-browser-runner": "^5.0.0",
-    "selenium-webdriver": "4.51.0"
+    "jasmine-browser-runner": "^5.0.0"
   }
 }

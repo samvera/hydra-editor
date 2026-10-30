@@ -11,6 +11,17 @@ class TestAppGenerator < Rails::Generators::Base
     end
   end
 
+  def copy_package_json
+    # Pinned due to node version requirements not met in old ruby images
+    create_file 'package.json', <<~EOF
+      {
+        "resolutions": {
+          "selenium-webdriver": "4.51.0"
+        }
+      }
+    EOF
+  end
+
   def add_manifest_js
     create_file 'app/assets/config/manifest.js', <<~EOF
       //= link_tree ../images
