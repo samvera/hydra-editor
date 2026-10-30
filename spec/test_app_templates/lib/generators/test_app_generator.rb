@@ -6,9 +6,17 @@ class TestAppGenerator < Rails::Generators::Base
     gem 'blacklight', '~> 7.29'
     gem 'hydra-head'
     gem 'json', '< 3'
-    Bundler.with_clean_env do
+    Bundler.with_unbundled_env do
       run "bundle install"
     end
+  end
+
+  def add_manifest_js
+    create_file 'app/assets/config/manifest.js', <<~EOF
+      //= link_tree ../images
+      //= link_directory ../javascripts .js
+      //= link_directory ../stylesheets .css
+    EOF
   end
 
   def run_simple_form_generator
