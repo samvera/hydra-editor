@@ -3,11 +3,31 @@ require 'rails/generators'
 class TestAppGenerator < Rails::Generators::Base
 
   def add_gems
-    gem 'blacklight', '~> 7.29'
+    gem 'blacklight', '~> 7.42'
     gem 'hydra-head'
-    Bundler.with_clean_env do
+    gem 'json', '< 3'
+    Bundler.with_unbundled_env do
       run "bundle install"
     end
+  end
+
+  def copy_package_json
+    # Pinned due to node version requirements not met in old ruby images
+    create_file 'package.json', <<~EOF
+      {
+        "resolutions": {
+          "selenium-webdriver": "4.51.0"
+        }
+      }
+    EOF
+  end
+
+  def add_manifest_js
+    create_file 'app/assets/config/manifest.js', <<~EOF, force: true
+      //= link_tree ../images
+      //= link_directory ../javascripts .js
+      //= link_directory ../stylesheets .css
+    EOF
   end
 
   def run_simple_form_generator
