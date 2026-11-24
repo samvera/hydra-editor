@@ -18,7 +18,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency "active-fedora", ">= 9.0.0"
   s.add_dependency "almond-rails", '~> 0.1'
-  s.add_dependency 'blacklight', '>= 6'
+  s.add_dependency 'blacklight', '~> 7.42'
   s.add_dependency "cancancan"
   s.add_dependency "psych", "~> 3.3", "< 4"
   s.add_dependency "rails", ">= 5.2", "< 9.0"

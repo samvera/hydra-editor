@@ -23,7 +23,7 @@ class TestAppGenerator < Rails::Generators::Base
   end
 
   def add_manifest_js
-    create_file 'app/assets/config/manifest.js', <<~EOF
+    create_file 'app/assets/config/manifest.js', <<~EOF, force: true
       //= link_tree ../images
       //= link_directory ../javascripts .js
       //= link_directory ../stylesheets .css
