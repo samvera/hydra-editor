@@ -3,7 +3,7 @@ require 'rails/generators'
 class TestAppGenerator < Rails::Generators::Base
 
   def add_gems
-    gem 'blacklight', '~> 7.29'
+    gem 'blacklight', '~> 7.42'
     gem 'hydra-head'
     gem 'json', '< 3'
     Bundler.with_unbundled_env do
